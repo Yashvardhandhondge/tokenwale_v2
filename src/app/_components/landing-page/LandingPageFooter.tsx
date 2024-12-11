@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 
 export const LandingPageFooter = () => {
@@ -22,7 +23,7 @@ export const LandingPageFooter = () => {
               key={index}
               className="flex h-20 w-20 cursor-pointer items-center justify-center bg-[#1a1b19] md:h-40 md:w-40 hover:scale-105 transition-transform duration-200"
             >
-              <img src={src} alt={alt} />
+              <Image src={src} alt={alt} />
             </span>
           </span>
         ))}

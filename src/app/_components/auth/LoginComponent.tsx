@@ -7,7 +7,6 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -16,7 +15,6 @@ import { Loader2 } from "lucide-react";
 import Link from "next/link";
 
 export const LoginComponent = () => {
-  const [isChecked, setIsChecked] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState("");
   const [userId, setUserId] = useLocalStorage<string>("userId", "");

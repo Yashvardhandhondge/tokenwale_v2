@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/carousel";
 import { api } from "@/trpc/react";
 import Autoplay from "embla-carousel-autoplay";
+import Image from "next/image";
 
 export function CarouselAds() {
 
@@ -37,7 +38,9 @@ export function CarouselAds() {
             <div className="p-1">
               <Card>
                 <CardContent className="flex items-center justify-center w-full h-full p-0">
-                              <img
+                              <Image
+                              width={1000}
+                              height={1000}
                   src={imageUrl}
                   alt={`Advertisement Slide ${index + 1}`}
                   className="h-[200px] w-[1000px] object-cover rounded-lg"

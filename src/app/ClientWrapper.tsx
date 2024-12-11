@@ -1,8 +1,8 @@
 "use client";
 
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import { SessionProvider } from "next-auth/react";
-import { Session } from "next-auth";
+import type { Session } from "next-auth";
 
 interface ClientWrapperProps {
   children: ReactNode;

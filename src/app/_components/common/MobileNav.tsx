@@ -1,10 +1,9 @@
 import { Dialog, DialogTitle, DialogHeader, DialogContent, DialogDescription, DialogTrigger } from '@/components/ui/dialog'
-import { Button } from '@/components/ui/button'
 import { ScanQrCode, Search } from 'lucide-react'
 import Image from 'next/image'
-import React, { ChangeEvent, useState } from 'react'
+import React from 'react'
 import ScanDialog from './QrScannerPopup'
-import { getAmountAfterTxnCost, userName } from '@/utils/random'
+import { getAmountAfterTxnCost } from '@/utils/random'
 import PaginatedUserList from './PagedUserList'
 
   const MobileNav = ({handleSearch, userId, userIds, handleSelectUser, setAmount, qrUserId, selectedUser, addNote, handleCoinTransfer, amount, setAddNote, setSelectedUser}: {handleSearch:  (userId: string) => void, userId: string, userIds: string[], handleSelectUser: (userId: string) => void, setAmount: (amount: number) => void, qrUserId: string, selectedUser: string | null, addNote: string, handleCoinTransfer: (amount: number, selectedUser: string, from: string) => void, amount: number | null, setAddNote: (note: string) => void, setSelectedUser: (userId: string) => void}) => {
@@ -38,7 +37,7 @@ import PaginatedUserList from './PagedUserList'
                               type="number"
                               placeholder="Recent"
                               onChange={(e) => handleSearch(e.target.value)}
-                              className="w-full border-b-[1px] border-[#38F68F] bg-[#232323] px-4 py-1 pr-12 text-black text-white outline-none"
+                              className="w-full border-b-[1px] border-[#38F68F] bg-[#232323] px-4 py-1 pr-12  text-white outline-none"
                             />
                             <button className="rounded-[0 12px 12px 0] absolute right-0 top-0 h-full px-4 text-black">
                               <Image

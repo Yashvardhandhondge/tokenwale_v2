@@ -1,7 +1,7 @@
 "use client";
 import { api } from "@/trpc/react";
 import { formatFirestoreTimestamp, userName } from "@/utils/random";
-import { Timestamp } from "firebase/firestore";
+import type { Timestamp } from "firebase/firestore";
 import Link from "next/link";
 import React from "react";
 interface Transaction {

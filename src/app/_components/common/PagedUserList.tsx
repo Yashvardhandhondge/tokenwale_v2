@@ -1,7 +1,7 @@
 import { Dialog, DialogDescription, DialogContent, DialogHeader, DialogTrigger } from "@/components/ui/dialog";
 import { userName } from "@/utils/random";
-import { ChangeEvent, useState } from "react";
-
+import { useState } from "react";
+import type {ChangeEvent} from "react"
 
 const PaginatedUserList = ({userIds, handleSelectUser, handleCoinTransfer, getAmountAfterTxnCost, setAddNote, qrUserId, selectedUser, amount, setAmount, setSelectedUser}: {userIds: string[], handleSelectUser: (userId: string) => void, handleCoinTransfer: (amount: number, selectedUser: string, from: string  ) => void, getAmountAfterTxnCost: (amount: number) => number, setAddNote: (note: string) => void, qrUserId: string, selectedUser: string, amount: number, setAmount: (amount: number) => void, setSelectedUser: (userId: string) => void}) => {
   const [currentPage, setCurrentPage] = useState(1);

@@ -1,11 +1,9 @@
 import React from 'react';
 import { useRouter } from 'next/router';
-import { Loader2 } from 'lucide-react';
 import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,

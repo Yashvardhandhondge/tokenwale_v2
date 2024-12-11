@@ -1174,7 +1174,7 @@ export default function Dashboard() {
                                   </Dialog>
                                 </div>
                               ))} */}
-                              <PaginatedUserList   userIds={userIds} handleSelectUser={handleSelectUser} handleCoinTransfer={handleCoinTransfer} getAmountAfterTxnCost={getAmountAfterTxnCost} setAddNote={setAddNote} qrUserId={qrUserId} selectedUser={selectedUser || ""} amount={amount || 0 } setAmount={setAmount} setSelectedUser={setSelectedUser} />
+                              <PaginatedUserList   userIds={userIds} handleSelectUser={handleSelectUser} handleCoinTransfer={handleCoinTransfer} getAmountAfterTxnCost={getAmountAfterTxnCost} setAddNote={setAddNote} qrUserId={qrUserId} selectedUser={selectedUser ?? ""} amount={amount ?? 0 } setAmount={setAmount} setSelectedUser={setSelectedUser} />
                             </div>
                           </DialogDescription>
                         </DialogHeader>

@@ -20,7 +20,7 @@ export const Navbar = ({ toggleSidebar,handleSearch }: { toggleSidebar?: () => v
       <div className='flex flex-row justify-center items-center gap-2'>
         
       <Link href="/">
-        <img 
+        <Image width={100} height={100} 
           onClick={() => { router.push('/') }} 
           src="/logos/tokenwale-logo.svg" 
           alt="Tokenwale Logo" 
@@ -47,7 +47,7 @@ export const Navbar = ({ toggleSidebar,handleSearch }: { toggleSidebar?: () => v
               >
                 MY WALLET
               </button>
-              <img src="/logos/arrow.svg" alt="Arrow" className='h-4 sm:h-5' />
+              <Image width={100} height={100} src="/logos/arrow.svg" alt="Arrow" className='h-4 sm:h-5' />
             </div>
         }
         <span className="flex gap-2 sm:gap-8">
@@ -81,7 +81,7 @@ export const Navbar = ({ toggleSidebar,handleSearch }: { toggleSidebar?: () => v
               >
                 CONNECT TO WALLET
               </button>
-              <img src="/logos/arrow.svg" alt="Arrow" className='h-4 sm:h-5' />
+              <Image width={100} height={100} src="/logos/arrow.svg" alt="Arrow" className='h-4 sm:h-5' />
             </div>
             </Link>
         }

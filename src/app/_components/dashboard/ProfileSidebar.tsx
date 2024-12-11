@@ -335,7 +335,7 @@ const handleOtpKeyDownEmail = (e: React.KeyboardEvent<HTMLInputElement>, index: 
               accept="image/*"
             />
             {selectedImage ? (
-              <img
+              <Image
                 src={selectedImage}
                 alt="Selected"
                 className="h-full w-full rounded-full object-cover"
