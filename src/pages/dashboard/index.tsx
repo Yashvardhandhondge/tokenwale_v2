@@ -369,7 +369,7 @@ export default function Dashboard() {
               <div className="inline-block min-w-full p-1.5 ">
                 <div className="overflow-hidden">
                   <div className="max-w-[400px] overflow-x-auto md:max-w-full">
-                    <table className="min-w-full bg-red-500 h-full divide-y divide-[#38F68F] text-[#A7B0AF]">
+                    <table className="min-w-full h-full divide-y divide-[#38F68F] text-[#A7B0AF]">
                       <thead>
                         <tr>
                           <th
