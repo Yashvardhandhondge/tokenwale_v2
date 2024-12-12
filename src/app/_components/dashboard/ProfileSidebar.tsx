@@ -339,6 +339,8 @@ const handleOtpKeyDownEmail = (e: React.KeyboardEvent<HTMLInputElement>, index: 
                 src={selectedImage}
                 alt="Selected"
                 className="h-full w-full rounded-full object-cover"
+                width={25}
+                height={25}
                 // onClick={handleImageClick}
               />
             ) : (
@@ -365,7 +367,7 @@ const handleOtpKeyDownEmail = (e: React.KeyboardEvent<HTMLInputElement>, index: 
           onSubmit={formik.handleSubmit}
           className="flex flex-col items-center justify-center gap-4 px-2 py-10 md:px-12"
         >
-          <div className="flex w-full items-center justify-between gap-4 text-white">
+          <div className=" w-full items-center justify-between gap-4 text-white grid grid-cols-2">
             <label>FULL NAME:</label>
             <input
               type="text"
@@ -373,10 +375,10 @@ const handleOtpKeyDownEmail = (e: React.KeyboardEvent<HTMLInputElement>, index: 
               value={fullName ?? ("" as string)}
               onChange={handleFullNameChange}
               onBlur={formik.handleBlur}
-              className="rounded-[10px] border-none bg-[#38F68F] bg-opacity-25 px-4 py-1 outline-none"
+              className="rounded-[10px] border-none bg-[#38F68F] bg-opacity-25 px-4 py-1 outline-none "
             />
           </div>
-          <div className="flex w-full items-center justify-between gap-4 text-white">
+          <div className=" w-full items-center justify-between gap-4 text-white grid grid-cols-2">
             <label>PHONE NUMBER:</label>
             <input
               type="text"
@@ -384,7 +386,7 @@ const handleOtpKeyDownEmail = (e: React.KeyboardEvent<HTMLInputElement>, index: 
               value={formik.values.phoneNumber}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              className="rounded-[10px] border-none bg-[#38F68F] bg-opacity-25 px-4 py-1 outline-none"
+              className="rounded-[10px] border-none bg-[#38F68F] bg-opacity-25 px-4 py-1 outline-none "
             />
           </div>
           {!isPhoneOtpVerified &&
@@ -425,7 +427,7 @@ const handleOtpKeyDownEmail = (e: React.KeyboardEvent<HTMLInputElement>, index: 
   </>
 )}
 
-          <div className="flex w-full items-center justify-between gap-2 text-white">
+          <div className=" w-full items-center justify-between gap-2 text-white grid grid-cols-2">
             <label>EMAIL ADDRESS:</label>
             <input
               type="text"
@@ -433,7 +435,7 @@ const handleOtpKeyDownEmail = (e: React.KeyboardEvent<HTMLInputElement>, index: 
               value={formik.values.emailAddress}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              className="rounded-[10px] border-none bg-[#38F68F] bg-opacity-25 px-4 py-1 outline-none"
+              className="rounded-[10px] border-none bg-[#38F68F] bg-opacity-25 px-4 py-1 outline-none "
             />
           </div>
           {!isEmailOtpVerified &&
@@ -457,7 +459,7 @@ const handleOtpKeyDownEmail = (e: React.KeyboardEvent<HTMLInputElement>, index: 
             //       value={formik.values.emailOtp}
             //       onChange={formik.handleChange}
             //       onBlur={formik.handleBlur}
-            //       className="rounded-[10px] border-none bg-[#38F68F] bg-opacity-25 px-4 py-1 outline-none"
+            //       className="rounded-[10px] border-none bg-[#38F68F] bg-opacity-25 px-4 py-1 outline-none "
             //     />
             //   </div>
             //   <button
@@ -494,7 +496,7 @@ const handleOtpKeyDownEmail = (e: React.KeyboardEvent<HTMLInputElement>, index: 
             </button>
           </>
           )}
-          <div className="flex w-full items-center justify-between gap-2 text-white">
+          <div className=" w-full items-center justify-between gap-2 text-white grid grid-cols-2">
             <label>ADDRESS:</label>
             <textarea
               name="address"
@@ -502,10 +504,10 @@ const handleOtpKeyDownEmail = (e: React.KeyboardEvent<HTMLInputElement>, index: 
               // onChange={formik.handleChange}
               onChange={handleAddressChange}
               onBlur={formik.handleBlur}
-              className="w-[56%] rounded-[10px] border-none bg-[#38F68F] bg-opacity-25 px-4 py-1 outline-none"
+              className="w-[100%] rounded-[10px] border-none bg-[#38F68F] bg-opacity-25 px-4 py-1 outline-none "
             />
           </div>
-          <div className="flex w-full items-center justify-between gap-2 text-white">
+          <div className=" w-full items-center justify-between gap-2 text-white grid grid-cols-2">
             <label>GENDER:</label>
             <select
               name="gender"

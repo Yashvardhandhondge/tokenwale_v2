@@ -23,7 +23,7 @@ export const LandingPageFooter = () => {
               key={index}
               className="flex h-20 w-20 cursor-pointer items-center justify-center bg-[#1a1b19] md:h-40 md:w-40 hover:scale-105 transition-transform duration-200"
             >
-              <Image src={src} alt={alt} />
+              <Image width={1000} height={1000} src={src} alt={alt} />
             </span>
           </span>
         ))}

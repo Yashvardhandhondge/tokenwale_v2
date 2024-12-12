@@ -10,6 +10,8 @@ export const ConnectToWallet = () => {
       <Image
         className='absolute left-0 md:-mt-20 -mt-10 w-1/4 md:w-[16%]'
         src="/backgrounds/connect-coin-1.png"
+        width={1000}
+        height={1000}
         alt="Connect Coin 1"
       />
       <div className='md:h-[476px] h-[276px] bg-[#38F68F] w-full flex justify-center items-center flex-col'>
@@ -27,11 +29,15 @@ export const ConnectToWallet = () => {
         className='w-full relative md:-mt-20 -mt-8'
         src="/backgrounds/bottom-vector-hero.png"
         alt="Bottom Vector"
+        width={1000}
+        height={1000} 
       />
       <Image
         className='absolute right-0 mt-32 w-1/4 md:w-[20%] lg:w-[16%]'
         src="/backgrounds/connect-coin-2.png"
         alt="Connect Coin 2"
+        width={1000}
+        height={1000}
       />
     </section>
   );

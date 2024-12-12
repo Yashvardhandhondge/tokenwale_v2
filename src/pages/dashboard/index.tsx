@@ -351,7 +351,7 @@ export default function Dashboard() {
         </div>  
         <TokensCount burnt={remainingToken?.burnt ?? 0} remainingToken={remainingToken?.remainingToken ?? 0} />
       </div>
-      <div className="flex flex-col gap-8 mb-40  text-white md:flex-row">
+      <div className="flex flex-col gap-4 mb-40  text-white md:flex-row">
           <div className="flex h-[500px] w-full flex-col items-center justify-center md:w-2/3">
             <div className="flex w-full flex-row justify-between gap-12 pb-6">
               <p className="text-[20px] font-semibold px-3">Recent Transfers</p>
@@ -369,7 +369,7 @@ export default function Dashboard() {
               <div className="inline-block min-w-full p-1.5 ">
                 <div className="overflow-hidden">
                   <div className="max-w-[400px] overflow-x-auto md:max-w-full">
-                    <table className="min-w-full divide-y divide-[#38F68F] text-[#A7B0AF]">
+                    <table className="min-w-full bg-red-500 h-full divide-y divide-[#38F68F] text-[#A7B0AF]">
                       <thead>
                         <tr>
                           <th
@@ -930,9 +930,9 @@ export default function Dashboard() {
             <TokensCount burnt={remainingToken?.burnt ?? 0} remainingToken={remainingToken?.remainingToken ?? 0} />
           </div>
         </div>
-        <div className="flex flex-col gap-8 text-white md:flex-row mt-12">
-          <div className="flex max-h-[500px] w-full flex-col items-center justify-center md:w-2/3">
-            <div className="flex w-full flex-row justify-between gap-12 pb-6">
+        <div className="flex flex-col gap-4 text-white md:flex-row mt-12">
+          <div className="flex max-h-[500px] mt-10 w-full flex-col items-center justify-center md:w-2/3">
+            <div className="flex w-full  flex-row justify-between gap-12 pb-6">
               <p>Recent Transfers</p>
               {/* <span className="flex gap-2">
                 <Image
@@ -947,9 +947,9 @@ export default function Dashboard() {
             <div className="-m-1.5 w-full">
               <div className="inline-block min-w-full p-1.5 align-middle">
                 <div className="overflow-hidden">
-                  <div className="max-w-[300px] overflow-x-auto md:max-w-full">
+                  <div className="max-w-[300px] overflow-x-auto md:max-w-full max-h-[500px] overflow-y-auto">
                     <table className="min-w-full divide-y divide-[#38F68F] text-[#A7B0AF]">
-                      <thead>
+                      <thead className="">
                         <tr>
                           <th
                             scope="col"
