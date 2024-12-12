@@ -81,7 +81,7 @@ export default function Dashboard() {
   const router = useRouter();
   const { data: user } = api.user.getUserDetailsByUserId.useQuery();
   const {data:remainingToken } = api.global.getRemainingToken.useQuery();
-  const [userIds, setUserIds] = useState<string[]>(["1","2","3","4","5","6","7","8","9","10"]);
+  const [userIds, setUserIds] = useState<string[]>([]);
   const [amount, setAmount] = useState<number | null>(null);
   const [selectedUser, setSelectedUser] = useState<string | null>(null);
   const [screenWidth, setScreenWidth] = useState(0);
