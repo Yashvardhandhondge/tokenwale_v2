@@ -108,9 +108,9 @@ export const txnRouter = createTRPCRouter({
           type: U2B,
           timestamp: firestore.FieldValue.serverTimestamp(),
         });
+
       });
     }),
-
   getLatestTxn: publicProcedure
     .input(
       z.object({

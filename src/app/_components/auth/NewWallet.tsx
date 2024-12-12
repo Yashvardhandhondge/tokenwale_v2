@@ -79,7 +79,7 @@ export const NewWallet = () => {
                   className="flex w-24 cursor-pointer items-center justify-start gap-2 rounded-[4px] border-[2px] border-[#414042] bg-black px-3 py-1 text-white"
                 >
                   <p className="font-bold text-[#7C7C7C]">{index + 1}</p>
-                  <p className="capitalize">{name}</p>
+                  <p className="">{name.toLowerCase()}</p>
                 </span>
               ))}
             </div>
@@ -96,7 +96,7 @@ export const NewWallet = () => {
                     className="flex w-24 cursor-pointer items-center justify-start gap-2 rounded-[4px] border-[2px] border-[#414042] bg-black px-3 py-1 text-white"
                   >
                     <p className="font-bold text-[#7C7C7C]">{index + 1}</p>
-                    <p className="capitalize">{name}</p>
+                    <p className="">{name.toLowerCase()}</p>
                   </span>
                 ))}
               </div>

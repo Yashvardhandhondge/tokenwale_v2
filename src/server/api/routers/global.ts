@@ -267,13 +267,15 @@ export const globalRouter = createTRPCRouter({
   graph: publicProcedure.query(async ({ ctx }) => {
     const currentDate = new Date();
     const oneWeekAgo = new Date(
-      currentDate.getTime() - 8 * 24 * 60 * 60 * 1000,
+      currentDate.getTime() - 8 * 24 * 60 * 60 * 1
     );
     const oneWeekAgoTimestamp = AdminTimestamp.fromDate(oneWeekAgo);
+    console.log(oneWeekAgo.toISOString().split("T")[0]);
+    
     const transactionsRef = ctx.db.collection("log");
     const query = transactionsRef
-      .where("timestamp", ">=", oneWeekAgoTimestamp)
-      .orderBy("timestamp", "asc");
+      .orderBy("timestamp", "asc")
+      .limit(100);
     const graphData: {
       burnt: number;
       mined: number;

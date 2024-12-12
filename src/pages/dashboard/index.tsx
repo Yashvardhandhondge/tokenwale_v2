@@ -794,8 +794,9 @@ export default function Dashboard() {
       />
     </button>
   </DialogTrigger>
-  <DialogContent className="h-[60vh] border-0 bg-[#262626ED] text-white md:w-screen md:max-w-fit overflow-hidden rounded-tr-[20px] rounded-bl-[20px]">
-    <DialogTitle className="z-40 mt-8 flex w-full items-center justify-center text-center text-[20px] text-white md:mt-16 md:text-[36px]">
+  <DialogContent className="h-[70vh] p-0 border-0 bg-transparent text-white md:w-screen md:max-w-fit overflow-hidden">
+    <div className="relative w-full h-[70vh] top-0 left-0 rounded-b-[50px] rounded-tr-[50px] bg-[#262626] bg-opacity-30 backdrop-blur-lg overflow-hidden">
+    <DialogTitle className="z-50 mt-8 flex w-full items-center justify-center text-center text-[20px] text-white md:mt-28 md:text-[36px]">
       Get extra tokens by using your premium promocode
     </DialogTitle>
     <Image
@@ -803,7 +804,7 @@ export default function Dashboard() {
       height={127}
       src="/backgrounds/redeem-bg.png"
       alt=""
-      className="absolute z-10 cursor-pointer"
+      className="absolute -z-40 top-0 left-0 cursor-pointer"
     />
     <DialogDescription className="flex h-full w-full items-start justify-center px-4 md:w-[100vh]">
       <div className="item-center relative flex w-full justify-center text-[12px] md:w-1/2 md:text-[16px]">
@@ -827,8 +828,9 @@ export default function Dashboard() {
       height={200}
       src="/backgrounds/redeem-bg2.png"
       alt=""
-      className="absolute bottom-0 right-0 z-10 cursor-pointer"
+      className="absolute bottom-0 right-0 -z-40 cursor-pointer"
     />
+    </div>
   </DialogContent>
 </Dialog>
 
