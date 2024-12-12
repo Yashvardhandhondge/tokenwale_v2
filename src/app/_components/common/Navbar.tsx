@@ -47,7 +47,7 @@ export const Navbar = ({ toggleSidebar,handleSearch }: { toggleSidebar?: () => v
               >
                 MY WALLET
               </button>
-              <Image width={100} height={100} src="/logos/arrow.svg" alt="Arrow" className='h-4 sm:h-5' />
+              <Image width={50} height={50} src="/logos/arrow.svg" alt="Arrow" className='w-5 mx-2 h-4 sm:h-5' />
             </div>
         }
         <span className="flex gap-2 sm:gap-8">
@@ -74,14 +74,14 @@ export const Navbar = ({ toggleSidebar,handleSearch }: { toggleSidebar?: () => v
               />
               {handleSearch && <ScanDialog  handleSearch={handleSearch} scanIcon={<ScanQrCode  color='#38F68F' size={24} />} />}  
             </div> :
-            <Link href="/auth/new-wallet">
-            <div className='flex flex-row items-center h-full bg-[#38F68F] px-4 sm:px-6 md:px-8 py-7 sm:py-6 cursor-pointer hover:bg-[#2dcf70] transition-colors duration-200'>
+            <Link href="/auth/new-wallet" >
+            <div className='flex flex-row items-center justify-between h-full bg-[#38F68F] px-4 sm:px-6 md:px-8 py-7 sm:py-6 cursor-pointer hover:bg-[#2dcf70] transition-colors duration-200'>
               <button 
-                className='text-black font-semibold tracking-widest text-xs sm:text-sm md:text-base' 
+                className='flex-1  text-black m-0 font-semibold tracking-widest text-xs sm:text-sm md:text-base' 
               >
                 CONNECT TO WALLET
               </button>
-              <Image width={100} height={100} src="/logos/arrow.svg" alt="Arrow" className='h-4 sm:h-5' />
+              <Image width={100} height={100} src="/logos/arrow.svg" alt="Arrow" className=' w-5 mx-2 h-4 sm:h-5 ' />
             </div>
             </Link>
         }

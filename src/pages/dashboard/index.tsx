@@ -456,6 +456,8 @@ export default function Dashboard() {
                             </div>
                             <div className="mt-12 flex w-full items-center justify-center text-[40px] font-bold text-[#38F68F] md:mt-20">
                               <p>{amount ?? 0} Tokens!</p>
+                              <p className="text-2xl">Transfered to {userName(selectedUser ?? "")} successfully.</p>
+                              <p className="text-[16px]">{new Date().toLocaleString()}</p>
                             </div>
                           </DialogDescription>
                         </DialogHeader>
@@ -479,6 +481,8 @@ export default function Dashboard() {
                             </div>
                             <div className="mt-12 flex w-full items-center justify-center text-[40px] font-bold text-[#38F68F] md:mt-20">
                               <p>{amount ?? 0} Tokens!</p>
+                              <p className="text-2xl">Transfered to {userName(selectedUser ?? "")} successfully.</p>
+                              <p className="text-[16px]">{new Date().toLocaleString()}</p>
                             </div>
                           </DialogDescription>
                         </DialogHeader>
