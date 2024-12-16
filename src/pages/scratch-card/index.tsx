@@ -146,7 +146,7 @@ const ScratchCard = () => {
   }, [canScratch]);
 
   return (
-    <section className='w-full'>
+    <section className='w-full '>
       <Navbar />
       <div className='w-full h-[80dvh] md:h-[100dvh] flex flex-row'>
       <img src="/icons/back_arrow_white.svg" onClick={()=>router.push('/dashboard')} className="absolute left-[3%] top-[10%] md:left-[2%] z-40 cursor-pointer h-10 w-10" alt={"back_icon"}/>
@@ -155,9 +155,9 @@ const ScratchCard = () => {
             <p>Scratch & Win</p>
           </div>
         </div>
-        <div className='w-full md:w-[55%] h-full min-h-screen bg-black pb-12'>
-          <div className="flex flex-col justify-end h-full items-end text-white pt-20 md:pt-20 pl-16 pr-6">
-            <div className={styles.container}>
+        <div className=' md:w-[55%] h-full min-h-screen bg-black pb-12'>
+          <div className="flex flex-col justify-end h-[85%] items-end text-white pt-20 md:pt-20 pl-16 pr-6">
+            <div className={`${styles.container}`}>
               <div className={styles.base}>
                 {isValuePending ? 
                 <p className="absolute left-[25%] bottom-[11%] text-black py-[10px] font-bold text-[12px]">loading</p>
@@ -167,18 +167,16 @@ const ScratchCard = () => {
               </div>
               <canvas
                 id="scratch"
-                width="500"
-                height="500"
-                className={styles.scratch}
+                className={`h-[100px] w-[100px] md:h-[350px] md:w-[350px] ${styles.scratch}`}
               ></canvas>
               {!canScratch &&
-            <p className="uppercase text-black absolute top-[35%] -left-[172px] w-[21.5rem] text-center bg-white py-2">unlocks after 24hrs</p>
+              <p className="uppercase text-black absolute top-[35%] -left-[115px] md:-left-[172px] w-[230px] md:w-[21.5rem] text-center bg-white py-2">unlocks after 24hrs</p>
               }
             </div>
-            <div className="h-[80vh] flex justify-end items-end text-center">
-              <span className="flex"><p className="p-2 border-[1px] rounded-full h-6 w-6 text-center flex justify-center items-center">i</p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</span>
-            </div>
               
+            <div className="md:h-[80vh] flex md:justify-end items-end text-center">
+              <span className="flex text-justify"><p className="mr-1 p-2  border-[1px] rounded-full h-6 w-6 text-center flex justify-center items-center">i</p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</span>
+            </div>
           </div>
         </div>
       </div>

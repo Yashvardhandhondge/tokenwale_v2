@@ -254,7 +254,7 @@ const index = () => {
             Spin the Wheel
           </button>
         </div>
-        <div className="flex h-full w-full justify-center md:w-1/2 md:items-start">
+        <div className="flex w-full justify-center md:w-1/2 md:items-start">
           <div className={styles.wheelContainer}>
             <Image
               height={100}
