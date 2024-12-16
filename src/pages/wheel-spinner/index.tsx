@@ -231,7 +231,7 @@ const index = () => {
   return (
     <section className="">
       <Navbar />
-      <div className="wheel-bg flex h-[90dvh] md:h-[100dvh] w-full flex-col bg-opacity-40  text-white lg:flex-row">
+      <div className="wheel-bg flex h-[80dvh] md:h-[100dvh] w-full flex-col bg-opacity-40 pt-20  text-white lg:flex-row">
         <Image src="/icons/back_arrow_white.svg" onClick={()=>router.push('/dashboard')} className=" h-5 w-5 absolute left-[1%] top-20 cursor-pointer" height={40} width={40} alt={"back_icon"}/>
         <div className="flex h-full w-full flex-col items-start justify-center px-8 md:w-1/2 md:px-20">
           <p className="text-[20px]">Lorem Ipsum</p>
