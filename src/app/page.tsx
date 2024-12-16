@@ -11,6 +11,8 @@ import ClientWrapper from "./ClientWrapper";
 export default async function Home() {
   await api.post.hello({ text: "from tRPC" });
   const session = await getServerAuthSession();
+  console.log("SESSION", JSON.stringify(session));
+  
   void api.post.getLatest.prefetch();
 
   return (

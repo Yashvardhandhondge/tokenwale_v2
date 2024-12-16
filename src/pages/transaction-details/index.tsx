@@ -4,7 +4,7 @@ import { Button } from "../../components/ui/button";
 import Image from "next/image";
 
 import { TrendingUp } from "lucide-react";
-import { Bar, BarChart, CartesianGrid, LabelList, XAxis } from "recharts";
+import { Bar, BarChart, CartesianGrid, LabelList, XAxis, YAxis } from "recharts";
 import {
   Card,
   CardContent,
@@ -30,7 +30,7 @@ import {
 } from "@/components/ui/dialog";
 import { Calendar } from "@/components/ui/calendar";
 const chartData = [
-  { time: "10 am", token: 186 },
+  { time: "10.12 am", token: 186 },
   { time: "11 am", token: 305 },
   { time: "12 pm", token: 237 },
   { time: "1 pm", token: 73 },
@@ -104,6 +104,14 @@ const Index = () => {
                   >
                     <XAxis
                       dataKey="time"
+                      tickLine={false}
+                      tickMargin={10}
+                      axisLine={false}
+                      tickFormatter={(value) => value as string}
+                      tick={{ fontSize: 16 }}
+                    />
+                    <YAxis
+                      dataKey="token"
                       tickLine={false}
                       tickMargin={10}
                       axisLine={false}

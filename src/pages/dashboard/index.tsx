@@ -75,6 +75,9 @@ interface UserDetails {
 export default function Dashboard() {
   const { data: session, status } = useSession();
 
+  
+  
+
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const toggleSidebar = () => setSidebarOpen(!isSidebarOpen);
   const closeSidebar = () => setSidebarOpen(false);
@@ -106,6 +109,7 @@ export default function Dashboard() {
       }
     }
   }, [router, status]);
+  
   useEffect(() => {
     console.log("userDetails", userDetails);
     
@@ -454,40 +458,23 @@ export default function Dashboard() {
                                 alt="img"
                               />
                             </div>
-                            <div className="mt-12 flex flex-col w-full items-center justify-center text-[40px] font-bold text-[#38F68F] md:mt-20">
+                            <div className="mt-12 flex flex-col gap-3 w-full items-center justify-center text-[40px] font-bold text-[#38F68F] md:mt-20">
                               <p>{amount ?? 0} Tokens!</p>
-                              <p className="text-2xl">Transfered to {userName(selectedUser ?? "")} successfully.</p>
-                              <p className="text-[16px]">{new Date().toLocaleString()}</p>
+                              <p className="text-xl mt-4 text-white">Transfered to {userName(selectedUser ?? "")} successfully.</p>
+                              <p className="text-[16px] text-white">{new Intl.DateTimeFormat('en-US', {
+  day: '2-digit',
+  month: 'long',
+  year: 'numeric',
+  hour: '2-digit',
+  minute: '2-digit',
+  hour12: true
+}).format(new Date())}</p>
                             </div>
                           </DialogDescription>
                         </DialogHeader>
                       </DialogContent>
                     </Dialog>
-                    <Dialog
-                      open={wonDialogOpen}
-                      onOpenChange={setWonDialogOpen}
-                    >
-                      <DialogContent className="h-[90vh] w-screen border-0 bg-[#262626ED] text-white md:w-screen md:max-w-fit">
-                        <DialogHeader>
-                          <DialogDescription className="flex h-full w-full flex-col items-center justify-center px-4 md:w-[100vh]">
-                            <div className="flex w-full items-center justify-center text-[40px] font-semibold text-white">
-                              <Image
-                                width={120}
-                                height={120}
-                                src="/icons/correct-icon.png"
-                                className=""
-                                alt="img"
-                              />
-                            </div>
-                            <div className="mt-12 flex flex-col w-full items-center justify-center text-[40px] font-bold text-[#38F68F] md:mt-20">
-                              <p>{amount ?? 0} Tokens!</p>
-                              <p className="text-2xl">Transfered to {userName(selectedUser ?? "")} successfully.</p>
-                              <p className="text-[16px]">{new Date().toLocaleString()}</p>
-                            </div>
-                          </DialogDescription>
-                        </DialogHeader>
-                      </DialogContent>
-                    </Dialog>
+                    
                   </div>
                   <div className="flex w-full md:flex-row md:justify-between mb-18">
                     <div className="flex w-full items-center gap-2 text-white px-3">
@@ -940,15 +927,7 @@ export default function Dashboard() {
           <div className="flex max-h-[500px] mt-10 w-full flex-col items-center justify-center md:w-2/3">
             <div className="flex w-full  flex-row justify-between gap-12 pb-6">
               <p>Recent Transfers</p>
-              {/* <span className="flex gap-2">
-                <Image
-                  width={20}
-                  height={20}
-                  src="/icons/filter-icon.svg"
-                  alt=""
-                />
-                <p className="text-[#38F68F]">See all transfers</p>
-              </span> */}
+             
             </div>
             <div className="-m-1.5 w-full">
               <div className="inline-block min-w-full p-1.5 align-middle">

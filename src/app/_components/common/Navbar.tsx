@@ -10,6 +10,7 @@ import { ScanQrCode } from "lucide-react";
 export const Navbar = ({ toggleSidebar,handleSearch }: { toggleSidebar?: () => void, handleSearch?: (userId: string) => void }) => {
   const { status } = useSession();
   const router = useRouter();
+  
 
   const handleRulesClick = () => {
     router.push('/rules');

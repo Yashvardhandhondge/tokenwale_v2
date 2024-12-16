@@ -8,15 +8,24 @@ export async function middleware(request: NextRequest) {
   const token = await getToken({ req: request });
   const isAuth = !!token;
   const isAuthPage = request.nextUrl.pathname.startsWith("/auth");
-  console.log(request.nextUrl.pathname, isAuthPage, token);
+  const isAdmin = token?.role == 'Super Admin' || token?.role == 'Admin'
+
+  console.log("isAdmin", isAdmin);
+  
+  
   if (isAuthPage) {
+    console.log(request.nextUrl.pathname, isAuthPage, token);
     if (isAuth) {
       return NextResponse.redirect(new URL("/dashboard", request.url));
     }
     return null;
   }
+
+  if(isAdmin){
+    return NextResponse.redirect(new URL("/admin-dashboard", request.url));
+  }
 }
 
 export const config = {
-  matcher: ["/auth/:path*"],
+  matcher: ["/auth/:path*","/dashboard"],
 };

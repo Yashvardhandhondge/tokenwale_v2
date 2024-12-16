@@ -80,6 +80,7 @@ export const authOptions: NextAuthOptions = {
           return {
             id: credentials.userId,
             accessToken,
+            role: user.docs[0]?.data().role as string
           };
         } catch (error) {
           throw new Error("Internal Server Error");
