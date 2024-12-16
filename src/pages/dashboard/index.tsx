@@ -557,7 +557,7 @@ export default function Dashboard() {
                         <DialogHeader>
                           <DialogTitle className="flex justify-between text-[30px] text-white md:text-[30px]">
                             <p className="">Transfer Tokens</p>
-                            <ScanDialog handleSearch={handleSearch} />
+                            <ScanDialog id={qrUserId} handleSearch={handleSearch} />
                           </DialogTitle>
                           <div className="relative w-full">
                             <input
@@ -1016,7 +1016,7 @@ export default function Dashboard() {
                         <DialogHeader>
                           <DialogTitle className="flex justify-between text-[30px] text-white md:text-[30px] mb-3">
                             <p>Transfer Tokens</p>
-                            <ScanDialog handleSearch={handleSearch} />
+                            <ScanDialog id={qrUserId} handleSearch={handleSearch} />
                           </DialogTitle>
                           <div className="relative w-full">
                             <input

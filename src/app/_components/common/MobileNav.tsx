@@ -1,12 +1,20 @@
 import { Dialog, DialogTitle, DialogHeader, DialogContent, DialogDescription, DialogTrigger } from '@/components/ui/dialog'
 import { ScanQrCode, Search } from 'lucide-react'
 import Image from 'next/image'
-import React from 'react'
+import React, { useEffect } from 'react'
 import ScanDialog from './QrScannerPopup'
 import { getAmountAfterTxnCost } from '@/utils/random'
 import PaginatedUserList from './PagedUserList'
+import { useSession } from 'next-auth/react'
 
-  const MobileNav = ({handleSearch, userId, userIds, handleSelectUser, setAmount, qrUserId, selectedUser, addNote, handleCoinTransfer, amount, setAddNote, setSelectedUser}: {handleSearch:  (userId: string) => void, userId: string, userIds: string[], handleSelectUser: (userId: string) => void, setAmount: (amount: number) => void, qrUserId: string, selectedUser: string | null, addNote: string, handleCoinTransfer: (amount: number, selectedUser: string, from: string) => void, amount: number | null, setAddNote: (note: string) => void, setSelectedUser: (userId: string) => void}) => {
+  const  MobileNav = ({handleSearch, userId, userIds, handleSelectUser, setAmount, qrUserId, selectedUser, addNote, handleCoinTransfer, amount, setAddNote, setSelectedUser}: {handleSearch:  (userId: string) => void, userId: string, userIds: string[], handleSelectUser: (userId: string) => void, setAmount: (amount: number) => void, qrUserId: string, selectedUser: string | null, addNote: string, handleCoinTransfer: (amount: number, selectedUser: string, from: string) => void, amount: number | null, setAddNote: (note: string) => void, setSelectedUser: (userId: string) => void}) => {
+  
+    const {data: session} = useSession()
+
+    useEffect(()=>{
+      console.log(session);
+      
+    },[session])
   
   return (
     <div className='flex flex-row items-center justify-between p-4'>
@@ -30,7 +38,7 @@ import PaginatedUserList from './PagedUserList'
                         <DialogHeader>
                           <DialogTitle className="flex justify-between text-[30px] text-white md:text-[30px]">
                             <p>Transfer Tokens</p>
-                            <ScanDialog handleSearch={handleSearch} />
+                            <ScanDialog id={qrUserId} handleSearch={handleSearch} />
                           </DialogTitle>
                           <div className="relative w-full">
                             <input
@@ -180,7 +188,7 @@ import PaginatedUserList from './PagedUserList'
                       </DialogContent>
             </Dialog>
 
-           <ScanDialog  handleSearch={handleSearch} scanIcon={<ScanQrCode  color='white' size={24} />} />
+           <ScanDialog id={session?.user.id}  handleSearch={handleSearch} scanIcon={<ScanQrCode  color='white' size={24} />} />
         </div>
     </div>
   )

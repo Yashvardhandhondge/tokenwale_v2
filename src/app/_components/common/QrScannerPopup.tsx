@@ -6,15 +6,21 @@ import {
 } from "@/components/ui/dialog";
 import React, { useState } from "react";
 import QrScanner from "@/app/_components/common/QrScanner";
+import { Button } from "@/components/ui/button";
+import Image from "next/image";
 
 const ScanDialog = ({
   handleSearch,
-  scanIcon
+  scanIcon,
+  id
 }: {
   handleSearch: (userId: string) => void;
   scanIcon?: React.ReactNode;
+  id?: string
 }) => {
+  
   const [open, setOpen] = useState(false);
+  const [myQr, setMyQr] = useState(false)
   const handleScan = (data: string | null) => {
     if (data) {
       handleSearch(data);
@@ -33,7 +39,21 @@ const ScanDialog = ({
         <DialogTitle className="mb-4 text-2xl font-bold">
           QR Code Scanner
         </DialogTitle>
-        <QrScanner onScan={handleScan} />
+        {
+          myQr ?
+            (
+              <Image
+                src={`https://qrcode.tec-it.com/API/QRCode?data=${id}&color=000000&istransparent=false&size=small&quietzone=1&dpi=300`}
+                alt="qrcode"
+                width={153}
+                height={153}
+                className="w-full aspect-square p-5"
+              />
+            ): <QrScanner onScan={handleScan} />
+        }
+        <Button className="bg-[#2d2d2d] rouned-xl text-[#38f68f]" onClick={()=>{
+          setMyQr(!myQr)
+        }}>{myQr ? "Scan QR":"My QR Code"}</Button>
       </DialogContent>
     </Dialog>
   );

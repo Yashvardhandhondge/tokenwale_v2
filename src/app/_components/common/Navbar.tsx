@@ -8,9 +8,9 @@ import ScanDialog from "./QrScannerPopup";
 import { ScanQrCode } from "lucide-react";
 
 export const Navbar = ({ toggleSidebar,handleSearch }: { toggleSidebar?: () => void, handleSearch?: (userId: string) => void }) => {
-  const { status } = useSession();
+  const { data:session, status } = useSession();
   const router = useRouter();
-  
+
 
   const handleRulesClick = () => {
     router.push('/rules');
@@ -73,7 +73,7 @@ export const Navbar = ({ toggleSidebar,handleSearch }: { toggleSidebar?: () => v
                 className="cursor-pointer hover:scale-105 transition-transform duration-200"
                 onClick={() => { router.push('/dashboard') }}
               />
-              {handleSearch && <ScanDialog  handleSearch={handleSearch} scanIcon={<ScanQrCode  color='#38F68F' size={24} />} />}  
+              {handleSearch && <ScanDialog id={session.user.id}  handleSearch={handleSearch} scanIcon={<ScanQrCode  color='#38F68F' size={24} />} />}  
             </div> :
             <Link href="/auth/new-wallet" >
             <div className='flex flex-row items-center justify-between h-full bg-[#38F68F] px-4 sm:px-6 md:px-8 py-7 sm:py-6 cursor-pointer hover:bg-[#2dcf70] transition-colors duration-200'>
