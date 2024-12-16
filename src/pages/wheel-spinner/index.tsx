@@ -234,7 +234,6 @@ const index = () => {
       <div className="wheel-bg flex h-[80dvh] md:h-[100dvh] w-full flex-col bg-opacity-40 pt-20  text-white lg:flex-row">
         <Image src="/icons/back_arrow_white.svg" onClick={()=>router.push('/dashboard')} className=" h-5 w-5 absolute left-[1%] top-20 cursor-pointer" height={40} width={40} alt={"back_icon"}/>
         <div className="flex h-full w-full flex-col items-start justify-center px-8 md:w-1/2 md:px-20">
-          <p className="text-[20px]">Lorem Ipsum</p>
           <p className="text-[38px] text-[#38F68F] md:text-[64px]">
             Spin & Win
           </p>
@@ -245,7 +244,7 @@ const index = () => {
           </p>
           <button
             className={cn(
-              "mt-8 rounded-full px-5 py-4 font-[550] text-black",
+              "mt-6 md:mt-8 rounded-full max-md:text-sm px-4 py-2 md:px-5 md:py-4 font-[550] text-black",
               canSpin ? "bg-[#38F68F]" : "bg-gray-400",
             )}
             onClick={handleSpin}
@@ -269,7 +268,7 @@ const index = () => {
               height={1000}
               width={1000}
               src={"/backgrounds/red-dot.png"}
-              className={`z-90 absolute top-[42%] md:top-[47%] h-[10rem] w-[10rem] md:h-[1.8rem] md:w-[1.8rem] md:left-[48%] ${styles.backgroundImage}`}
+              className={`z-90 absolute top-[46%] md:top-[47%] h-[10rem] w-[10rem] md:h-[1.8rem] md:w-[1.8rem] md:left-[48%] ${styles.backgroundImage}`}
               // style={{ zIndex: "999 !important" }}
               alt={""}
             />

@@ -148,7 +148,7 @@ const ScratchCard = () => {
   return (
     <section className='w-full'>
       <Navbar />
-      <div className='w-full flex flex-row'>
+      <div className='w-full h-[80dvh] md:h-[100dvh] flex flex-row'>
       <img src="/icons/back_arrow_white.svg" onClick={()=>router.push('/dashboard')} className="absolute left-[3%] top-[10%] md:left-[2%] z-40 cursor-pointer h-10 w-10" alt={"back_icon"}/>
         <div className='w-[45%] scratch-card-bg md:flex hidden flex-col justify-end items-start text-[48px] text-white'>
           <div className='bg-black bg-opacity-20 shadow-lg backdrop-blur-md border-white border-opacity-30 w-full py-8 px-12'>
