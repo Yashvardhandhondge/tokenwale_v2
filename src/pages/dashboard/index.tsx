@@ -462,13 +462,13 @@ export default function Dashboard() {
                               <p>{amount ?? 0} Tokens!</p>
                               <p className="text-xl mt-4 text-white">Transfered to {userName(selectedUser ?? "")} successfully.</p>
                               <p className="text-[16px] text-white">{new Intl.DateTimeFormat('en-US', {
-  day: '2-digit',
-  month: 'long',
-  year: 'numeric',
-  hour: '2-digit',
-  minute: '2-digit',
-  hour12: true
-}).format(new Date())}</p>
+                                day: '2-digit',
+                                month: 'long',
+                                year: 'numeric',
+                                hour: '2-digit',
+                                minute: '2-digit',
+                                hour12: true
+                              }).format(new Date())}</p>
                             </div>
                           </DialogDescription>
                         </DialogHeader>
