@@ -39,7 +39,10 @@ const quickLinks = [
 const AdminDashboard = () => {
   return (
     <div className='bg-gradient-to-br from-[#38f68e67] via-[] to-[#2d2d2d]'>
-         <Navbar toggleSidebar={()=>{}} handleSearch={(userId) => {console.log(userId);
+         <Navbar toggleSidebar={()=>{
+            console.log("Print");
+            
+         }} handleSearch={(userId) => {console.log(userId);
          }} />
          <div className='pt-20'>
             <div className='grid grid-cols-3 p-3'>
@@ -50,9 +53,9 @@ const AdminDashboard = () => {
                     <h3 className='text-white text-3xl mb-4'>Quick Links</h3>
                     <div className='grid grid-cols-3 gap-2'>
                         {
-                            quickLinks.map((link)=>{
+                            quickLinks.map((link, index)=>{
                                 return (
-                                    <Link href={link.url}>
+                                    <Link key={index} href={link.url}>
                                         <div className='p-4 flex flex-col items-center gap-2'>
                                         <link.icon color='#38f68e' size={32} />
                                         <p className=' text-white text-center'>
