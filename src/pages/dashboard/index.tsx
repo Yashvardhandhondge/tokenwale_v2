@@ -283,13 +283,7 @@ export default function Dashboard() {
       });
   };
 
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      setActiveSlide((prevSlide) => (prevSlide === 1 ? 0 : 1));
-    }, 3000);
-
-    return () => clearInterval(intervalId);
-  }, []);
+  
 
   const numbers = Array.from({ length: 4 }, (_, i) => (i + 1) * 3);
 
@@ -301,7 +295,8 @@ export default function Dashboard() {
     onSwipedLeft: () => handleSlideChange((activeSlide + 1) % 2),
     onSwipedRight: () => handleSlideChange((activeSlide - 1 + 2) % 2),
     // preventDefaultTouchmoveEvent: true,
-    trackMouse: true,
+    
+    // trackMouse: true,
   });
 
 
@@ -356,7 +351,7 @@ export default function Dashboard() {
         <TokensCount burnt={remainingToken?.burnt ?? 0} remainingToken={remainingToken?.remainingToken ?? 0} />
       </div>
       <div className="flex flex-col gap-4 mb-40  text-white md:flex-row">
-          <div className="flex h-[500px] w-full flex-col items-center justify-center lg:w-2/3 ">
+          <div className="flex min-h-fit w-full flex-col items-center justify-center lg:w-2/3 ">
             <div className="flex w-full flex-row justify-between gap-12 pb-6">
               <p className="text-[20px] font-semibold px-3">Recent Transfers</p> 
               {/* <span className="flex gap-2">
@@ -369,7 +364,7 @@ export default function Dashboard() {
                 <p className="text-[#38F68F]">See all transfers</p>
               </span> */}
             </div>
-            <div className="-m-1.5 w-full ">
+            <div className="-m-1.5 w-full">
               <div className="inline-block min-w-full p-1.5 ">
                 <div className="overflow-hidden max-sm:max-w-[100vw]">
                   <div className="max-w-full overflow-x-auto md:max-w-full">
@@ -481,7 +476,7 @@ export default function Dashboard() {
                       <label>Show rows:</label>
                       <select
                         name="page_number"
-                        className="rounded-[10px] border-none bg-[#38F68F] bg-opacity-25 px-4 py-1 text-white outline-none"
+                        className="rounded-[10px]  border-none bg-[#38F68F] bg-opacity-25 px-2 sm:px-4 py-1 text-white outline-none"
                         onChange={(e) => {
                           setCurrentPage(1);
                           setRows(e.target.value ? Number(e.target.value) : 10);
@@ -490,7 +485,7 @@ export default function Dashboard() {
                         {numbers.map((number) => (
                           <option
                             key={number}
-                            className="text-black"
+                            className="text-black text-[0.6rem] sm:text-md"
                             value={number}
                           >
                             {number}
@@ -1282,6 +1277,14 @@ export default function Dashboard() {
             {...handlers}
             className="dashboard-card-bg relative flex h-[500px] w-full flex-col items-center justify-center rounded-xl border-[1px] border-[#2D2D2D] md:w-1/3"
           >
+              <div className="flex px-5 bottom-32 justify-between w-full absolute z-30">
+                <button className="w-10 h-10 bg-black opacity-80 rounded-full" onClick={()=>{
+                  handleSlideChange(0)
+                }}>&larr;</button>
+                <button className="w-10 h-10 bg-black opacity-80 rounded-full" onClick={()=>{
+                  handleSlideChange(1)
+                }}>&rarr;</button>
+              </div>
             {activeSlide === 0 && (
               <Image
                 width={240}
@@ -1301,6 +1304,7 @@ export default function Dashboard() {
               />
             )}
             <div className="relative z-10 flex h-full flex-col items-center justify-end gap-4 pb-10">
+              
               {activeSlide === 0 && (
                 <div className="flex flex-col items-center justify-center gap-4">
                   <p className="text-[18px] text-[#38F68F]">EARN TOKENS</p>
