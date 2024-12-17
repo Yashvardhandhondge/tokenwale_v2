@@ -20,8 +20,8 @@ const TokensCount = ({ burnt, remainingToken }: { burnt: number; remainingToken:
                       alt=""
                       className="cursor-pointer"
                     />
-                     <p className="text-[16px] flex-1">Circulating Supply </p>
-                     <p className="text-[16px] text-white text-end">{circulatingSupply}</p></div>
+                     <p className="text-[12px] xl:text-[16px] flex-1">Circulating Supply </p>
+                     <p className="text-[12px] xl:text-[16px] text-white text-end">{circulatingSupply}</p></div>
                     <div className="mt-2">
                        
                         <div className="h-1.5 w-full rounded-full bg-gray-500">
@@ -37,8 +37,8 @@ const TokensCount = ({ burnt, remainingToken }: { burnt: number; remainingToken:
                       alt=""
                       className="cursor-pointer"
                     />
-                     <p className="text-[16px] flex-1">Burnt Tokens</p>
-                     <p className="text-[16px] text-white text-end">{burntSupply}</p></div>
+                     <p className="text-[12px] xl:text-[16px] flex-1">Burnt Tokens</p>
+                     <p className="text-[12px] xl:text-[16px] text-white text-end">{burntSupply}</p></div>
             </div>
             <div>
             <div className="text-[16px] flex flex-row items-center gap-2"><Image
@@ -48,19 +48,19 @@ const TokensCount = ({ burnt, remainingToken }: { burnt: number; remainingToken:
                       alt=""
                       className="cursor-pointer"
                     />
-                     <p className="text-[16px] flex-1">Max Token Supply </p>
-                    <p className="text-[16px] text-white text-end">{maxSupply}</p></div>
+                     <p className="text-[12px] xl:text-[16px] flex-1">Max Token Supply </p>
+                    <p className="text-[12px] xl:text-[16px] text-white text-end">{maxSupply}</p></div>
             </div>
             <div>
-            <div className="text-[16px] flex flex-row items-center gap-2"><Image
+            <div className="text-[12px] xl:text-[16px] flex flex-row items-center gap-2"><Image
                       width={18}
                       height={18}
                       src="/icons/generate-dash-icon.svg"
                       alt=""
                       className="cursor-pointer"
                     />
-                     <p className="text-[16px] flex-1">Tokens Mined </p>
-                    <p className="text-[16px] text-white text-end">{minedSupply}</p></div>
+                     <p className="text-[12px] xl:text-[16px] flex-1">Tokens Mined </p>
+                    <p className="text-[12px] xl:text-[16px] text-white text-end">{minedSupply}</p></div>
             </div>
           </div>
   );
