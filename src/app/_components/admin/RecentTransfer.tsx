@@ -39,19 +39,20 @@ const RecentTransfer = () => {
       
 
       useEffect(()=>{
+        setRows(5)
         setTxns([])
         if(transfers == 'global'){
-            setTxns(txn?.pages[currentPage-1]?.transactions || [])
+            setTxns(txn?.pages[currentPage-1]?.transactions ?? [])
         }
         if(transfers == 'burnt'){
             // console.log("burnts");
             console.log(txn?.pages[currentPage-1]?.transactions.filter(txn => txn.to.toLowerCase() == '00000000' ));
             
             
-            setTxns(txn?.pages[currentPage-1]?.transactions.filter(txn => txn.to.toLowerCase() == '00000000' ) || [])
+            setTxns(txn?.pages[currentPage-1]?.transactions.filter(txn => txn.to.toLowerCase() == '00000000' ) ?? [])
         }
         if(transfers == 'user'){
-            setTxns(txn?.pages[currentPage-1]?.transactions.filter(txn => txn.to.toLowerCase() == session?.user.id || txn.from.toLowerCase() == session?.user.id) || [])
+            setTxns(txn?.pages[currentPage-1]?.transactions.filter(txn => txn.to.toLowerCase() == session?.user.id || txn.from.toLowerCase() == session?.user.id) ?? [])
         }
       }, [txn, transfers, currentPage])
 

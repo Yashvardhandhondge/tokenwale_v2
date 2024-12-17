@@ -65,7 +65,7 @@ const Transfer = ({setAmount, amount, selectedUser, setAddNote}:{
                                               <div className="text-center text-[14px] md:text-[16px]">
                                                 <p>From</p>
                                                 <p>
-                                                  {userName(session?.user.id || "") ?? ""}
+                                                  {userName(session?.user.id ?? "") ?? ""}
                                                 </p>
                                               </div>
                                               <div className="mb-4 mt-4 h-[4rem] w-[4rem] rounded-full bg-white md:mb-8 md:h-[6rem] md:w-[6rem]"></div>
