@@ -17,14 +17,15 @@ import { useSession } from 'next-auth/react'
     },[session])
   
   return (
-    <div className='flex flex-row items-center justify-between p-4'>
-        <Image
-            src="/logos/tokenwale-logo.svg"
-            alt="Logo"
-            width={43}
-            height={43}
-        />
-        <div className='flex flex-row items-center justify-between gap-4'>
+    <div className='flex flex-row items-center justify-between p-4 md:p-6'>
+       <Image
+    src="/logos/tokenwale-logo.svg"
+    alt="Logo"
+    width={43}
+    height={43}
+  />
+          <div className='flex flex-row justify-end items-center gap-4 w-full md:w-auto'>
+
             <Dialog
                       onOpenChange={(e) =>
                         e === false ? handleSearch("") : null
@@ -34,20 +35,21 @@ import { useSession } from 'next-auth/react'
                       <Search onClick={() => handleSearch(userId)} color='white' size={24} />
                
                       </DialogTrigger>
-                      <DialogContent className="h-[90vh] w-screen border-0 bg-[#262626ED] p-10 text-white md:w-screen md:max-w-fit md:p-16">
+                      <DialogContent className="h-[90vh] w-full max-w-[90vw] md:w-auto border-0 bg-[#262626ED] p-6 md:p-10 text-white">
                         <DialogHeader>
-                          <DialogTitle className="flex justify-between text-[30px] text-white md:text-[30px]">
-                            <p>Transfer Tokens</p>
+                        <DialogTitle className="flex justify-between items-center w-full text-[24px] md:text-[30px] text-white">
+  <p className="whitespace-nowrap ">Transfer Tokens</p>
                             <ScanDialog setAddNote={setAddNote} id={qrUserId} handleSearch={handleSearch} />
                           </DialogTitle>
-                          <div className="relative w-full">
-                            <input
-                              type="number"
-                              placeholder="Recent"
-                              onChange={(e) => handleSearch(e.target.value)}
-                              className="w-full border-b-[1px] border-[#38F68F] bg-[#232323] px-4 py-1 pr-12  text-white outline-none"
-                            />
-                            <button className="rounded-[0 12px 12px 0] absolute right-0 top-0 h-full px-4 text-black">
+                          <div className="relative w-full mb-4">
+                          <input
+            type="number"
+            placeholder="Recent"
+            onChange={(e) => handleSearch(e.target.value)}
+            className="w-full border-b-[1px] border-[#38F68F] bg-[#232323] px-4 py-2 pr-12 text-white outline-none"
+          />
+                                      <button className="rounded-[0 12px 12px 0] absolute right-0 top-0 h-full px-4 text-black">
+
                               <Image
                                 alt=""
                                 height={18}
@@ -56,8 +58,8 @@ import { useSession } from 'next-auth/react'
                               />
                             </button>
                           </div>
-                          <DialogDescription className="flex w-full flex-col justify-center px-4 md:w-[100vh] md:flex-row">
-                            <div className="flex w-full flex-col">
+                                  <DialogDescription className="flex flex-col w-full justify-center px-4 md:px-6 md:flex-row">
+                             <div>
                               {/* {userIds.map((userId, index) => (
                                 <div
                                   key={index}

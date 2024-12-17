@@ -3,7 +3,6 @@ import Chart from "chart.js/auto";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import styles from "../../../styles/SpinWheel.module.css";
 import Image from "next/image";
-import { api } from "@/trpc/react";
 
 const spinValues = [
   { minDegree: 61, maxDegree: 90, value: 10 },

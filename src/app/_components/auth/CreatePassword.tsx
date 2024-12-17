@@ -54,10 +54,10 @@ export const CreatePassword = () => {
       <div className="w-full rounded-[20px] border-2 border-green-500 md:w-auto md:rounded-[59px]">
         <div className="create-wallet-card-gradient flex h-1/2 min-h-[500px] w-full flex-col items-center justify-center rounded-[20px] py-8 md:w-[767px] md:rounded-[59px]">
           <span className="text-center">
-            <p className="mt-4 text-[26px] text-[#38F68F] md:text-[40px]">
+            <p className="mt-4 text-[18px] sm:text-[26px] text-[#38F68F] md:text-[40px]">
               Create a Password
             </p>
-            <p className="text-[10px] text-[#A0A0A0] md:text-[16px]">
+            <p className="text-[10px] mt-2 text-[#A0A0A0] md:text-[16px]">
               You will use this to unlock your wallet
             </p>
           </span>
@@ -65,10 +65,10 @@ export const CreatePassword = () => {
             onSubmit={handleSubmit}
             className="flex w-full flex-col items-center justify-center gap-4 px-4 pb-4 pt-10 md:px-0"
           >
-            <div className="relative w-full md:w-96">
+            <div className="relative max-sm:text-[12px] w-full md:w-96">
               <input
                 type={showPassword ? "text" : "password"}
-                className="w-full rounded-[10px] bg-[#131c23] px-4 py-2 text-white"
+                className="w-full rounded-[10px] bg-[#131c23] px-4 py-2  text-white"
                 placeholder="Enter a Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -81,7 +81,7 @@ export const CreatePassword = () => {
                 {showPassword ? "Hide" : "Show"}
               </button>
             </div>
-            <div className="relative w-full md:w-96">
+            <div className="relative max-sm:text-[12px] w-full md:w-96">
               <input
                 type={showConfirmPassword ? "text" : "password"}
                 className="w-full rounded-[10px] bg-[#131c23] px-4 py-2 text-white"
@@ -98,6 +98,7 @@ export const CreatePassword = () => {
               </button>
             </div>
             <div className="mb-4 flex w-full items-center justify-start pb-8 md:w-1/2">
+            
               <input
                 onChange={handleCheckboxChange}
                 id="default-checkbox"
@@ -109,18 +110,25 @@ export const CreatePassword = () => {
                 htmlFor="default-checkbox"
                 className="ms-2 text-sm gap-1 font-medium text-[#aab1be] flex"
               >
-                I agree to the
+                
+                
                 <Dialog>
+                  
             <DialogTrigger asChild>
-              <button className="border-0 px-0 py-0 text-[13px] text-[#625DF5] hover:bg-none">
-              Terms and Privacy Policy
-              </button>
+            <div className="flex flex-wrap items-center gap-4">
+  <button className="border-0 px-0 py-0 text-[13px] text-[#aab1be] hover:bg-none lg:relative lg:top-0 lg:left-0 text-start">
+    I agree to the 
+    <span className="text-[#38F68F]"> Terms and Privacy Policy</span>
+  </button>
+</div>
+
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px] bg-black terms-condition-popup text-white">
               <DialogHeader>
                 <DialogTitle className="pb-10 text-[#38F68F]">
                   Terms and Privacy Policy
                 </DialogTitle>
+                
                 <DialogDescription className="text-white">
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
                   Expedita doloremque in delectus hic deserunt nesciunt numquam
@@ -135,6 +143,7 @@ export const CreatePassword = () => {
             </DialogContent>
           </Dialog>
               </label>
+              
             </div>
             <button
               type="submit"

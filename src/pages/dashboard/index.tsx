@@ -311,13 +311,13 @@ export default function Dashboard() {
       <div className='flex flex-col gap-8 p-4 mb-16'>
         <CarouselAds />
         <div className="grid grid-cols-2 gap-8">
-          <div className="dashboard-card-bg flex h-[150px] w-full flex-col justify-between rounded-xl border-[1px] border-[#2D2D2D] p-4 md:w-2/5">
-                <p className="text-[16px] text-white">Available tokens</p>
-                <p className="text-[40px] text-[#38F68F] md:text-[44px]">
-                  {user?.balance.toLocaleString() ?? "0"}
-                </p>
-              
-          </div>
+        <div className="dashboard-card-bg flex h-[150px] w-full flex-col justify-between rounded-xl border-[1px] border-[#2D2D2D] p-4 md:w-2/5 overflow-hidden">
+  <p className="text-[16px] text-white">Available tokens</p>
+  <p className="text-[24px] sm:text-[30px] md:text-[36px] text-[#38F68F] font-bold overflow-hidden">
+    {user?.balance.toLocaleString() ?? "999999999"}
+  </p>
+</div>
+
           <Carousel>
             <CarouselContent>
             <CarouselItem>
@@ -356,9 +356,9 @@ export default function Dashboard() {
         <TokensCount burnt={remainingToken?.burnt ?? 0} remainingToken={remainingToken?.remainingToken ?? 0} />
       </div>
       <div className="flex flex-col gap-4 mb-40  text-white md:flex-row">
-          <div className="flex h-[500px] w-full flex-col items-center justify-center md:w-2/3">
+          <div className="flex h-[500px] w-full flex-col items-center justify-center lg:w-2/3 ">
             <div className="flex w-full flex-row justify-between gap-12 pb-6">
-              <p className="text-[20px] font-semibold px-3">Recent Transfers</p>
+              <p className="text-[20px] font-semibold px-3">Recent Transfers</p> 
               {/* <span className="flex gap-2">
                 <Image
                   width={20}
@@ -369,12 +369,12 @@ export default function Dashboard() {
                 <p className="text-[#38F68F]">See all transfers</p>
               </span> */}
             </div>
-            <div className="-m-1.5 w-full">
+            <div className="-m-1.5 w-full ">
               <div className="inline-block min-w-full p-1.5 ">
-                <div className="overflow-hidden">
-                  <div className="max-w-[400px] overflow-x-auto md:max-w-full">
-                    <table className="min-w-full h-full divide-y divide-[#38F68F] text-[#A7B0AF]">
-                      <thead>
+                <div className="overflow-hidden max-sm:max-w-[100vw]">
+                  <div className="max-w-full overflow-x-auto md:max-w-full">
+                    <table className="min-w-full h-full divide-y divide-[#38F68F]  text-[#A7B0AF]">
+                      <thead >
                         <tr>
                           <th
                             scope="col"
@@ -528,16 +528,22 @@ export default function Dashboard() {
           </div>
           
             <div className="fixed bottom-0 w-full bg-black">
-            <div className="flex w-full gap-1">
-              <Link href="/wheel-spinner" className="bg-gray-800 text-white text-center flex-1 rounded-none m-2 py-5">
-                Spin The Wheel
-              
-              </Link>
-              
-              <Link href="/scratch-card" className="bg-gray-800 text-white text-center flex-1 rounded-none m-2 py-5">
-                Scratch the Card
-              </Link>
-            </div>
+            <div className="flex w-full gap-1 justify-center">
+  <Link
+    href="/wheel-spinner"
+    className="bg-gray-800 text-[#2DC574] text-sm text-center flex-1 sm:w-[200px] md:w-[250px] lg:w-[300px] m-2 py-5 rounded-xl"
+  >
+    Spin The Wheel
+  </Link>
+
+  <Link
+    href="/scratch-card"
+    className="bg-gray-800 text-[#2DC574] text-sm text-center flex-1 sm:w-[200px] md:w-[250px] lg:w-[300px] m-2 py-5 rounded-xl"
+  >
+    Scratch the Card
+  </Link>
+</div>
+
             <Dialog
                       onOpenChange={(e) =>
                         e === false ? handleSearch("") : null
@@ -546,17 +552,20 @@ export default function Dashboard() {
                       <DialogTrigger asChild>
                       <Button className="bg-[#38F68F] rounded-full w-16 h-16 absolute -top-5 left-[50%] translate-x-[-50%]">
               <Image
-                width={18}
-                height={18}
+                width={32}
+                height={32}
                 src="/icons/exchange-icon.svg"
                 alt="exchange"
               />
             </Button>
                       </DialogTrigger>
-                      <DialogContent className="h-[90vh] w-screen border-0 bg-[#262626ED] p-10 text-white md:w-screen md:max-w-fit md:p-16">
+                      <DialogContent className="h-[90vh] w-screen border-0 bg-[#262626ED] p-3 py-10 md:p-10 text-white md:w-screen md:max-w-fit ">
                         <DialogHeader>
-                          <DialogTitle className="flex justify-between text-[30px] text-white md:text-[30px]">
-                            <p className="">Transfer Tokens</p>
+                          <DialogTitle className="flex justify-between my-2 text-[30px] text-white md:text-[30px]">
+                          <p className="whitespace-nowrap text-base sm:text-lg md:text-xl lg:text-2xl text-center text-white">
+  Transfer Tokens
+</p>
+
                             <ScanDialog setAddNote={setAddNote} id={qrUserId} handleSearch={handleSearch} />
                           </DialogTitle>
                           <div className="relative w-full">
@@ -564,7 +573,7 @@ export default function Dashboard() {
                               type="number"
                               placeholder="Recent"
                               onChange={(e) => handleSearch(e.target.value)}
-                              className="w-full border-b-[1px] border-[#38F68F] bg-[#232323] px-4 py-1 pr-12 text-white outline-none"
+                              className="w-full my-3 border-b-[1px] border-[#38F68F] bg-[#232323] px-2 sm:px-4 py-1 sm:pr-12 text-white outline-none"
                             />
                             <button className="rounded-[0 12px 12px 0] absolute right-0 top-0 h-full px-4 text-black">
                               <Image
@@ -761,10 +770,13 @@ export default function Dashboard() {
         <div className="flex flex-col gap-8 text-white md:flex-row">
           <div className="flex h-full w-full flex-col items-center justify-center gap-8 rounded-xl md:w-2/3 md:flex-row">
             <div className="dashboard-card-bg flex h-[210px] w-full flex-col justify-between rounded-xl border-[1px] border-[#2D2D2D] p-8 md:w-2/5">
-              <p className="text-[16px]">Available tokens</p>
-              <p className="text-[40px] text-[#38F68F] md:text-[44px]">
-                {user?.balance.toLocaleString() ?? "0"}
-              </p>
+            <div className="overflow-hidden text-ellipsis">
+  <p className="text-[16px]">Available tokens</p>
+  <p className="text-[40px] text-[#38F68F] md:text-[44px] max-w-full truncate ">
+    {user?.balance.toLocaleString() ?? "0"}
+  </p>
+</div>
+
               <Dialog>
   <DialogTrigger asChild>
     <button className="flex w-60 items-center justify-center gap-2 rounded-[10px] bg-[#38F68F] px-4 py-2 text-[12px] text-black md:w-40 md:text-[14px] lg:w-60">

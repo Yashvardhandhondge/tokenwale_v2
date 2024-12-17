@@ -63,7 +63,7 @@ export const SeedPhraseLogin = () => {
             onSubmit={handleSubmit}
             className="flex w-full flex-col items-center justify-center gap-4 px-4 pb-4 pt-10 md:px-0"
           >
-            <div className="flex w-[90%] flex-wrap justify-center gap-4 sm:w-[40%] md:gap-6">
+            <div className="flex w-[90%] flex-wrap justify-center sm:gap-4 sm:w-[40%] md:gap-6">
               {seedPhrases.map((phrase, index) => (
                 <input
                   key={index}

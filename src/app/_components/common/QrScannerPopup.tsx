@@ -44,9 +44,17 @@ const ScanDialog = ({
    <>
      <Dialog defaultOpen={open} open={open} onOpenChange={(e) => setOpen(e)}>
       <DialogTrigger asChild>
-        <button className={`h-10 rounded-[10px] border text-white px-4 py-2 text-[14px] focus:outline-none ${scanIcon ? 'flex items-center gap-2 border-none' : 'border-[#38F68F] w-[200px]'}`}>
-        {scanIcon ? scanIcon : "Scan QR Code"}
-        </button>
+      <button
+  className={`
+    h-10 rounded-lg border  text-white px-4 py-2 text-sm 
+    focus:outline-none 
+    ${scanIcon ? 'flex items-center gap-2 border-none' : 'border-[#38F68F] max-sm:text-[0.7rem] w-[100px] sm:w-[140px] md:w-auto'}
+  `}
+>
+  {scanIcon ? scanIcon : "Scan QR Code"}
+</button>
+
+
       </DialogTrigger>
       <DialogContent className="h-[90vh] w-screen border-0 bg-[#262626ED] md:w-screen md:max-w-fit text-white">
         <DialogTitle className="mb-4 text-2xl font-bold">

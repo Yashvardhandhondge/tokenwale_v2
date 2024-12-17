@@ -61,34 +61,38 @@ export const LoginComponent = () => {
     <div className="green-gradient-bg flex h-[80vh] w-full flex-col items-center justify-center px-4 md:px-0">
       <div className="w-full rounded-[20px] border-2 border-green-500 md:w-auto md:rounded-[59px]">
         <div className="create-wallet-card-gradient flex h-full min-h-[500px] w-full flex-col items-center justify-center rounded-[20px] px-4 md:w-[767px] md:rounded-[59px] md:px-0 md:py-8">
-          <span>
-            <p className="mt-4 text-center text-[24px] text-[#38F68F] md:text-[40px]">
-              Join Us to earn{" "}
-            </p>
-            <p className="text-center text-[24px] text-[#38F68F] md:text-[40px]">
-              rewards through tokens
-            </p>
-          </span>
+        <span>
+  <p className="text-center text-[18px] sm:text-[24px] md:text-[40px] text-[#38F68F] mt-2 sm:mt-4">
+    Join Us to earn
+  </p>
+  <p className="text-center text-[18px] sm:text-[24px] md:text-[40px] text-[#38F68F] mt-2 sm:mt-4">
+    rewards through tokens
+  </p>
+</span>
+
           <form
             onSubmit={handleSubmit}
             className="flex w-full flex-col items-center justify-center gap-4 px-4 pb-4 pt-10 md:px-0"
           >
-            <div className="relative w-full md:w-96">
-              <input
-                type={showPassword ? "text" : "password"}
-                className="w-full rounded-[10px] bg-[#131c23] px-4 py-2 text-white"
-                placeholder="Enter a Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              <button
-                type="button"
-                onClick={togglePasswordVisibility}
-                className="absolute inset-y-0 right-0 px-3 py-2 text-white"
-              >
-                {showPassword ? "Hide" : "Show"}
-              </button>
-            </div>
+           <div className="relative w-full md:w-96">
+  <input
+    type={showPassword ? "text" : "password"}
+    className="w-full rounded-[10px] bg-[#131c23] px-4 py-2 text-white pr-12 text-sm sm:text-base md:text-lg" 
+    placeholder="Enter a Password"
+    value={password}
+    onChange={(e) => setPassword(e.target.value)}
+  />
+  <button
+    type="button"
+    onClick={togglePasswordVisibility}
+    className="absolute inset-y-0 right-3 flex items-center px-3 py-2 text-white" 
+  >
+  <p className="text-sm sm:text-base md:text-lg lg:text-xl">
+  {showPassword ? "Hide" : "Show"}
+</p>
+  </button>
+</div>
+
             <div className="mt-2 flex w-full items-center justify-start md:w-1/2">
             <Link href="/auth/seed-phrase-login">
               <label
