@@ -308,7 +308,7 @@ export default function Dashboard() {
         <MobileNav
           handleSearch={handleSearch}
           userId={userId}
-          userIds={userIds}
+          userIds={[...userIds]}
           handleSelectUser={handleSelectUser}
           setAmount={setAmount}
           qrUserId={qrUserId}

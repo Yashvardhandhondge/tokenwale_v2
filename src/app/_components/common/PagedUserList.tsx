@@ -65,16 +65,16 @@ const PaginatedUserList = ({
       {paginatedUsers.map((userId, index) => (
         <div
           key={index}
-          className="flex w-full flex-row items-center justify-between gap-4"
+          className="flex w-full flex-row items-center justify-between"
         >
           <span className="mt-2 flex w-full items-center gap-2 rounded-[12px] py-3 text-start text-white">
-            <p className="h-[2rem] w-[2rem] rounded-full bg-white text-[12px] md:text-[18px]"></p>
+            <p className="h-[1.4rem] w-[1.4rem] sm:h-[2rem] sm:w-[2rem] rounded-full bg-white text-[12px] md:text-[18px]"></p>
             {userName(userId)}
           </span>
           <Dialog>
             <DialogTrigger asChild>
               <button
-                className="mt-4 max-w-[250px] rounded-[10px] bg-[#2DC574] py-3 text-center text-sm text-black w-[150px] md:text-md"
+                className="mt-4 max-w-[250px] rounded-[10px] bg-[#2DC574] py-3 max-sm:px-2 text-center text-xs sm:text-sm text-black min-w-[100px]  sm:w-[150px] md:text-md"
                 onClick={() => handleSelectUser(userId)}
               >
                 Transfer now

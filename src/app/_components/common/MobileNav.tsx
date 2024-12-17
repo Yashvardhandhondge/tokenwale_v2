@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/dialog";
 import { ScanQrCode, Search } from "lucide-react";
 import Image from "next/image";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import ScanDialog from "./QrScannerPopup";
 import { getAmountAfterTxnCost } from "@/utils/random";
 import PaginatedUserList from "./PagedUserList";
@@ -48,9 +48,9 @@ const MobileNav = ({
 }) => {
   const { data: session } = useSession();
 
-  useEffect(() => {
-    console.log(session);
-  }, [session]);
+  
+
+  
 
   return (
     <div className="flex flex-row items-center justify-between p-4 md:p-6">
@@ -66,7 +66,7 @@ const MobileNav = ({
             >
               <DialogTrigger asChild>
               <Search
-              onClick={() => handleSearch(userId)}
+              
               color="white"
               size={24}
             />

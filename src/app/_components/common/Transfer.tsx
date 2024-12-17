@@ -34,8 +34,8 @@ const Transfer = ({setAmount, amount, selectedUser, setAddNote}:{
       };
   return (
     <div>
-        <div className="flex max-h-[80vh] w-full flex-col justify-center overflow-y-auto px-4 py-40 md:max-h-full md:w-[100vh] md:py-0">
-                                          <div className="mt-10 flex flex-row items-center justify-center gap-4 md:mt-20">
+        <div className="flex max-h-[80vh]  w-full flex-col justify-center overflow-y-auto px-4 py-0 md:max-h-full md:w-[100vh] md:py-0">
+                                          <div className="mt-28 flex flex-row items-center justify-center gap-4 md:mt-20">
                                             <p className="text-[12px] uppercase text-white md:text-[20px]">
                                               Enter Amount :
                                             </p>
@@ -60,15 +60,15 @@ const Transfer = ({setAmount, amount, selectedUser, setAddNote}:{
                                             </p>
                                           </div>
 
-                                          <div className="mt-8 flex w-full flex-col md:flex-row">
+                                          <div className="mt-4 sm:mt-8 flex w-full flex-col md:flex-row">
                                             <div className="mb-4 flex w-full flex-col items-center justify-center text-white md:mb-0 md:w-1/3">
-                                              <div className="text-center text-[14px] md:text-[16px]">
+                                              <div className="text-center max-sm:flex max-sm:gap-2 text-[14px] md:text-[16px]">
                                                 <p>From</p>
                                                 <p>
                                                   {userName(session?.user.id ?? "") ?? ""}
                                                 </p>
                                               </div>
-                                              <div className="mb-4 mt-4 h-[4rem] w-[4rem] rounded-full bg-white md:mb-8 md:h-[6rem] md:w-[6rem]"></div>
+                                              <div className="mb-4 mt-4 h-[2rem] w-[2rem] sm:h-[4rem] sm:w-[4rem] rounded-full bg-white md:mb-8 md:h-[6rem] md:w-[6rem]"></div>
                                               <div className="text-center text-[14px] md:text-[16px]">
                                                 <p>Total Sent</p>
                                                 <p>{amount ?? 0} Tokens</p>
@@ -95,13 +95,13 @@ const Transfer = ({setAmount, amount, selectedUser, setAddNote}:{
                                               </div>
                                             </div>
                                             <div className="flex w-full flex-col items-center justify-center text-white md:w-1/3">
-                                              <div className="text-center text-[14px] md:text-[16px]">
+                                              <div className="text-center max-sm:flex max-sm:gap-2 text-[14px] md:text-[16px]">
                                                 <p>To</p>
                                                 <p>
                                                   {userName(selectedUser ?? "")}
                                                 </p>
                                               </div>
-                                              <div className="mb-4 mt-4 h-[4rem] w-[4rem] rounded-full bg-white md:mb-8 md:h-[6rem] md:w-[6rem]"></div>
+                                              <div className="mb-4 mt-4 h-[2rem] w-[2rem] sm:h-[4rem] sm:w-[4rem] rounded-full bg-white md:mb-8 md:h-[6rem] md:w-[6rem]"></div>
                                               <div className="text-center text-[14px] md:text-[16px]">
                                                 <p>Total Receivable</p>
                                                 <p>
@@ -116,14 +116,14 @@ const Transfer = ({setAmount, amount, selectedUser, setAddNote}:{
                                           <div className="flex flex-col items-center justify-center">
                                             <input
                                               placeholder="Add Note"
-                                              className="rounded-[10px] border-none bg-[#38F68F] bg-opacity-25 px-4 py-1 text-center text-[20px] text-white outline-none md:text-[24px]"
+                                              className="rounded-[10px] mt-3 border-none bg-[#38F68F] bg-opacity-25 px-4 py-1 text-center text-[20px] text-white outline-none md:text-[24px]"
                                               type="text"
                                               onChange={(e) => {
                                                 setAddNote(e.target.value);
                                               }}
                                             />
                                             <button
-                                              className="mt-8 w-full max-w-[300px] rounded-[10px] bg-[#38F68F] py-3 text-center text-[24px] font-[600] text-black md:mt-12 md:text-[28px]"
+                                              className="mt-8 w-full max-w-[300px] rounded-[10px] bg-[#38F68F] py-3 text-center text-[16px] sm:text-[24px] font-[600] text-black md:mt-12 md:text-[28px]"
                                               onClick={() =>
                                                 handleCoinTransfer(amount ?? 0, selectedUser ?? "", session?.user.id ?? "")
                                               }
