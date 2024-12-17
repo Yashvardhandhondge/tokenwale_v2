@@ -7,6 +7,26 @@ body {
   background: #121212;
 }
 
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
 .coin-bg {
   background-image: url('/backgrounds/coins-bg.png');
   background-size: cover;
@@ -96,8 +116,8 @@ body {
     conic-gradient(from -90deg at bottom var(--b) right var(--b), var(--_g)) 100% 100% / var(--_p);
 
   /*Irrelevant code*/
-  width: 200px;
-  height: 100px;
+  /* width: 200px;
+  height: 100px; */
   box-sizing: border-box;
   margin: 5px;
   display: inline-flex;

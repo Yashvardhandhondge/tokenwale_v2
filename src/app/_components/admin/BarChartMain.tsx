@@ -6,6 +6,8 @@ import { Card, CardContent } from "@/components/ui/card";
 
 import React from 'react'
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
+import { api } from "@/trpc/react";
+import { formatFirestoreTimestamp } from "@/utils/random";
 
 const BarChartMain = () => {
     const chartConfig = {
@@ -15,25 +17,20 @@ const BarChartMain = () => {
         },
       } satisfies ChartConfig;
 
-      const chartData = [
-        { time: "10.12 am", token: 186 },
-        { time: "11 am", token: 305 },
-        { time: "12 pm", token: 237 },
-        { time: "1 pm", token: 73 },
-        { time: "2 pm", token: 209 },
-        { time: "3 pm", token: 21 },
-        { time: "4 pm", token: 204 },
-        { time: "5 pm", token: 234 },
-        { time: "6 pm", token: 74 },
-        { time: "7 pm", token: 94 },
-        { time: "8 pm", token: 35 },
-        { time: "9 pm", token: 305 },
-      ]
+      const {data:txns} = api.txn.getLatestTxn.useQuery({limit: 7})
+      
+      const newChartData = txns?.map(txn => ({
+          time:  formatFirestoreTimestamp(
+            txn.timestamp,
+          )?.time,
+          token: txn.amount
+        })).reverse()
   return (
     <div>
          <Card
               style={{
-                width: "100%",
+                width: "800px",
+                // height:"300px",
                 backgroundColor: "transparent",
                 border: "none",
               }}
@@ -45,9 +42,9 @@ const BarChartMain = () => {
                 <ChartContainer config={chartConfig}>
                   <BarChart
                     accessibilityLayer
-                    data={chartData}
+                    data={newChartData}
                     margin={{ top: 20, right: 0, bottom: 0, left: 0 }}
-                    height={360}
+                    height={200}
                     style={{ width: "100%" }}
                   >
                     <XAxis

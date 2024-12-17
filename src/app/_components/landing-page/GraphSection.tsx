@@ -90,8 +90,8 @@ export const GraphSection = () => {
         <div className='relative w-full md:w-[30%] flex justify-center'>
           <Image src="/backgrounds/hero-green-card.png" width={1000} height={1000} className='w-full h-full object-cover' alt="card" />
           <div className='absolute inset-0 flex justify-center items-center flex-col px-8'>
-            <h1 className='text-2xl lg:text-4xl font-bold text-[#38F68F]'>PLAY TO EARN INCENTIVE PROGRAM</h1>
-            <p className='text-[16px] mt-12 text-[#A7B0AF]'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque culpa hic labore obcaecati.</p>
+            <h1 className=' text-[1.1rem] sm:text-2xl lg:text-4xl font-bold text-[#38F68F]'>PLAY TO EARN INCENTIVE PROGRAM</h1>
+            <p className='text-[0.9rem] sm:text-[16px] mt-4 sm:mt-12 text-[#A7B0AF]'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque culpa hic labore obcaecati.</p>
           </div>
         </div>
         <div className='w-full md:w-auto'>
@@ -99,8 +99,8 @@ export const GraphSection = () => {
         </div>
       </div>
       <div className='flex flex-col w-3/4 md:flex-row gap-12 justify-center items-center'>
-        <div className='md:w-[60%] w-[150%] h-auto bg-[#202020] pt-8 flex'>
-          <div className="w-3/4">
+        <div className='md:w-[60%] w-[150%] h-auto bg-[#202020] pt-8 sm:flex'>
+          <div className="sm:w-3/4">
             <Card style={{ backgroundColor: "#202020", border: "none" }}>
               <CardContent>
                 <ChartContainer config={chartConfig}>
@@ -124,11 +124,11 @@ export const GraphSection = () => {
                       cursor={false}
                       content={<ChartTooltipContent hideLabel />}
                     />
-                    {visibleLines.has('burnt') && (
+                    {/* {visibleLines.has('burnt') && (
                       <Line
                         dataKey="burnt"
                         type="linear"
-                        stroke="var(--color-burnt)"
+                        stroke="red"
                         strokeWidth={2}
                         dot={false}
                       />
@@ -141,62 +141,81 @@ export const GraphSection = () => {
                         strokeWidth={2}
                         dot={false}
                       />
-                    )}
+                    )} */}
                     {visibleLines.has('available') && (
                       <Line
                         dataKey="available"
                         type="linear"
-                        stroke="var(--color-available)"
+                        stroke="yellow"
                         strokeWidth={2}
                         dot={false}
                       />
                     )}
+                    { (
+                      <Line
+                        dataKey="burnt"
+                        type="linear"
+                        stroke="red"
+                        strokeWidth={2}
+                        dot={false}
+                      />
+                    )}
+                    {(
+                      <Line
+                        dataKey="mined"
+                        type="linear"
+                        stroke="var(--color-mined)"
+                        strokeWidth={2}
+                        dot={false}
+                      />
+                    )}
+                    
                   </LineChart>
                 </ChartContainer>
               </CardContent>
             </Card>
           </div>
-          <div className="w-1/4 flex flex-col justify-center items-start gap-8">
+          <div className="sm:w-1/4 flex sm:flex-col justify-center max-sm:pl-3 max-sm:pb-3 sm:items-start gap-4 sm:gap-8">
             <div className="flex gap-2 justify-center items-center">
               <button
-                className="h-[2rem] w-[2rem] rounded-md bg-[#38F68F]"
+                className="w-[1.5rem] h-[1.5rem] sm:h-[2rem] sm:w-[2rem] rounded-md bg-[#38F68F]"
                 onClick={() => handleButtonClick("/backgrounds/hero-green-card.png", {
                   title: "TOKENS MINED",
                   mined: `TOKENS MINED: ${data && data.length > 0 ? data[data.length - 1]?.mined ?? 'N/A' : 'N/A'} TOKENS`,
                   color: '38F68F'
                 }, ['mined'])}
               ></button>
-              <p className="text-[#38F68F] md:text-[14px] text-[12px]">TOKENS MINED</p>
+              <p className="text-[#38F68F] md:text-[14px] text-[10px]">TOKENS MINED</p>
             </div>
             <div className="flex gap-2 justify-center items-center">
               <button
-                className="h-[2rem] w-[2rem] rounded-md bg-[#EF1818]"
+                className="w-[1.5rem] h-[1.5rem] sm:h-[2rem] sm:w-[2rem] rounded-md bg-[#EF1818]"
                 onClick={() => handleButtonClick("/backgrounds/hero-red-card.png", {
                   title: "BURNT TOKENS",
                   burnt: `BURNT TOKENS: ${data && data.length > 0 ? data[data.length - 1]?.burnt : 'N/A'} TOKENS`,
                   color: 'EF1818'
                 }, ['burnt'])}
               ></button>
-              <p className="text-[#EF1818] md:text-[14px] text-[12px]">BURNT TOKENS</p>
+              <p className="text-[#EF1818] md:text-[14px] text-[10px]">BURNT TOKENS</p>
             </div>
             <div className="flex gap-2 justify-center items-center">
               <button
-                className="h-[2rem] w-[2rem] rounded-md bg-[#FFF500]"
+                className="w-[1.5rem] h-[1.5rem] sm:h-[2rem] sm:w-[2rem] rounded-md bg-[#FFF500]"
                 onClick={() => handleButtonClick("/backgrounds/hero-yello-card.png", {
                   title: "TOKENS AVAILABLE",
                   available: `TOKENS AVAILABLE: ${data && data.length > 0 ? data[data.length - 1]?.available ?? 'N/A' : 'N/A'}`,
                   color: 'FFF500'
                 }, ['available'])}
               ></button>
-              <p className="text-[#FFF500] text-[12px]">TOKENS AVAILABLE</p>
+              <p className="text-[#FFF500] md:text-[14px] text-[10px]">TOKENS AVAILABLE</p>
             </div>
           </div>
         </div>
         <div className='relative w-full md:w-[30%] flex justify-center'>
           <Image width={1000} height={1000} src={bgImage} className='w-full h-full object-cover' alt="card" />
           <div className='absolute inset-0 flex justify-center gap-6 items-start flex-col px-8'>
-            <h1 className={`text-2xl lg:text-4xl font-bold text-[#${textContent.color}]`}>{textContent.title}</h1>
-            {textContent.mined && <p className='md:text-[16px] text-[12px] mt-8 text-white'>{textContent.mined}</p>}
+            <h1 className={`sm:text-2xl lg:text-4xl font-bold text-[#${textContent.color}]`}>{textContent.title}</h1>
+            {textContent.mined && <p className='md:text-[16px] text-[12px]   sm:mt-8 text-white'>{textContent.mined}</p>}
             {textContent.available && <p className='md:text-[16px] text-[12px] text-white'>{textContent.available}</p>}
             {textContent.burnt && <p className='md:text-[16px] text-[12px] text-white'>{textContent.burnt}</p>}
           </div>

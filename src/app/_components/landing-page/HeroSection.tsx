@@ -54,7 +54,7 @@ export const HeroSection = async () => {
         </span>
       </div>
       <img
-        className="absolute right-0 -mt-10 h-60 w-auto md:-mt-48 md:h-auto md:w-auto"
+        className="absolute right-0 -mt-10 h-48 sm:h-60 w-auto md:-mt-48 md:h-auto md:w-auto"
         src="/backgrounds/coin.png"
         alt=""
       />
@@ -66,21 +66,22 @@ export const HeroSection = async () => {
           <p className="text-[16px] font-[500] text-[#A6A6A6] sm:text-[24px] md:text-[32px] lg:text-[48px]">
             Tokens left
           </p>
-          <p className="text-[12px] tracking-widest text-white sm:text-[16px] md:text-[20px] lg:text-[24px]">
+          <p className="text-[0.6rem] tracking-widest text-white sm:text-[16px] md:text-[20px] lg:text-[24px]">
             Grab the tokens before its too late
           </p>
-          <div className="mt-8 flex w-2/3 flex-row items-center justify-between gap-8 text-[#38F68F] md:flex-row">
+          <div className="mt-8 flex sm:w-2/3 flex-row items-center justify-between gap-2 sm:gap-8 text-[#38F68F] md:flex-row">
             <div className="flex flex-col justify-end">
-              <span className="flex gap-2 text-[12px] md:text-[20px]">
+              <span className="flex gap-1 sm:gap-2 text-[12px] md:text-[20px]">
                 <Image
                   width={18}
                   height={18}
                   src={"/icons/generate-dash-icon.svg"}
                   alt={""}
+                  className="max-sm:w-3"
                 />
                 <p>TOKENS mined</p>
               </span>
-              <p className="ml-6 text-[20px] text-white md:text-[30px]">
+              <p className="ml-5 sm:ml-6 text-[18px] text-white md:text-[30px]">
                 {(TOTAL__TOKEN - remainingToken).toLocaleString()}
               </p>
             </div>
@@ -91,10 +92,11 @@ export const HeroSection = async () => {
                   height={18}
                   src={"/icons/generate-dash-icon.svg"}
                   alt={""}
+                  className="max-sm:w-3"
                 />
                 <p>BURNT TOKENS</p>
               </span>
-              <p className="ml-6 text-[20px] text-white md:text-[30px]">
+              <p className="ml-6 text-[18px] text-white md:text-[30px]">
                 {burnt.toLocaleString()}
               </p>
             </div>

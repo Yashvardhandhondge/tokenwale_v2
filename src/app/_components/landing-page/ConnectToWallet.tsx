@@ -6,9 +6,9 @@ import React from 'react';
 export const ConnectToWallet = () => {
   const router = useRouter();
   return (
-    <section className='w-full md:h-[70vh] h-[50vh] flex flex-col items-center'>
+    <section className='w-full md:h-[70vh] h-[50vh] flex flex-col items-center overflow-hidden'>
       <Image
-        className='absolute left-0 md:-mt-20 -mt-10 w-1/4 md:w-[16%]'
+        className='absolute left-0 md:-mt-20 -mt-12 sm:-mt-10 w-1/4 md:w-[16%]'
         src="/backgrounds/connect-coin-1.png"
         width={1000}
         height={1000}
@@ -33,7 +33,7 @@ export const ConnectToWallet = () => {
         height={1000} 
       />
       <Image
-        className='absolute right-0 mt-32 w-1/4 md:w-[20%] lg:w-[16%]'
+        className='absolute -right-0 sm:right-0 mt-44 sm:mt-32 w-[20%] md:w-[20%] lg:w-[16%]'
         src="/backgrounds/connect-coin-2.png"
         alt="Connect Coin 2"
         width={1000}

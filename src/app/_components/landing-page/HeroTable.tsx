@@ -4,6 +4,7 @@ import { formatFirestoreTimestamp, userName } from "@/utils/random";
 import type { Timestamp } from "firebase/firestore";
 import Link from "next/link";
 import React from "react";
+import "../../../styles/globals.css"
 interface Transaction {
   from: string;
   to: string;
@@ -34,7 +35,7 @@ export const HeroTable = () => {
         </p> */}
       </div>
       <div className="flex flex-col">
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto ">
           {isLoading ? (
             <div className="flex h-[400px] items-center justify-center">
               <Spinner />

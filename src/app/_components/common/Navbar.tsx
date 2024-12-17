@@ -7,7 +7,7 @@ import Link from 'next/link'
 import ScanDialog from "./QrScannerPopup";
 import { ScanQrCode } from "lucide-react";
 
-export const Navbar = ({ toggleSidebar,handleSearch }: { toggleSidebar?: () => void, handleSearch?: (userId: string) => void }) => {
+export const Navbar = ({ toggleSidebar,handleSearch, setAddNote }: { toggleSidebar?: () => void, handleSearch?: (userId: string) => void, setAddNote?: (note:string) => void }) => {
   const { data:session, status } = useSession();
   const router = useRouter();
 
@@ -17,11 +17,11 @@ export const Navbar = ({ toggleSidebar,handleSearch }: { toggleSidebar?: () => v
   };
 
   return (
-    <nav className='flex flex-row h-[72px] w-full items-center justify-between text-white bg-black pl-4 sm:pl-8 md:pl-12 fixed z-20'>
+    <nav className='flex flex-row h-[72px] w-full items-center justify-between text-white bg-black pl-2 sm:pl-4 md:pl-12 fixed z-20'>
       <div className='flex flex-row justify-center items-center gap-2'>
         
       <Link href="/">
-        <Image width={100} height={100} 
+        <Image width={50} height={50} 
           onClick={() => { router.push('/') }} 
           src="/logos/tokenwale-logo.svg" 
           alt="Tokenwale Logo" 
@@ -52,11 +52,11 @@ export const Navbar = ({ toggleSidebar,handleSearch }: { toggleSidebar?: () => v
             </div>
         }
         <span className="flex gap-2 sm:gap-8">
-          <button className="text-[10px] font-semibold tracking-widest text-white sm:text-base hover:text-gray-300 transition-colors duration-200">
+          <button className="text-[0.5rem] font-semibold tracking-widest text-white sm:text-base hover:text-gray-300 transition-colors duration-200">
             REWARDS
           </button>
           <button
-            className="text-[10px] font-semibold tracking-widest text-white sm:text-base hover:text-gray-300 transition-colors duration-200"
+            className="text-[0.5rem] font-semibold tracking-widest text-white sm:text-base hover:text-gray-300 transition-colors duration-200"
             onClick={handleRulesClick}
           >
             RULES
@@ -73,16 +73,16 @@ export const Navbar = ({ toggleSidebar,handleSearch }: { toggleSidebar?: () => v
                 className="cursor-pointer hover:scale-105 transition-transform duration-200"
                 onClick={() => { router.push('/dashboard') }}
               />
-              {handleSearch && <ScanDialog id={session.user.id}  handleSearch={handleSearch} scanIcon={<ScanQrCode  color='#38F68F' size={24} />} />}  
+              {handleSearch && setAddNote && <ScanDialog setAddNote={setAddNote} id={session.user.id}  handleSearch={handleSearch} scanIcon={<ScanQrCode  color='#38F68F' size={24} />} />}  
             </div> :
             <Link href="/auth/new-wallet" >
-            <div className='flex flex-row items-center justify-between h-full bg-[#38F68F] px-4 sm:px-6 md:px-8 py-7 sm:py-6 cursor-pointer hover:bg-[#2dcf70] transition-colors duration-200'>
+            <div className='flex flex-row items-center justify-between h-full bg-[#38F68F] px-3 sm:px-6 md:px-8 py-7 sm:py-6 cursor-pointer hover:bg-[#2dcf70] transition-colors duration-200'>
               <button 
-                className='flex-1  text-black m-0 font-semibold tracking-widest text-xs sm:text-sm md:text-base' 
+                className='flex-1  text-black m-0 font-semibold text-[0.7rem] sm:text-sm md:text-base' 
               >
                 CONNECT TO WALLET
               </button>
-              <Image width={100} height={100} src="/logos/arrow.svg" alt="Arrow" className=' w-5 mx-2 h-4 sm:h-5 ' />
+              <Image width={100} height={100} src="/logos/arrow.svg" alt="Arrow" className=' w-4 mx-2 h-4 sm:h-5 ' />
             </div>
             </Link>
         }

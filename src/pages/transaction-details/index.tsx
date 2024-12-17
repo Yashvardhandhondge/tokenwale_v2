@@ -82,7 +82,7 @@ const Index = () => {
 
   return (
     <section>
-      <Navbar />
+      {/* <Navbar /> */}
       <div className="flex flex-col bg-[#121212] px-16 py-24">
         <div className="rounded-lg bg-[#1c1c1c] p-12">
           <div className="flex w-full flex-col md:w-3/4">

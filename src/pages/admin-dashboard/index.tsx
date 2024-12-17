@@ -39,7 +39,8 @@ const quickLinks = [
 const AdminDashboard = () => {
   return (
     <div className='bg-gradient-to-br from-[#38f68e67] via-[] to-[#2d2d2d]'>
-         <Navbar toggleSidebar={()=>{
+         <Navbar setAddNote={(text)=>console.log(text)
+         } toggleSidebar={()=>{
             console.log("Print");
             
          }} handleSearch={(userId) => {console.log(userId);

@@ -1,84 +1,40 @@
-import { Dialog, DialogTitle, DialogHeader, DialogContent, DialogDescription, DialogTrigger } from '@/components/ui/dialog'
-import { ScanQrCode, Search } from 'lucide-react'
-import Image from 'next/image'
-import React, { useEffect } from 'react'
-import ScanDialog from './QrScannerPopup'
-import { getAmountAfterTxnCost } from '@/utils/random'
-import PaginatedUserList from './PagedUserList'
-import { useSession } from 'next-auth/react'
+import { api } from '@/trpc/react';
+import { getAmountAfterTxnCost } from '@/utils/random';
+import { userName } from '@/utils/random';
+import { useSession } from 'next-auth/react';
+import React, { ChangeEvent } from 'react'
 
-  const  MobileNav = ({handleSearch, userId, userIds, handleSelectUser, setAmount, qrUserId, selectedUser, addNote, handleCoinTransfer, amount, setAddNote, setSelectedUser}: {handleSearch:  (userId: string) => void, userId: string, userIds: string[], handleSelectUser: (userId: string) => void, setAmount: (amount: number) => void, qrUserId: string, selectedUser: string | null, addNote: string, handleCoinTransfer: (amount: number, selectedUser: string, from: string) => void, amount: number | null, setAddNote: (note: string) => void, setSelectedUser: (userId: string) => void}) => {
-  
-    const {data: session} = useSession()
-
-    useEffect(()=>{
-      console.log(session);
-      
-    },[session])
-  
+const Transfer = ({setAmount, amount, selectedUser, setAddNote}:{
+    setAmount:(amount: number) => void;
+    qrUserId?: string,
+    amount: number,
+    selectedUser:string,
+    
+      setAddNote:(note: string) => void;
+}) => {
+    const {data:session} = useSession() 
+    const { mutate: send } = api.txn.send.useMutation({
+        onSuccess: (data) => {
+          console.log("Success");
+        },
+      });   
+    const handleCoinTransfer = (amount: number, selectedUser: string, from: string) => {
+        if (amount < 100) {
+          alert("please transfer tokens more than 100");
+          return;
+        }
+        if(from == selectedUser){
+          alert("you can't transfer tokens to yourself");
+          return;
+        }
+        if (selectedUser) {
+          // send({ to: selectedUser, amt: Number(amount), note: addNote });
+          send({ to: selectedUser, amt: Number(amount) });
+        }
+      };
   return (
-    <div className='flex flex-row items-center justify-between p-4'>
-        <Image
-            src="/logos/tokenwale-logo.svg"
-            alt="Logo"
-            width={43}
-            height={43}
-        />
-        <div className='flex flex-row items-center justify-between gap-4'>
-            <Dialog
-                      onOpenChange={(e) =>
-                        e === false ? handleSearch("") : null
-                      }
-                    >
-                      <DialogTrigger asChild>
-                      <Search onClick={() => handleSearch(userId)} color='white' size={24} />
-               
-                      </DialogTrigger>
-                      <DialogContent className="h-[90vh] w-screen border-0 bg-[#262626ED] p-10 text-white md:w-screen md:max-w-fit md:p-16">
-                        <DialogHeader>
-                          <DialogTitle className="flex justify-between text-[30px] text-white md:text-[30px]">
-                            <p>Transfer Tokens</p>
-                            <ScanDialog setAddNote={setAddNote} id={qrUserId} handleSearch={handleSearch} />
-                          </DialogTitle>
-                          <div className="relative w-full">
-                            <input
-                              type="number"
-                              placeholder="Recent"
-                              onChange={(e) => handleSearch(e.target.value)}
-                              className="w-full border-b-[1px] border-[#38F68F] bg-[#232323] px-4 py-1 pr-12  text-white outline-none"
-                            />
-                            <button className="rounded-[0 12px 12px 0] absolute right-0 top-0 h-full px-4 text-black">
-                              <Image
-                                alt=""
-                                height={18}
-                                width={18}
-                                src="/icons/search-icon.svg"
-                              />
-                            </button>
-                          </div>
-                          <DialogDescription className="flex w-full flex-col justify-center px-4 md:w-[100vh] md:flex-row">
-                            <div className="flex w-full flex-col">
-                              {/* {userIds.map((userId, index) => (
-                                <div
-                                  key={index}
-                                  className="flex w-full flex-row items-center justify-between gap-4"
-                                >
-                                  <span className="mt-4 flex w-full items-center gap-2 rounded-[12px] py-3 text-start text-white">
-                                    <p className="h-[2rem] w-[2rem] rounded-full bg-white text-[12px] md:text-[18px]"></p>
-                                    {userName(userId)}
-                                  </span>
-                                  <Dialog>
-                                    <DialogTrigger asChild>
-                                      <button
-                                        className="mt-4 w-full max-w-[250px] rounded-[10px] bg-[#2DC574] py-3 text-center text-[18px] text-black md:w-[250px] md:text-[20px]"
-                                        onClick={() => handleSelectUser(userId)}
-                                      >
-                                        Transfer now
-                                      </button>
-                                    </DialogTrigger>
-                                    <DialogContent className="h-[90vh] w-full border-0 bg-[#262626ED] text-white md:w-screen md:max-w-fit">
-                                      <DialogHeader>
-                                        <DialogDescription className="flex max-h-[80vh] w-full flex-col justify-center overflow-y-auto px-4 py-40 md:max-h-full md:w-[100vh] md:py-0">
+    <div>
+        <div className="flex max-h-[80vh] w-full flex-col justify-center overflow-y-auto px-4 py-40 md:max-h-full md:w-[100vh] md:py-0">
                                           <div className="mt-10 flex flex-row items-center justify-center gap-4 md:mt-20">
                                             <p className="text-[12px] uppercase text-white md:text-[20px]">
                                               Enter Amount :
@@ -109,7 +65,7 @@ import { useSession } from 'next-auth/react'
                                               <div className="text-center text-[14px] md:text-[16px]">
                                                 <p>From</p>
                                                 <p>
-                                                  {userName(qrUserId) ?? ""}
+                                                  {userName(session?.user.id || "") ?? ""}
                                                 </p>
                                               </div>
                                               <div className="mb-4 mt-4 h-[4rem] w-[4rem] rounded-full bg-white md:mb-8 md:h-[6rem] md:w-[6rem]"></div>
@@ -169,29 +125,15 @@ import { useSession } from 'next-auth/react'
                                             <button
                                               className="mt-8 w-full max-w-[300px] rounded-[10px] bg-[#38F68F] py-3 text-center text-[24px] font-[600] text-black md:mt-12 md:text-[28px]"
                                               onClick={() =>
-                                                handleCoinTransfer(amount ?? 0)
+                                                handleCoinTransfer(amount ?? 0, selectedUser ?? "", session?.user.id ?? "")
                                               }
                                             >
                                               Transfer Now
                                             </button>
                                           </div>
-                                        </DialogDescription>
-                                      </DialogHeader>
-                                    </DialogContent>
-                                  </Dialog>
-                                </div>
-                              ))} */}
-                              <PaginatedUserList   userIds={userIds} handleSelectUser={handleSelectUser} handleCoinTransfer={handleCoinTransfer} getAmountAfterTxnCost={getAmountAfterTxnCost} setAddNote={setAddNote} qrUserId={qrUserId} selectedUser={selectedUser ?? ""} amount={amount ?? 0 } setAmount={setAmount} setSelectedUser={setSelectedUser} />
-                            </div>
-                          </DialogDescription>
-                        </DialogHeader>
-                      </DialogContent>
-            </Dialog>
-
-           <ScanDialog setAddNote={setAddNote} id={session?.user.id}  handleSearch={handleSearch} scanIcon={<ScanQrCode  color='white' size={24} />} />
-        </div>
+                                        </div>
     </div>
   )
 }
 
-export default MobileNav
+export default Transfer
