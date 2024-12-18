@@ -286,7 +286,7 @@ const index = () => {
           </button>
         </div>
         <div className="flex w-full justify-center md:w-1/2 md:items-start">
-          <div className={"relative w-[70vw] md:w-[30vw] h-full flex flex-col justify-center"}>
+          <div className={"relative max-md:mt-3 w-[70vw] md:w-[30vw] h-full flex flex-col justify-center"}>
             <Image
               height={1000}
               width={1000}
