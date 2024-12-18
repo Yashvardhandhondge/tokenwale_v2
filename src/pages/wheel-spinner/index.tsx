@@ -105,9 +105,40 @@ const index = () => {
     getSpinStatus();
   }, [getSpinStatus]);
 
+
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  useEffect(() => {
+    const canvas = canvasRef.current;
+
+    if (!canvas) return;
+
+    const adjustCanvasSize = () => {
+      const parent = canvas.parentElement;
+      if (!parent) return;
+
+      const parentStyles = window.getComputedStyle(parent);
+      const parentWidth = parseFloat(parentStyles.width);
+      const parentHeight = parseFloat(parentStyles.height);
+
+      // Update the canvas resolution
+      canvas.width = parentWidth;
+      canvas.height = parentHeight;
+    };
+
+    // Adjust canvas size initially and on resize
+    adjustCanvasSize();
+    window.addEventListener("resize", adjustCanvasSize);
+
+    // Cleanup on unmount
+    return () => {
+      window.removeEventListener("resize", adjustCanvasSize);
+    };
+  }, []);
+
   // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
     if (canvasRef.current) {
+      
       const chart = new Chart(canvasRef.current, {
         plugins: [ChartDataLabels],
         type: "pie",
@@ -255,25 +286,34 @@ const index = () => {
           </button>
         </div>
         <div className="flex w-full justify-center md:w-1/2 md:items-start">
-          <div className={styles.wheelContainer}>
+          <div className={"relative w-[70vw] md:w-[30vw] h-full flex flex-col justify-center"}>
             <Image
+              height={1000}
+              width={1000}
+              src={"/backgrounds/wheel-ring-bg.png"}
+              className={`z-90 img absolute w-full aspect-square ${styles.backgroundImageSpinner}`}
+              // style={{ zIndex: "999 !important" }}
+              alt={""}
+            />
+            {/* <Image
               height={100}
               width={1000}
               src={"/backgrounds/wheel-ring-bg.png"}
               className={`z-90 img absolute h-[18.5rem] w-[18.5rem] sm:h-[29rem] sm:w-[29rem] md:h-[29rem] md:w-[29rem] ${styles.backgroundImageSpinner}`}
               // style={{ zIndex: "999 !important" }}
               alt={""}
-            />
+            /> */}
             <Image
               height={1000}
               width={1000}
               src={"/backgrounds/red-dot.png"}
-              className={`z-90 absolute top-[46%] md:top-[47%] h-[10rem] w-[10rem] md:h-[1.8rem] md:w-[1.8rem] md:left-[48%] ${styles.backgroundImage}`}
+              className={`z-90 absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] ${styles.backgroundImage}`}
               // style={{ zIndex: "999 !important" }}
               alt={""}
             />
-            <canvas ref={canvasRef} className={`h-[10rem] w-[10rem] md:h-[1.8rem] md:w-[1.8rem] ${styles.spinWheel}`}></canvas>
-            <div className={styles.stopper}></div>
+            <canvas height={1000} width={1000}  ref={canvasRef} className={`w-full h-full ${styles.spinWheel}`}></canvas>
+            {/* <canvas ref={canvasRef} className={`h-[10rem] w-[10rem] md:h-[1.8rem] md:w-[1.8rem] ${styles.spinWheel}`}></canvas> */}
+            {/* <div className={styles.stopper}></div> */}
           </div>
         </div>
         <Dialog open={wonDialogOpen} onOpenChange={handleCloseDialog}>

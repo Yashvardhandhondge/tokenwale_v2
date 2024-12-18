@@ -149,7 +149,7 @@ const ScratchCard = () => {
     <section className='w-full '>
       <Navbar />
       <div className='w-full h-[80dvh] md:h-[100dvh] flex flex-row'>
-      <img src="/icons/back_arrow_white.svg" onClick={()=>router.push('/dashboard')} className="absolute left-[3%] top-[10%] md:left-[2%] z-40 cursor-pointer h-10 w-10" alt={"back_icon"}/>
+      <img src="/icons/back_arrow_white.svg" onClick={()=>router.push('/dashboard')} className="absolute left-[3%] top-[10%] md:left-[2%] z-40 cursor-pointer w-7 h-7 sm:h-10 sm:w-10" alt={"back_icon"}/>
         <div className='w-[45%] scratch-card-bg md:flex hidden flex-col justify-end items-start text-[48px] text-white'>
           <div className='bg-black bg-opacity-20 shadow-lg backdrop-blur-md border-white border-opacity-30 w-full py-8 px-12'>
             <p>Scratch & Win</p>
@@ -162,7 +162,7 @@ const ScratchCard = () => {
                 {isValuePending ? 
                 <p className="absolute left-[25%] bottom-[11%] text-black py-[10px] font-bold text-[12px]">loading</p>
                 :
-                <h3 className="absolute left-[25%] bottom-[11%] text-black font-bold text-[32px] sm:text-[44px]">{prizeValue}</h3>
+                <h3 className="absolute left-[25%] bottom-[11%] text-black font-bold text-[22px] lg:text-[44px]">{prizeValue}</h3>
                 }
               </div>
               <canvas
