@@ -112,7 +112,10 @@ const FilterModal: React.FC = () => {
               </div>
               <Calendar
                 selected={selectedDates}
-                onSelect={(days) => {}}
+                onSelect={(days) => {
+                  console.log(days);
+                  
+                }}
                 onDayClick={(date: Date) => handleDateClick(date)}
                 mode="multiple"
                 classNames={{
