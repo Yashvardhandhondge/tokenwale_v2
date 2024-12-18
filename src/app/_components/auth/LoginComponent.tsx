@@ -58,7 +58,7 @@ export const LoginComponent = () => {
   };
 
   return (
-    <div className="green-gradient-bg flex h-[80vh] w-full flex-col items-center justify-center px-4 md:px-0">
+    <div className="green-gradient-bg sm:pt-16 flex h-[80vh] w-full flex-col items-center justify-center px-4 md:px-0">
       <div className="w-full rounded-[20px] border-2 border-green-500 md:w-auto md:rounded-[59px]">
         <div className="create-wallet-card-gradient flex h-full min-h-[500px] w-full flex-col items-center justify-center rounded-[20px] px-4 md:w-[767px] md:rounded-[59px] md:px-0 md:py-8">
         <span>

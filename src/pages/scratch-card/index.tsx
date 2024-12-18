@@ -162,7 +162,7 @@ const ScratchCard = () => {
                 {isValuePending ? 
                 <p className="absolute left-[25%] bottom-[11%] text-black py-[10px] font-bold text-[12px]">loading</p>
                 :
-                <h3 className="absolute left-[25%] bottom-[11%] text-black font-bold text-[44px]">{prizeValue}</h3>
+                <h3 className="absolute left-[25%] bottom-[11%] text-black font-bold text-[32px] sm:text-[44px]">{prizeValue}</h3>
                 }
               </div>
               <canvas

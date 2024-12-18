@@ -1,0 +1,33 @@
+/* Custom styles for the calendar */
+.calendar-custom {
+    --tw-bg-opacity: 1;
+    background-color: rgba(0, 0, 0, var(--tw-bg-opacity)); /* Black background */
+    color: white; /* Default text color */
+    border-radius: 0.5rem; /* Rounded corners */
+    padding: 1rem;
+  }
+  
+  /* Style for selected dates */
+  .calendar-custom .selected-date {
+    background-color: #38f68f; /* Green background for selected dates */
+    color: black; /* Black text for contrast */
+    border-radius: 0.25rem; /* Rounded for better appearance */
+  }
+  
+  /* Hover effect for dates */
+  .calendar-custom .day:hover {
+    background-color: #3a3a3a; /* Dark gray for hover */
+    color: white; /* Text remains white */
+  }
+  
+  /* Style for today’s date */
+  .calendar-custom .today {
+    border: 2px solid #38f68f; /* Highlight today with green border */
+    border-radius: 50%;
+  }
+  
+  .rdp-root{
+        --rdp-accent-color: indigo; /* Change the accent color to indigo. */
+        --rdp-accent-background-color: #f0f0f0; /* Change the accent background color. */
+        /* Add more CSS variables here. */
+  }

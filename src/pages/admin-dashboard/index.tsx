@@ -59,10 +59,10 @@ const AdminDashboard = () => {
                                     <Link key={index} href={link.url}>
                                         <div className='p-4 flex flex-col items-center gap-2'>
                                         <link.icon color='#38f68e' size={32} />
-                                        <p className=' text-white text-center'>
+                                            <p className=' text-white text-center'>
                                             {link.name}
-                                        </p>
-                                    </div>
+                                            </p>
+                                        </div>
                                     </Link>
                                 )
                             })

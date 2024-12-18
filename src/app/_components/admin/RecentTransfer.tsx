@@ -5,6 +5,8 @@ import React, { useEffect, useState } from 'react'
 import { Button } from '@/components/ui/button';
 import { Timestamp } from 'firebase/firestore';
 import { useSession } from 'next-auth/react';
+import { Download } from 'lucide-react';
+import FilterModal from '@/app/_components/admin/FilterModal';
 
 const RecentTransfer = () => {
     const [currentPage, setCurrentPage] = useState(1)
@@ -72,6 +74,13 @@ const RecentTransfer = () => {
           <div className="flex max-h-[500px] mt-10 w-full flex-col items-center justify-center md:w-full">
             <div className="flex w-full  flex-row justify-between gap-12 pb-6">
               <p>Recent Transfers</p>
+              <div className='flex gap-2'>
+                <FilterModal />
+                <Button className='bg-[#38f68f] text-black flex items-center hover:bg-[#38f68fdd]'>
+                  <Download size={18} />
+                  <p className='mx-1'>Export to CSV</p>
+                </Button>
+              </div>
             </div>
             <div className='flex justify-start w-full gap-2'>
                 <Button className={`${transfers == 'global' ? "bg-[#38f28f] text-black hover:bg-[#38f68faa]":"bg-transparent text-white" }`} onClick={()=>{

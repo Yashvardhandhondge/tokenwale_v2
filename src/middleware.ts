@@ -10,7 +10,7 @@ export async function middleware(request: NextRequest) {
   const isAuthPage = request.nextUrl.pathname.startsWith("/auth");
   const isAdmin = token?.role == 'Super Admin' || token?.role == 'Admin'
 
-  console.log("isAdmin", isAdmin);
+  console.log("isAdmin", isAdmin, request.nextUrl.pathname);
   
   
   if (isAuthPage) {
@@ -21,11 +21,14 @@ export async function middleware(request: NextRequest) {
     return null;
   }
 
-  if(isAdmin){
+  if(isAdmin && request.nextUrl.pathname == '/dashboard'){
     return NextResponse.redirect(new URL("/admin-dashboard", request.url));
+  }
+  if(!isAdmin && request.nextUrl.pathname == '/admin-dashboard'){
+    return NextResponse.redirect(new URL("/dashboard", request.url));
   }
 }
 
 export const config = {
-  matcher: ["/auth/:path*","/dashboard"],
+  matcher: ["/auth/:path*","/dashboard","/admin-dashboard"],
 };
