@@ -9,6 +9,7 @@ import { userName } from "@/utils/random";
 import { useState } from "react";
 import type { ChangeEvent } from "react";
 import Transfer from "./Transfer";
+import Image from "next/image";
 
 const PaginatedUserList = ({
   userIds,
@@ -86,6 +87,7 @@ const PaginatedUserList = ({
               </DialogHeader>
             </DialogContent>
           </Dialog>
+            
         </div>
       ))}
       {/* Pagination Controls */}

@@ -4,6 +4,7 @@ import { userRouter } from "./routers/user";
 import { txnRouter } from "./routers/txn";
 import { globalRouter } from "./routers/global";
 import { otpRouter } from "./routers/otp";
+import { adminRouter } from "./routers/admin";
 
 /**
  * This is the primary router for your server.
@@ -15,7 +16,8 @@ export const appRouter = createTRPCRouter({
   user: userRouter,
   txn: txnRouter,
   global: globalRouter,
-  otp: otpRouter
+  otp: otpRouter,
+  admin: adminRouter
 });
 
 // export type definition of API

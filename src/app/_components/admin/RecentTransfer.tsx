@@ -21,6 +21,7 @@ const RecentTransfer = () => {
         to: string;
     }[]>([])
 
+    
     const {data:session} = useSession()
 
     const {
@@ -28,7 +29,7 @@ const RecentTransfer = () => {
         fetchNextPage,
         hasNextPage,
         hasPreviousPage,
-      } = api.txn.getLatestTxnByUserIdInf.useInfiniteQuery(
+      } = api.txn.getLatestTxnBurntInf.useInfiniteQuery(
         {
           limit: rows,
         },
@@ -37,7 +38,18 @@ const RecentTransfer = () => {
           getPreviousPageParam: (prev) => prev.lastVisible,
         },
       );
-
+      const {
+        data: all,
+        fetchNextPage:fetchNextAllUsers
+      } = api.admin.getAllUsers.useInfiniteQuery(
+        {
+          limit: 23,
+        },
+        {
+          getNextPageParam: (last) => last.lastVisible,
+          getPreviousPageParam: (prev) => prev.lastVisible,
+        },
+      );
       
 
       useEffect(()=>{
@@ -58,6 +70,11 @@ const RecentTransfer = () => {
         }
       }, [txn, transfers, currentPage])
 
+
+      useEffect(()=>{
+        console.log(all);
+      },[])
+
       const handleNextPage = async () => {
         await fetchNextPage();
         setCurrentPage((prev) => prev + 1);
@@ -76,7 +93,9 @@ const RecentTransfer = () => {
               <p>Recent Transfers</p>
               <div className='flex gap-2'>
                 <FilterModal />
-                <Button className='bg-[#38f68f] text-black flex items-center hover:bg-[#38f68fdd]'>
+                <Button onClick={()=>{
+                  fetchNextAllUsers()
+                }} className='bg-[#38f68f] text-black flex items-center hover:bg-[#38f68fdd]'>
                   <Download size={18} />
                   <p className='mx-1'>Export to CSV</p>
                 </Button>

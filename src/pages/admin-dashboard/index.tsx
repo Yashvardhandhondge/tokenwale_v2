@@ -5,7 +5,9 @@ import { BadgePercent, Ban, CreditCard, Settings, User } from 'lucide-react'
 import Link from 'next/link'
 import RecentTransfer from '@/app/_components/admin/RecentTransfer'
 import BarChartMain from '@/app/_components/admin/BarChartMain'
-
+import { Button } from '@/components/ui/button'
+import { signOut } from 'next-auth/react'
+import { useRouter } from 'next/router'
 const quickLinks = [
     {
         name: "Generate & Send",
@@ -36,7 +38,17 @@ const quickLinks = [
 ]
 
 
+
 const AdminDashboard = () => {
+    const router = useRouter()
+    const handleLogout = async () => {
+        try {
+          await signOut({ redirect: false });
+          await router.push("/");
+        } catch (error) {
+          console.error("Error during logout:", error);
+        }
+      };
   return (
     <div className='bg-gradient-to-br from-[#38f68e67] via-[] to-[#2d2d2d]'>
          <Navbar setAddNote={(text)=>console.log(text)
@@ -46,6 +58,7 @@ const AdminDashboard = () => {
          }} handleSearch={(userId) => {console.log(userId);
          }} />
          <div className='pt-20'>
+         <Button onClick={handleLogout}>Logout</Button>
             <div className='grid grid-cols-3 p-3'>
                 <div className='dashboard-card-bg p-3 text-white rounded-xl backdrop-blur-xl col-span-2'>
                     <BarChartMain />

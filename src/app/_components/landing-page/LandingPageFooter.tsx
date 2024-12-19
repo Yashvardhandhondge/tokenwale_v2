@@ -18,12 +18,12 @@ export const LandingPageFooter = () => {
       </div>
       <div className="flex w-full flex-wrap justify-center gap-8 py-16 sm:gap-16 md:flex-row md:justify-start">
         {images.map(({ src, alt }, index) => (
-          <span className="box w-24 h-24 sm:h-24 sm:w-24 p-2 md:h-44 md:w-44" key={index}>
+          <span className="box w-12 h-12 sm:h-24 sm:w-24 p-2 md:h-44 md:w-44" key={index}>
             <span
               key={index}
               className="flex w-10 h-10 sm:h-20 sm:w-20 cursor-pointer items-center justify-center bg-[#1a1b19] md:h-40 md:w-40 hover:scale-105 transition-transform duration-200"
             >
-              <Image width={1000} height={1000} src={src} alt={alt} />
+              <Image width={1000} height={1000} src={src} alt={alt}  />
             </span>
           </span>
         ))}

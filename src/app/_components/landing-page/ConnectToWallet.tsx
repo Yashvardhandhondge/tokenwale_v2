@@ -8,14 +8,14 @@ export const ConnectToWallet = () => {
   return (
     <section className='w-full md:h-[70vh] h-[50vh] flex flex-col items-center overflow-hidden'>
       <Image
-        className='absolute left-0 md:-mt-20 -mt-12 sm:-mt-10 w-1/4 md:w-[16%]'
+        className='absolute left-0  -mt-12 min-[450px]:-mt-32  sm:-mt-16  md:-mt-20 w-1/4 lg:w-[16%]'
         src="/backgrounds/connect-coin-1.png"
         width={1000}
         height={1000}
         alt="Connect Coin 1"
       />
       <div className='md:h-[476px] h-[276px] bg-[#38F68F] w-full flex justify-center items-center flex-col'>
-        <p className='uppercase text-[24px] md:text-[64px] w-11/12 md:w-2/3 text-center font-[700] text-[#19231E]'>
+        <p className='uppercase text-[24px] lg:text-[64px] w-11/12 min-[600px]:w-1/2 md:w-2/3 text-center font-[700] text-[#19231E]'>
           Want to play and earn without any cash?
         </p>
         <button

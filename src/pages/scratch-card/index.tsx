@@ -155,19 +155,19 @@ const ScratchCard = () => {
             <p>Scratch & Win</p>
           </div>
         </div>
-        <div className=' md:w-[55%] h-full min-h-screen bg-black pb-12'>
+        <div className='w-full md:w-[55%] h-full min-h-screen bg-black pb-12'>
           <div className="flex flex-col justify-end h-[85%] items-end text-white pt-20 md:pt-20 pl-16 pr-6">
             <div className={`${styles.container}`}>
-              <div className={styles.base}>
+              <div className={`${styles.base} h-[100px] w-[100px] md:h-[350px] md:w-[350px]`} >
                 {isValuePending ? 
                 <p className="absolute left-[25%] bottom-[11%] text-black py-[10px] font-bold text-[12px]">loading</p>
                 :
-                <h3 className="absolute left-[25%] bottom-[11%] text-black font-bold text-[22px] lg:text-[44px]">{prizeValue}</h3>
+                <h3 className="absolute left-[25%] bottom-[11%] text-black font-bold text-[28px] lg:text-[44px] lg:bottom-[8%]">{prizeValue}</h3>
                 }
               </div>
               <canvas
                 id="scratch"
-                className={`h-[100px] w-[100px] md:h-[350px] md:w-[350px] ${styles.scratch}`}
+                className={`h-[100px]  w-[100px] md:h-[350px] md:w-[350px] ${styles.scratch}`}
               ></canvas>
               {!canScratch &&
               <p className="uppercase text-black absolute top-[35%] -left-[115px] md:-left-[172px] w-[230px] md:w-[21.5rem] text-center bg-white py-2">unlocks after 24hrs</p>

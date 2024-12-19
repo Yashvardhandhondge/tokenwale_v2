@@ -17,7 +17,7 @@ export const Navbar = ({ toggleSidebar,handleSearch, setAddNote }: { toggleSideb
   };
 
   return (
-    <nav className='flex flex-row h-[72px] w-full items-center justify-between text-white bg-black pl-2 sm:pl-4 md:pl-12 fixed z-20'>
+    <nav className='flex flex-row h-[72px] w-full items-center justify-between text-white bg-black pl-2 sm:pl-4 md:pl-4 fixed z-20'>
       <div className='flex flex-row justify-center items-center gap-2'>
         
       <Link href="/">

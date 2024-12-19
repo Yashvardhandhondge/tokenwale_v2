@@ -177,6 +177,7 @@ export const globalRouter = createTRPCRouter({
       to: receiverRef,
       type: T2U,
       timestamp: firestore.FieldValue.serverTimestamp(),
+      task: "SPIN THE WHEEL"
     });
     await receiverRef.update({
       balance: receiverBalance + winningValue,
@@ -254,6 +255,7 @@ export const globalRouter = createTRPCRouter({
       to: receiverRef,
       type: T2U,
       timestamp: firestore.FieldValue.serverTimestamp(),
+      task: "SCRATCH THE CARD"
     });
     await receiverRef.update({
       balance: receiverBalance + winningValue,

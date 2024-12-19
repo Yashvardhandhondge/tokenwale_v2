@@ -32,6 +32,8 @@ export const ProfileSidebar = ({
   const [isEmailOtpVisible, setIsEmailOtpVisible] = useState(false);
   const [isPhoneOtpVerified, setIsPhoneOtpVerified] = useState(false);
   const [isEmailOtpVerified, setIsEmailOtpVerified] = useState(false);
+  const [oldMobile, setOldMobile] = useState<string | null>(null)
+  const [oldEmail, setOldEmail] = useState<string | null>(null)
   const router = useRouter();
   const [userId, setUserId] = useLocalStorage<string>("userId", "");
   const [tempUserId, setTempUserId] = useState("");
@@ -192,7 +194,9 @@ const handleOtpKeyDownEmail = (e: React.KeyboardEvent<HTMLInputElement>, index: 
       setGender(userDetails.gender);
       setAdress(userDetails.address);
       setEmail(userDetails.email);
+      setOldEmail(userDetails.email)
       setPhone(userDetails.phone);
+      setOldMobile(userDetails.phone)
       formik.setValues({
         fullName: userDetails.name || "",
         phoneNumber: userDetails.phone || "",
@@ -211,18 +215,35 @@ const handleOtpKeyDownEmail = (e: React.KeyboardEvent<HTMLInputElement>, index: 
     }
   }, [userDetails]);
 
-  useEffect(() => {
-    if (debouceFullName === undefined) return;
-    (async () => {
-      updateUserDetails({ key: "name", value: debouceFullName });
-    })();
-  }, [debouceFullName, updateUserDetails]);
-  useEffect(() => {
-    if (debouceAderess === undefined) return;
-    (async () => {
-      updateUserDetails({ key: "address", value: debouceAderess });
-    })();
-  }, [debouceAderess, updateUserDetails]);
+
+  useEffect(()=>{
+    if(oldMobile && oldMobile != "" && formik.values.phoneNumber == oldMobile){
+      setIsPhoneOtpVerified(true)
+    }else{
+      setIsPhoneOtpVerified(false)
+    }
+  },[formik.values.phoneNumber])
+
+  useEffect(()=>{
+    if(oldEmail && oldEmail != "" && formik.values.emailAddress == oldEmail){
+      setIsEmailOtpVerified(true)
+    }else{
+      setIsEmailOtpVerified(false)
+    }
+  },[formik.values.emailAddress])
+
+  // useEffect(() => {
+  //   if (debouceFullName === undefined) return;
+  //   (async () => {
+  //     updateUserDetails({ key: "name", value: debouceFullName });
+  //   })();
+  // }, [debouceFullName, updateUserDetails]);
+  // useEffect(() => {
+  //   if (debouceAderess === undefined) return;
+  //   (async () => {
+  //     updateUserDetails({ key: "address", value: debouceAderess });
+  //   })();
+  // }, [debouceAderess, updateUserDetails]);
 
   const verfyOtpMobile = (otp: string) => {
     try {
@@ -282,6 +303,10 @@ const handleOtpKeyDownEmail = (e: React.KeyboardEvent<HTMLInputElement>, index: 
       reader.readAsDataURL(file);
     }
   };
+
+  
+
+
   if (status === "loading") {
     return <p>Loading...</p>;
   }
@@ -303,22 +328,35 @@ const handleOtpKeyDownEmail = (e: React.KeyboardEvent<HTMLInputElement>, index: 
   const handleGenderChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     console.log(event.target.value);
     setGender(event.target.value);
-    updateUserDetails({ key: "gender", value: event.target.value });
+    // updateUserDetails({ key: "gender", value: event.target.value });
   };
+
+  const handleSave = async () => {
+    try{
+       updateUserDetails({key:"name", value:debouceFullName})
+       updateUserDetails({key:"gender", value:gender})
+       updateUserDetails({key:"address", value:debouceAderess})
+       closeSidebar()
+    }catch(err){
+      console.log(err);
+    }
+  }
+
+
 
   return (
     <div
-      className={`dashboard-card-bg fixed right-0 top-0 h-full border-[0.5px] border-[#676767] pt-[44px] transition-transform duration-300 ease-in-out ${
+      className={`dashboard-card-bg fixed top-12 right-0  h-[100%]  border-[0.5px] border-[#676767]  transition-transform duration-300 ease-in-out ${
         isSidebarOpen ? "translate-x-0" : "translate-x-full"
       } w-full bg-opacity-20 shadow-lg backdrop-blur-lg md:w-[60%] lg:w-[45%]`}
     >
       <div className="flex h-full flex-col overflow-y-auto p-2 md:p-8">
-        <div className="flex w-full justify-end pt-4 md:pt-4">
+        <div className="flex w-full justify-end ">
           <button className="text-[24px] text-[#38F68F]" onClick={closeSidebar}>
             X
           </button>
         </div>
-        <div className="flex gap-2 p-4 text-[20px] md:p-8">
+        <div className="flex gap-2 p-4 text-[20px] md:p-4">
           <div className="relative flex items-end justify-end rounded-full">
             <Image
               width={60}
@@ -356,16 +394,14 @@ const handleOtpKeyDownEmail = (e: React.KeyboardEvent<HTMLInputElement>, index: 
           </div>
           <div className="flex flex-col items-start justify-center">
             <p className="uppercase text-white">{userName(tempUserId)}</p>
-            <p className="text-[14px] uppercase text-[#676767]">
-              {formik.values.address.length > 20
-                ? formik.values.address.slice(0, 20) + "..."
-                : formik.values.address}
+            <p className="text-[12px] uppercase text-[#38f68f]">
+            Complete every input of your profile to receive +1 token  🎉
             </p>
           </div>
         </div>
         <form
           onSubmit={formik.handleSubmit}
-          className="flex flex-col items-center justify-center gap-4 px-2 py-10 md:px-12"
+          className="flex flex-col items-center justify-center gap-4 px-2 py-8 md:px-12"
         >
           <div className=" w-full items-center justify-between gap-4 text-white grid grid-cols-2">
             <label>FULL NAME:</label>
@@ -530,6 +566,14 @@ const handleOtpKeyDownEmail = (e: React.KeyboardEvent<HTMLInputElement>, index: 
               </option>
             </select>
           </div>
+          <div className="w-full flex justify-end">
+          <button
+              onClick={() => handleSave()}
+              className="rounded-[10px] bg-[#38f68f] text-sm px-4 py-2 font-semibold text-[#000000]"
+            >
+              Save
+            </button>
+          </div>
           <div className="mt-8 flex h-full w-full flex-col items-end justify-between text-[16px]">
             {/* <button
                   type="submit"
@@ -539,7 +583,7 @@ const handleOtpKeyDownEmail = (e: React.KeyboardEvent<HTMLInputElement>, index: 
                 </button> */}
             <button
               onClick={() => handleLogout()}
-              className="mt-12 rounded-[10px] border-[2px] border-[#FF5757] px-4 py-2 font-semibold text-[#FF5757]"
+              className="mt-8 rounded-[10px] border-[2px] border-[#FF5757] px-4 py-2 font-semibold text-[#FF5757]"
             >
               Logout
             </button>

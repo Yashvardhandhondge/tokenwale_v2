@@ -47,6 +47,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import TokensCount from "@/app/_components/common/TokensCount";
 import PaginatedUserList from "@/app/_components/common/PagedUserList";
+import MiningHistoryModal from "@/app/_components/common/MiningHistoryModal";
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function TokenChartTooltipContent(props: TooltipProps<any, any>) {
   const { payload, label } = props;
@@ -321,7 +322,7 @@ export default function Dashboard() {
         />
         <div className="flex flex-col gap-8 p-4 mb-16">
           <CarouselAds />
-          <div className="grid grid-cols-2 gap-8">
+          <div className="grid grid-cols-2 gap-4">
             <div className="dashboard-card-bg flex h-[150px] w-full flex-col justify-between rounded-xl border-[1px] border-[#2D2D2D] p-4 md:w-2/5 overflow-hidden">
               <p className="mb-2 text-xs sm:text-md sm:mb-4  text-white">
                 Available tokens
@@ -502,12 +503,12 @@ export default function Dashboard() {
                       </DialogContent>
                     </Dialog>
                   </div>
-                  <div className="flex w-full md:flex-row md:justify-between mb-18">
+                  <div className="flex w-full items-center md:flex-row md:justify-between mb-18">
                     <div className="flex w-full items-center gap-2 text-white px-3">
-                      <label>Show rows:</label>
+                      <label className="text-[12px] sm:text-md">Show rows:</label>
                       <select
                         name="page_number"
-                        className="rounded-[10px]  border-none bg-[#38F68F] bg-opacity-25 px-2 sm:px-4 py-1 text-white outline-none"
+                        className="rounded-[10px] text-[12px] sm:text-md border-none bg-[#38F68F] bg-opacity-25 px-2 sm:px-4 py-1 text-white outline-none"
                         onChange={(e) => {
                           setCurrentPage(1);
                           setRows(e.target.value ? Number(e.target.value) : 10);
@@ -528,13 +529,13 @@ export default function Dashboard() {
                       <button
                         onClick={handlePrevPage}
                         disabled={currentPage === 1}
-                        className="cursor-pointer rounded px-4 py-2 text-white hover:bg-gray-800"
+                        className="cursor-pointer rounded px-2 sm:px-4 sm:py-2 text-white hover:bg-gray-800"
                       >
                         &lt;
                       </button>
                       <div className="flex gap-2">
                         <button
-                          className={`rounded px-4 py-2 text-green-500`}
+                          className={`rounded px-4 sm:py-2 text-green-500`}
                           disabled={true}
                         >
                           {currentPage}
@@ -542,7 +543,7 @@ export default function Dashboard() {
                       </div>
                       <button
                         onClick={handleNextPage}
-                        className="cursor-pointer rounded px-4 py-2 text-white hover:bg-gray-800"
+                        className="cursor-pointer rounded px-2 sm:px-4 sm:py-2 text-white hover:bg-gray-800"
                       >
                         &gt;
                       </button>
@@ -557,14 +558,14 @@ export default function Dashboard() {
             <div className="flex w-full gap-1 justify-center">
               <Link
                 href="/wheel-spinner"
-                className="bg-gray-800 text-[#2DC574] text-sm text-center flex-1 sm:w-[200px] md:w-[250px] lg:w-[300px] m-2 py-5 rounded-xl"
+                className="bg-gray-800 text-[#2DC574] text-[12px] text-center flex-1 sm:w-[200px] md:w-[250px] lg:w-[300px] m-2 py-5 rounded-xl"
               >
                 Spin The Wheel
               </Link>
 
               <Link
                 href="/scratch-card"
-                className="bg-gray-800 text-[#2DC574] text-sm text-center flex-1 sm:w-[200px] md:w-[250px] lg:w-[300px] m-2 py-5 rounded-xl"
+                className="bg-gray-800 text-[#2DC574] text-[12px] text-center flex-1 sm:w-[200px] md:w-[250px] lg:w-[300px] m-2 py-5 rounded-xl"
               >
                 Scratch the Card
               </Link>
@@ -574,7 +575,7 @@ export default function Dashboard() {
               onOpenChange={(e) => (e === false ? handleSearch("") : null)}
             >
               <DialogTrigger asChild>
-                <Button className="bg-[#38F68F] rounded-full w-16 h-16 absolute -top-5 left-[50%] translate-x-[-50%]">
+                <Button className="bg-[#38F68F] rounded-full w-14 h-14 min-[500px]:w-16 min-[500px]:h-16  absolute -top-6 min-[500px]:-top-5 left-[50%] translate-x-[-50%]">
                   <Image
                     width={32}
                     height={32}
@@ -727,7 +728,7 @@ export default function Dashboard() {
                       alt=""
                       className="absolute -z-40 top-0 left-0 cursor-pointer"
                     />
-                    <DialogDescription className="flex h-full w-full items-start justify-center px-4 md:w-[100vh]">
+                    <DialogDescription className="ml-12 mt-4 flex h-full w-full items-start justify-center px-4 md:w-[100vh]">
                       <div className="item-center relative flex w-full justify-center text-[12px] md:w-1/2 md:text-[16px]">
                         <input
                           onChange={(e) => {
@@ -758,62 +759,7 @@ export default function Dashboard() {
             <div className="dashboard-card-bg flex h-[210px] w-full flex-col rounded-xl border-[1px] border-[#2D2D2D] p-8 md:w-3/5">
               <div className="flex justify-between">
                 <p className="mb-4">Mining History</p>
-                <Dialog>
-                  <DialogTrigger asChild>
-                    <button className="mb-4 text-[#38F68F]">See all</button>
-                  </DialogTrigger>
-                  <DialogContent className="h-[90vh] border-0 bg-[#262626ED] text-white md:w-screen md:max-w-fit md:p-16">
-                    <DialogHeader>
-                      <DialogTitle className="mb-12 flex justify-between text-[16px] text-white md:text-[24px]">
-                        Mining History
-                      </DialogTitle>
-                      <DialogDescription className="flex w-full flex-col justify-center px-4 md:w-[100vh]">
-                        <div className="flex w-full flex-row items-center justify-center border-b-[1px] border-[#38F68F]">
-                          <div className="flex w-1/2 flex-col items-center justify-center">
-                            <p className="mb-4 text-[14px] font-bold text-[#7E7E8B] md:text-[16px]">
-                              Tokens Mined
-                            </p>
-                          </div>
-                          {/* <div className="flex w-1/2 flex-col items-center justify-center">
-                            <p className="mb-4 text-[14px] font-bold text-[#7E7E8B] md:text-[16px]">
-                              Task
-                            </p>
-                          </div> */}
-                          <div className="flex w-1/2 flex-col items-center justify-center">
-                            <p className="mb-4 text-[14px] font-bold text-[#7E7E8B] md:text-[16px]">
-                              Date & Time
-                            </p>
-                          </div>
-                        </div>
-                        <div className="max-h-[28rem] overflow-auto">
-                          {allTxn?.map((transaction, index) => (
-                            <div
-                              key={index}
-                              className="flex w-full flex-row items-center justify-center gap-4"
-                            >
-                              <div className="tems-center w-1/2 justify-center">
-                                <p className="mt-4 w-full rounded-[12px] py-3 text-center text-[12px] text-white md:text-[16px]">
-                                  {transaction.amount}
-                                </p>
-                              </div>
-                              {/* <div className="tems-center w-1/2 justify-center">
-                                <p className="mt-4 w-full rounded-[12px] py-3 text-center text-[12px] text-white md:text-[16px]">
-                                {transaction.task}
-                                </p>
-                              </div> */}
-                              <div className="w-1/2 items-center justify-center">
-                                <p className="mt-4 w-full rounded-[12px] py-3 text-center text-[12px] text-white md:text-[16px]">
-                                  {/* {transaction.time} */}
-                                  {transaction.timestamp?.date}
-                                </p>
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      </DialogDescription>
-                    </DialogHeader>
-                  </DialogContent>
-                </Dialog>
+                <MiningHistoryModal  />
               </div>
               <Card style={{ backgroundColor: "transparent", border: "none" }}>
                 <CardContent>
@@ -960,13 +906,120 @@ export default function Dashboard() {
                       </tbody>
                     </table>
                   </div>
-                  <div className="mt-8 flex w-full justify-end px-4 py-4 text-[16px]">
+                  <div className="mt-2 flex w-full justify-end px-4 py-4 text-[16px]">
+                    
+                    <Dialog
+                      open={wonDialogOpen}
+                      onOpenChange={setWonDialogOpen}
+                    >
+                      <DialogContent className="h-[90vh] w-screen border-0 bg-[#262626ED] text-white md:w-screen md:max-w-fit">
+                        <DialogHeader>
+                          <DialogDescription className="flex h-full w-full flex-col items-center justify-center px-4 md:w-[100vh]">
+                            <div className="flex w-full items-center justify-center text-[40px] font-semibold text-white">
+                              <Image
+                                width={120}
+                                height={120}
+                                src="/icons/correct-icon.png"
+                                className=""
+                                alt="img"
+                              />
+                            </div>
+                            <div className="mt-12 flex w-full items-center justify-center text-[40px] font-bold text-[#38F68F] md:mt-20">
+                              <p>{amount ?? 0} Tokens!</p>
+                              <p className="text-2xl">
+                                Transfered to {userName(selectedUser ?? "")}{" "}
+                                successfully.
+                              </p>
+                              <p className="text-[16px]">
+                                {new Date().toLocaleString()}
+                              </p>
+                            </div>
+                          </DialogDescription>
+                        </DialogHeader>
+                      </DialogContent>
+                    </Dialog>
+                    <Dialog
+                      open={wonDialogOpen}
+                      onOpenChange={setWonDialogOpen}
+                    >
+                      <DialogContent className="h-[90vh] w-screen border-0 bg-[#262626ED] text-white md:w-screen md:max-w-fit">
+                        <DialogHeader>
+                          <DialogDescription className="flex h-full w-full flex-col items-center justify-center px-4 md:w-[100vh]">
+                            <div className="flex w-full items-center justify-center text-[40px] font-semibold text-white">
+                              <Image
+                                width={120}
+                                height={120}
+                                src="/icons/correct-icon.png"
+                                className=""
+                                alt="img"
+                              />
+                            </div>
+                            <div className="mt-12 flex flex-col w-full items-center justify-center text-[40px] font-bold text-[#38F68F] md:mt-20">
+                              <p>{amount ?? 0} Tokens!</p>
+                              <p className="text-2xl font-normal mt-4 text-center text-white">
+                                Transfered to {userName(selectedUser ?? "")}
+                              </p>
+                              <p className="text-[16px] mt-3 text-center text-white">
+                                {new Date().toLocaleString()}
+                              </p>
+                            </div>
+                          </DialogDescription>
+                        </DialogHeader>
+                      </DialogContent>
+                    </Dialog>
+                  </div>
+                  <div className="flex w-full flex-col md:flex-row md:justify-between">
+                    <div className="flex w-full items-center gap-2 text-white">
+                      <label>Show rows:</label>
+                      <select
+                        name="page_number"
+                        className="rounded-[10px] border-none bg-[#38F68F] bg-opacity-25 px-4 py-1 text-white outline-none"
+                        onChange={(e) => {
+                          setCurrentPage(1);
+                          setRows(e.target.value ? Number(e.target.value) : 10);
+                        }}
+                      >
+                        {numbers.map((number) => (
+                          <option
+                            key={number}
+                            className="text-black"
+                            value={number}
+                          >
+                            {number}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="mt-2 flex w-1/3 items-center justify-end gap-2">
+                      <button
+                        onClick={handlePrevPage}
+                        disabled={currentPage === 1}
+                        className="cursor-pointer rounded px-4 py-2 text-white hover:bg-gray-800"
+                      >
+                        &lt;
+                      </button>
+                      <div className="flex gap-2">
+                        <button
+                          className={`rounded px-4 py-2 text-green-500`}
+                          disabled={true}
+                        >
+                          {currentPage}
+                        </button>
+                      </div>
+                      <button
+                        onClick={handleNextPage}
+                        className="cursor-pointer rounded px-4 py-2 text-white hover:bg-gray-800"
+                      >
+                        &gt;
+                      </button>
+                    </div>
+                  </div>
                     <Dialog
                       onOpenChange={(e) =>
                         e === false ? handleSearch("") : null
                       }
                     >
-                      <DialogTrigger asChild>
+                      <DialogTrigger className="w-full flex justify-end mt-2">
                         <button className="rounded-[10px] bg-[#38F68F] px-4 py-2 text-black">
                           Transfer now
                         </button>
@@ -1139,112 +1192,6 @@ export default function Dashboard() {
                         </DialogHeader>
                       </DialogContent>
                     </Dialog>
-                    <Dialog
-                      open={wonDialogOpen}
-                      onOpenChange={setWonDialogOpen}
-                    >
-                      <DialogContent className="h-[90vh] w-screen border-0 bg-[#262626ED] text-white md:w-screen md:max-w-fit">
-                        <DialogHeader>
-                          <DialogDescription className="flex h-full w-full flex-col items-center justify-center px-4 md:w-[100vh]">
-                            <div className="flex w-full items-center justify-center text-[40px] font-semibold text-white">
-                              <Image
-                                width={120}
-                                height={120}
-                                src="/icons/correct-icon.png"
-                                className=""
-                                alt="img"
-                              />
-                            </div>
-                            <div className="mt-12 flex w-full items-center justify-center text-[40px] font-bold text-[#38F68F] md:mt-20">
-                              <p>{amount ?? 0} Tokens!</p>
-                              <p className="text-2xl">
-                                Transfered to {userName(selectedUser ?? "")}{" "}
-                                successfully.
-                              </p>
-                              <p className="text-[16px]">
-                                {new Date().toLocaleString()}
-                              </p>
-                            </div>
-                          </DialogDescription>
-                        </DialogHeader>
-                      </DialogContent>
-                    </Dialog>
-                    <Dialog
-                      open={wonDialogOpen}
-                      onOpenChange={setWonDialogOpen}
-                    >
-                      <DialogContent className="h-[90vh] w-screen border-0 bg-[#262626ED] text-white md:w-screen md:max-w-fit">
-                        <DialogHeader>
-                          <DialogDescription className="flex h-full w-full flex-col items-center justify-center px-4 md:w-[100vh]">
-                            <div className="flex w-full items-center justify-center text-[40px] font-semibold text-white">
-                              <Image
-                                width={120}
-                                height={120}
-                                src="/icons/correct-icon.png"
-                                className=""
-                                alt="img"
-                              />
-                            </div>
-                            <div className="mt-12 flex flex-col w-full items-center justify-center text-[40px] font-bold text-[#38F68F] md:mt-20">
-                              <p>{amount ?? 0} Tokens!</p>
-                              <p className="text-2xl font-normal mt-4 text-center text-white">
-                                Transfered to {userName(selectedUser ?? "")}
-                              </p>
-                              <p className="text-[16px] mt-3 text-center text-white">
-                                {new Date().toLocaleString()}
-                              </p>
-                            </div>
-                          </DialogDescription>
-                        </DialogHeader>
-                      </DialogContent>
-                    </Dialog>
-                  </div>
-                  <div className="flex w-full flex-col md:flex-row md:justify-between">
-                    <div className="flex w-full items-center gap-2 text-white">
-                      <label>Show rows:</label>
-                      <select
-                        name="page_number"
-                        className="rounded-[10px] border-none bg-[#38F68F] bg-opacity-25 px-4 py-1 text-white outline-none"
-                        onChange={(e) => {
-                          setCurrentPage(1);
-                          setRows(e.target.value ? Number(e.target.value) : 10);
-                        }}
-                      >
-                        {numbers.map((number) => (
-                          <option
-                            key={number}
-                            className="text-black"
-                            value={number}
-                          >
-                            {number}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                    <div className="mt-4 flex w-1/3 items-center justify-between">
-                      <button
-                        onClick={handlePrevPage}
-                        disabled={currentPage === 1}
-                        className="cursor-pointer rounded px-4 py-2 text-white hover:bg-gray-800"
-                      >
-                        &lt;
-                      </button>
-                      <div className="flex gap-2">
-                        <button
-                          className={`rounded px-4 py-2 text-green-500`}
-                          disabled={true}
-                        >
-                          {currentPage}
-                        </button>
-                      </div>
-                      <button
-                        onClick={handleNextPage}
-                        className="cursor-pointer rounded px-4 py-2 text-white hover:bg-gray-800"
-                      >
-                        &gt;
-                      </button>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>

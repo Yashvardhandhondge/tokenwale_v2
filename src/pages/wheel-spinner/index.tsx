@@ -317,7 +317,9 @@ const index = () => {
           </div>
         </div>
         <Dialog open={wonDialogOpen} onOpenChange={handleCloseDialog}>
-          <DialogContent className="h-[90vh] w-screen border-0 bg-[#262626ED] text-white md:w-screen md:max-w-fit">
+          <DialogContent className="h-[90vh] w-screen border-0 bg-[#262626ff] text-white md:w-screen md:max-w-fit" style={{
+            zIndex: 999
+          }}>
             {showConfetti && (
               <Confetti
                 gravity={0.1}
