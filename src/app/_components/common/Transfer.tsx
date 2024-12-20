@@ -65,7 +65,7 @@ const Transfer = ({
           </p>
           <input
             minLength={3}
-            placeholder="9.00"
+            placeholder="0.00"
             min={0}
             max={1_00_000_000}
             className="w-1/3 rounded-[10px] border-none bg-[#38F68F] bg-opacity-25 px-4 py-1 text-end text-[20px] text-white outline-none md:w-1/2 md:text-[24px]"
