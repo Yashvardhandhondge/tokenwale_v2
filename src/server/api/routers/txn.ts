@@ -237,6 +237,158 @@ export const txnRouter = createTRPCRouter({
       }
       return transactions;
     }),
+
+  getLatestTxnForUserId: protectedProcedure
+    .input(
+      z.object({
+        limit: z.number().min(1).max(100).nullish(),
+        id:z.string()
+      }),
+    )
+    .query(async ({ ctx, input }) => {
+      const limit = input.limit ?? 50;
+      const user = await ctx.db
+        .collection("users")
+        .where("userId", "==", input.id)
+        .get();
+      if (user.empty)
+        throw new TRPCError({
+          code: "UNAUTHORIZED",
+        });
+
+      const transactionsRef = ctx.db.collection("txn");
+      const query = transactionsRef
+        .where(
+          Filter.or(
+            Filter.where("to", "==", user.docs[0]?.ref),
+            Filter.where("from", "==", user.docs[0]?.ref),
+          ),
+        )
+        .orderBy("timestamp", "desc")
+        .limit(limit);
+      const snapshot = await query.get();
+      const transactions: {
+        amount: number;
+        from: string;
+        id: string;
+        timestamp: { date: string; time: string } | null;
+        to: string;
+      }[] = [];
+      for (const doc of snapshot.docs) {
+        const data = doc.data();
+        // Fetch 'from' and 'to' references
+        const fromQuery = (await data.from) as FirebaseFirestore.Query;
+        const fromDoc =
+          (await fromQuery.get()) as unknown as QueryDocumentSnapshot;
+
+        const fromData = fromDoc.data() as {
+          phrase: string;
+          userId: string;
+          password: string;
+          balance: number;
+        };
+        const toQuery = (await data.to) as FirebaseFirestore.Query;
+        const toDoc = (await toQuery.get()) as unknown as QueryDocumentSnapshot;
+
+        const toData = toDoc.data() as {
+          phrase: string;
+          userId: string;
+          password: string;
+          balance: number;
+        };
+        transactions.push({
+          id: data.id as string,
+          timestamp: formatFirestoreTimestamp(
+            data.timestamp as {
+              _seconds: number;
+              _nanoseconds: number;
+            },
+          ),
+          from: fromData.userId,
+          to: toData.userId,
+          amount: data.amount as number,
+        });
+      }
+      return transactions;
+    }),
+
+  getLatestMineTxnForUserId: protectedProcedure
+    .input(
+      z.object({
+        limit: z.number().min(1).max(100).nullish(),
+        id:z.string()
+      }),
+    )
+    .query(async ({ ctx, input }) => {
+      const limit = input.limit ?? 50;
+      const user = await ctx.db
+        .collection("users")
+        .where("userId", "==", input.id)
+        .get();
+      if (user.empty)
+        throw new TRPCError({
+          code: "UNAUTHORIZED",
+        });
+
+      const transactionsRef = ctx.db.collection("txn");
+      const query = transactionsRef
+        .where(
+          Filter.and(
+            Filter.where("type", "!=", "USER_TO_BURNT"),
+            Filter.or(
+              Filter.where("to", "==", user.docs[0]?.ref),
+              Filter.where("from", "==", user.docs[0]?.ref),
+            ),
+          )
+        )
+        .orderBy("timestamp", "desc")
+        .limit(limit);
+      const snapshot = await query.get();
+      const transactions: {
+        amount: number;
+        from: string;
+        id: string;
+        timestamp: { date: string; time: string } | null;
+        to: string;
+      }[] = [];
+      for (const doc of snapshot.docs) {
+        const data = doc.data();
+        // Fetch 'from' and 'to' references
+        const fromQuery = (await data.from) as FirebaseFirestore.Query;
+        const fromDoc =
+          (await fromQuery.get()) as unknown as QueryDocumentSnapshot;
+
+        const fromData = fromDoc.data() as {
+          phrase: string;
+          userId: string;
+          password: string;
+          balance: number;
+        };
+        const toQuery = (await data.to) as FirebaseFirestore.Query;
+        const toDoc = (await toQuery.get()) as unknown as QueryDocumentSnapshot;
+
+        const toData = toDoc.data() as {
+          phrase: string;
+          userId: string;
+          password: string;
+          balance: number;
+        };
+        transactions.push({
+          id: data.id as string,
+          timestamp: formatFirestoreTimestamp(
+            data.timestamp as {
+              _seconds: number;
+              _nanoseconds: number;
+            },
+          ),
+          from: fromData.userId,
+          to: toData.userId,
+          amount: data.amount as number,
+        });
+      }
+      return transactions;
+    }),
+
   getTxnGraphByUserId: protectedProcedure.query(async ({ ctx }) => {
     const user = await ctx.db
       .collection("users")

@@ -93,6 +93,36 @@ export const userRouter = createTRPCRouter({
       };
     return { userId, balance, name, phone, email, address, gender };
   }),
+  getUserDetailsForUserId: protectedProcedure
+  .input(z.object({
+    id:z.string()
+  }))
+  .query(async ({ ctx, input }) => {
+    const userRef = await ctx.db
+      .collection("users")
+      .where("userId", "==", input.id)
+      .get();
+    if (userRef.empty)
+      throw new TRPCError({
+        code: "NOT_FOUND",
+      });
+    const users = userRef.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+
+    const { userId, balance, name, phone, email, address, gender } =
+      users[0] as unknown as {
+        userId: string;
+        balance: number;
+        name: string;
+        phone: string;
+        email: string;
+        address: string;
+        gender: "M" | "F" | "O";
+      };
+    return { userId, balance, name, phone, email, address, gender };
+  }),
   findUserByUserId: protectedProcedure
     .input(
       z.object({ userId: z.string(), limit: z.number().min(5).default(5) }),
