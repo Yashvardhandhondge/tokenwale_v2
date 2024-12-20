@@ -115,7 +115,7 @@ const MiningHistoryModal = () => {
                   </div>
                   <div className="tems-center w-1/2 justify-center">
                     <p className="mt-4 w-full rounded-[12px] py-3 text-center text-[12px] text-white md:text-[16px]">
-                      {transaction.task ?? `From ${userName(transaction.from)}`}
+                      {transaction.task ? `${transaction.task != 'TRANSFER' ? transaction.task:`From ${userName(transaction.from)}`}`:`From ${userName(transaction.from)}`}
                     </p>
                   </div>
                   <div className="w-1/2 items-center justify-center">

@@ -198,7 +198,7 @@ export default function Dashboard() {
     setCurrentPage(pageNumber);
   };
 
-  const { data: transaction } = api.user.getUserDetailsByUserId.useQuery();
+
 
   // const userIds = ['#USER3107L2106', '#USER3107L2107', '#USER3107L2108'];
   const [activeSlide, setActiveSlide] = useState(0);
