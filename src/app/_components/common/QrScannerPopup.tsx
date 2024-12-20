@@ -36,6 +36,7 @@ const ScanDialog = ({
       const result = await QrScanner.scanImage(file);
       handleScan(result);
     } catch (error) {
+      alert("No QR Detected in Image")
       console.error("Error scanning image from gallery:", error);
       handleScan(null);
     }
