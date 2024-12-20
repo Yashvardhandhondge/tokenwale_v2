@@ -46,7 +46,7 @@ export const HeroSection = async () => {
       <div className="animate-fadeIn flex h-[50vh] items-center justify-center bg-black md:h-[100vh]">
         <span className="flex w-[80%] flex-col justify-center uppercase text-white">
           <p className="mb-4 text-[10px] text-[#38F68F] sm:text-[16px]">{`//ABOUT`}</p>
-          <p className="text-[18px] sm:text-[20px] md:text-[30px] lg:text-[40px] xl:text-[48px]">
+          <p className="text-[16px] sm:text-[20px] md:text-[30px] lg:text-[40px] xl:text-[48px]">
             Tokenwale redefines the REWARD industry. Original and renowned Web2
             SYSTEM IS transformed in play-to-earn games that unlock ownership
             and rewards for the community.
@@ -66,7 +66,7 @@ export const HeroSection = async () => {
           <p className="text-[16px] font-[500] text-[#A6A6A6] sm:text-[24px] md:text-[32px] lg:text-[48px]">
             Tokens left
           </p>
-          <p className="text-[0.6rem] tracking-widest text-white sm:text-[16px] md:text-[20px] lg:text-[24px]">
+          <p className="text-[0.6rem] text-wrap text-center px-2 tracking-widest text-white sm:text-[16px] md:text-[20px] lg:text-[24px]">
             Grab the tokens before its too late
           </p>
           <div className="mt-8 flex sm:w-2/3 flex-row items-center justify-between gap-2 sm:gap-8 text-[#38F68F] md:flex-row">

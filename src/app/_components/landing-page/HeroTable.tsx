@@ -26,7 +26,7 @@ export const HeroTable = () => {
     <section className="w-full px-4 py-4 md:px-8 lg:px-12 xl:px-20">
       <div className="mb-6 flex flex-col items-center justify-start gap-4 px-4 md:flex-row md:gap-12">
         <div className="flex items-center bg-[#38F68F] px-4 py-2">
-          <p className="text-[14px] font-semibold tracking-[0.2em] text-black md:text-[16px]">
+          <p className="text-[10px] sm:text-[14px] font-semibold tracking-[0.2em] text-black md:text-[16px]">
             GLOBAL TRANSACTION
           </p>
         </div>

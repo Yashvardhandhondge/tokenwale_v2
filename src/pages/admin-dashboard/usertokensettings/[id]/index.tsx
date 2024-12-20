@@ -2,6 +2,7 @@ import BarChartMain from "@/app/_components/admin/BarChartMain";
 import BarChartUser from "@/app/_components/admin/BarChartUser";
 import BarChartUserMine from "@/app/_components/admin/BarChartUserMine";
 import FilterModal from "@/app/_components/admin/FilterModal";
+import MiningHistoryModalUser from "@/app/_components/admin/MiningHistoryModalUser";
 import MiningHistoryModal from "@/app/_components/common/MiningHistoryModal";
 import { Navbar } from "@/app/_components/common/Navbar";
 import { Button } from "@/components/ui/button";
@@ -111,7 +112,7 @@ const UserTokenSettingsByIdPage = () => {
               </div>
             </div>
             <div className="pl-20 mt-5">
-              <MiningHistoryModal />
+              <MiningHistoryModalUser id={params.id} />
             </div>
 
             <div className="w-full flex justify-end py-3">

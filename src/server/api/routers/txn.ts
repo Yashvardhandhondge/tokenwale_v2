@@ -519,6 +519,7 @@ export const txnRouter = createTRPCRouter({
         lastVisible,
       };
     }),
+
     getLatestMineTxnByUserIdInf: protectedProcedure
     .input(
       z.object({
@@ -532,6 +533,97 @@ export const txnRouter = createTRPCRouter({
       const user = await ctx.db
         .collection("users")
         .where("userId", "==", ctx.session.user.id)
+        .get();
+      if (user.empty)
+        throw new TRPCError({
+          code: "UNAUTHORIZED",
+        });
+      const cursorDoc = input.cursor
+        ? await ctx.db.collection("txn").doc(input.cursor).get()
+        : null;
+      const transactionsRef = ctx.db.collection("txn");
+      let query = transactionsRef
+        .where(
+          Filter.and(
+            Filter.where("type", "!=", "USER_TO_BURNT"),
+            Filter.or(
+              Filter.where("to", "==", user.docs[0]?.ref),
+              Filter.where("from", "==", user.docs[0]?.ref),
+            ),
+          )
+        )
+        .orderBy("timestamp", "desc")
+        .limit(limit + 1);
+      if (cursor) {
+        query = query.startAfter(cursorDoc);
+      }
+      const snapshot = await query.get();
+      const transactions: {
+        firestoreId: string;
+        amount: number;
+        from: string;
+        id: string;
+        timestamp: Timestamp;
+        to: string;
+        task: string
+      }[] = [];
+      let lastVisible: string | null = null;
+      for (const doc of snapshot.docs) {
+        const data = doc.data();
+        // Fetch 'from' and 'to' references
+        const fromRef = data.from as FirebaseFirestore.DocumentReference;
+        const toRef = data.to as FirebaseFirestore.DocumentReference;
+        const [fromDoc, toDoc] = await Promise.all([
+          fromRef.get(),
+          toRef.get(),
+        ]);
+
+        const fromData = fromDoc.data() as {
+          phrase: string;
+          userId: string;
+          password: string;
+          balance: number;
+        };
+        const toData = toDoc.data() as {
+          phrase: string;
+          userId: string;
+          password: string;
+          balance: number;
+        };
+
+        transactions.push({
+          firestoreId: doc.id,
+          id: data.id as string,
+          timestamp: data.timestamp as Timestamp,
+          from: fromData.userId,
+          to: toData.userId,
+          amount: data.amount as number,
+          task: data.task as string
+        });
+      }
+      if (transactions.length > limit) {
+        const nextItem = transactions.pop();
+        lastVisible = nextItem?.firestoreId ?? "";
+      }
+      return {
+        transactions,
+        lastVisible,
+      };
+    }),
+    getLatestMineTxnForUserIdInf: protectedProcedure
+    .input(
+      z.object({
+        limit: z.number().min(1).max(100).nullish(),
+        cursor: z.string().min(1).nullish(),
+        id:z.string()
+      }),
+    )
+    .query(async ({ ctx, input }) => {
+      const limit = input.limit ?? 50;
+      const { cursor } = input;
+      const user = await ctx.db
+        .collection("users")
+        .where("userId", "==", input.id)
         .get();
       if (user.empty)
         throw new TRPCError({
