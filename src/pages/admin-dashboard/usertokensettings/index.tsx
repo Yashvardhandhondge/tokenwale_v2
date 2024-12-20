@@ -48,7 +48,7 @@ const UserTokenSettings = () => {
 
           <div>
             {userIds.map(userId => (
-              <div className="text-white px-8 mt-4 flex gap-4">
+              <div key={userId} className="text-white px-8 mt-4 flex gap-4">
                 <p className="text-2xl">{userName(userId)}</p>
                 <Link href={`/admin-dashboard/usertokensettings/${userId}`}>
                   <Settings color="#38f68f" size={32} />
