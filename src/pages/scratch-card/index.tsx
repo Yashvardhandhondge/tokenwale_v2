@@ -159,7 +159,7 @@ const ScratchCard = () => {
         <div className='w-full md:w-[55%] h-full min-h-screen bg-black pb-12'>
           <div className="flex flex-col justify-end h-[85%] items-end text-white pt-20 md:pt-20 pl-16 pr-6">
             <div className={`${styles.container}`}>
-              <div className={`${styles.base} h-[100px] w-[100px] md:h-[350px] md:w-[350px]`} >
+              <div className={`${styles.base} h-[150px] w-[150px] md:h-[250px] md:w-[250px] lg:h-[350px] lg:w-[350px]`} >
                 {isValuePending ? 
                 <p className="absolute left-[25%] bottom-[11%] text-black py-[10px] font-bold text-[12px]">loading</p>
                 :
@@ -168,10 +168,10 @@ const ScratchCard = () => {
               </div>
               <canvas
                 id="scratch"
-                className={`h-[100px] w-[100px] md:h-[350px] md:w-[350px] ${styles.scratch}`}
+                className={`aspect-square h-[200px] w-[200px] max-[500px]:h-[200px] max-[500px]:w-[200px] md:h-[250px] md:w-[250px] lg:h-[350px] lg:w-[350px] ${styles.scratch}`}
               ></canvas>
               {!canScratch &&
-              <p className="uppercase text-black absolute top-[35%] -left-[115px] md:-left-[172px] w-[230px] md:w-[21.5rem] text-center bg-white py-2">unlocks after 24hrs</p>
+              <p className="uppercase text-black absolute max-md:-top-5 top-[35%] -left-[100px] md:-left-[130px] lg:-left-[175px] w-[200px] md:w-[16.5rem] lg:w-[22.1rem] text-center bg-white py-2">unlocks after 24hrs</p>
               }
             </div>
               

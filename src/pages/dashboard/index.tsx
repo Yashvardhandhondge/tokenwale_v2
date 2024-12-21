@@ -48,6 +48,9 @@ import Link from "next/link";
 import TokensCount from "@/app/_components/common/TokensCount";
 import PaginatedUserList from "@/app/_components/common/PagedUserList";
 import MiningHistoryModal from "@/app/_components/common/MiningHistoryModal";
+import { XIcon } from "lucide-react";
+import RecentTransfer from "@/app/_components/admin/RecentTransfer";
+import RecentTransferCommon from "@/app/_components/common/RecentTransferCommon";
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function TokenChartTooltipContent(props: TooltipProps<any, any>) {
   const { payload, label } = props;
@@ -103,6 +106,7 @@ export default function Dashboard() {
   const [profileProgress, setProfileProgress] = useState<number>(0);
   const [addNote, setAddNote] = useState("");
   const [rows, setRows] = useState(3);
+  const [redeemModalOpen, setRedeemModalOpen] = useState(false)
   const { data: userDetails } = api.user.getUserDetailsByUserId.useQuery();
   useEffect(() => {
     if (router.isReady) {
@@ -379,180 +383,8 @@ export default function Dashboard() {
           />
         </div>
         <div className="flex flex-col gap-4 mb-40  text-white md:flex-row">
-          <div className="flex min-h-fit w-full flex-col items-center justify-center lg:w-2/3 ">
-            <div className="flex w-full flex-row justify-between gap-12 pb-6">
-              <p className="text-[20px] font-semibold px-3">Recent Transfers</p>
-              {/* <span className="flex gap-2">
-                <Image
-                  width={20}
-                  height={20}
-                  src="/icons/filter-icon.svg"
-                  alt=""
-                />
-                <p className="text-[#38F68F]">See all transfers</p>
-              </span> */}
-            </div>
-            <div className="-m-1.5 w-full">
-              <div className="inline-block min-w-full p-1.5 ">
-                <div className="overflow-hidden max-sm:max-w-[93vw]">
-                  <div className="max-w-full overflow-x-auto md:max-w-full">
-                    <table className="min-w-full h-full divide-y divide-[#38F68F]  text-[#A7B0AF]">
-                      <thead>
-                        <tr>
-                          <th
-                            scope="col"
-                            className="px-6 py-3 text-start text-[16px] font-medium uppercase text-[#A7B0AF]"
-                          >
-                            Sender ID
-                          </th>
-                          <th
-                            scope="col"
-                            className="px-6 py-3 text-start text-[16px] font-medium uppercase text-[#A7B0AF]"
-                          >
-                            Receiver ID
-                          </th>
-                          <th
-                            scope="col"
-                            className="px-6 py-3 text-start text-[16px] font-medium uppercase text-[#A7B0AF]"
-                          >
-                            Amount
-                          </th>
-                          <th
-                            scope="col"
-                            className="px-6 py-3 text-end text-[16px] font-medium uppercase text-[#A7B0AF]"
-                          >
-                            Date
-                          </th>
-                          <th
-                            scope="col"
-                            className="px-6 py-3 text-end text-[16px] font-medium uppercase text-[#A7B0AF]"
-                          >
-                            Time
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {txn?.pages[currentPage - 1]?.transactions?.map(
-                          (transaction, index) => (
-                            <tr key={index}>
-                              <td className="whitespace-nowrap px-6 py-4 text-[16px] font-medium text-white">
-                                {userName(transaction.from)}
-                              </td>
-                              <td className="whitespace-nowrap px-6 py-4 text-[16px] font-medium text-white">
-                                {userName(transaction.to)}
-                              </td>
-                              <td className="whitespace-nowrap px-6 py-4 text-[16px] text-white">
-                                {transaction.amount}
-                              </td>
-                              <td className="whitespace-nowrap px-6 py-4 text-end text-[16px] text-white">
-                                {
-                                  formatFirestoreTimestamp(
-                                    transaction.timestamp
-                                  )?.date
-                                }
-                              </td>
-                              <td className="whitespace-nowrap px-6 py-4 text-end text-[16px] text-white">
-                                {
-                                  formatFirestoreTimestamp(
-                                    transaction.timestamp
-                                  )?.time
-                                }
-                              </td>
-                            </tr>
-                          )
-                        )}
-                      </tbody>
-                    </table>
-                  </div>
-                  <div className="mt-8 flex w-full justify-end px-4 py-4 text-[16px]">
-                    <Dialog
-                      open={wonDialogOpen}
-                      onOpenChange={setWonDialogOpen}
-                    >
-                      <DialogContent className="h-[90vh] w-screen border-0 bg-[#262626ED] text-white md:w-screen md:max-w-fit">
-                        <DialogHeader>
-                          <DialogDescription className="flex h-full w-full flex-col items-center justify-center px-4 md:w-[100vh]">
-                            <div className="flex w-full items-center justify-center text-[40px] font-semibold text-white">
-                              <Image
-                                width={120}
-                                height={120}
-                                src="/icons/correct-icon.png"
-                                className=""
-                                alt="img"
-                              />
-                            </div>
-                            <div className="mt-12 flex flex-col gap-3 w-full items-center justify-center text-[40px] font-bold text-[#38F68F] md:mt-20">
-                              <p>{amount ?? 0} Tokens!</p>
-                              <p className="text-xl mt-4 text-white">
-                                Transfered to {userName(selectedUser ?? "")}{" "}
-                                successfully.
-                              </p>
-                              <p className="text-[16px] text-white">
-                                {new Intl.DateTimeFormat("en-US", {
-                                  day: "2-digit",
-                                  month: "long",
-                                  year: "numeric",
-                                  hour: "2-digit",
-                                  minute: "2-digit",
-                                  hour12: true,
-                                }).format(new Date())}
-                              </p>
-                            </div>
-                          </DialogDescription>
-                        </DialogHeader>
-                      </DialogContent>
-                    </Dialog>
-                  </div>
-                  <div className="flex w-full items-center md:flex-row md:justify-between mb-18">
-                    <div className="flex w-full items-center gap-2 text-white px-3">
-                      <label className="text-[12px] sm:text-md">Show rows:</label>
-                      <select
-                        name="page_number"
-                        className="rounded-[10px] text-[12px] sm:text-md border-none bg-[#38F68F] bg-opacity-25 px-2 sm:px-4 py-1 text-white outline-none"
-                        onChange={(e) => {
-                          setCurrentPage(1);
-                          setRows(e.target.value ? Number(e.target.value) : 10);
-                        }}
-                      >
-                        {numbers.map((number) => (
-                          <option
-                            key={number}
-                            className="text-black text-[0.6rem] sm:text-md"
-                            value={number}
-                          >
-                            {number}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                    <div className="mt-4 flex w-1/3 items-center justify-between">
-                      <button
-                        onClick={handlePrevPage}
-                        disabled={currentPage === 1}
-                        className="cursor-pointer rounded px-2 sm:px-4 sm:py-2 text-white hover:bg-gray-800"
-                      >
-                        &lt;
-                      </button>
-                      <div className="flex gap-2">
-                        <button
-                          className={`rounded px-4 sm:py-2 text-green-500`}
-                          disabled={true}
-                        >
-                          {currentPage}
-                        </button>
-                      </div>
-                      <button
-                        onClick={handleNextPage}
-                        className="cursor-pointer rounded px-2 sm:px-4 sm:py-2 text-white hover:bg-gray-800"
-                      >
-                        &gt;
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          {/* Recent code here */}
+          <RecentTransferCommon />
 
           <div className="fixed bottom-0 w-full bg-black">
             <div className="flex w-full gap-1 justify-center">
@@ -696,7 +528,7 @@ export default function Dashboard() {
                 </p>
               </div>
 
-              <Dialog>
+              <Dialog open={redeemModalOpen} onOpenChange={setRedeemModalOpen}>
                 <DialogTrigger asChild>
                   <button className="flex w-60 items-center justify-center gap-2 rounded-[10px] bg-[#38F68F] px-4 py-2 text-[12px] text-black md:w-40 md:text-[14px] lg:w-60">
                     <Image
@@ -716,9 +548,13 @@ export default function Dashboard() {
                     />
                   </button>
                 </DialogTrigger>
-                <DialogContent className="h-[70vh] p-0 border-0 bg-transparent text-white md:w-screen md:max-w-fit overflow-hidden">
-                  <div className="relative w-full h-[70vh] top-0 left-0 rounded-b-[50px] rounded-tr-[50px] bg-[#262626] bg-opacity-30 backdrop-blur-lg overflow-hidden">
-                    <DialogTitle className="z-50 mt-8 flex w-full items-center justify-center text-center text-[20px] text-white md:mt-28 md:text-[36px]">
+                <DialogContent className="[&>button]:hidden h-[70vh] p-0 border-0 bg-transparent text-white md:w-screen md:max-w-fit overflow-hidden">
+                
+                  <div className="relative w-full h-[70vh] top-0 left-0 rounded-b-[50px] rounded-tr-[50px] dashboard-card-bg bg-opacity-30 backdrop-blur-lg overflow-hidden">
+                    <DialogTitle className="z-50 text-wrap px-9 mt-8 flex w-full items-center justify-center text-center text-[20px] text-white md:mt-28 md:text-[36px]">
+                    <div className="absolute top-8 right-10 w-full flex justify-end">
+                <Button variant={"ghost"} className="hover:bg-transparent hover:text-[#fff]" onClick={()=>{setRedeemModalOpen(false)}}><XIcon size={24} /></Button>
+                </div>
                       Get extra tokens by using your premium promocode
                     </DialogTitle>
                     <Image
@@ -728,8 +564,8 @@ export default function Dashboard() {
                       alt=""
                       className="absolute -z-40 top-0 left-0 cursor-pointer"
                     />
-                    <DialogDescription className="ml-12 mt-4 flex h-full w-full items-start justify-center px-4 md:w-[100vh]">
-                      <div className="item-center relative flex w-full justify-center text-[12px] md:w-1/2 md:text-[16px]">
+                    <DialogDescription className=" absolute left-[50%] -translate-x-[50%] mt-8 flex h-full w-full items-start justify-center px-4 md:w-[100vh]">
+                      <div className="item-center relative flex w-full md:w-3/4 justify-center text-[12px]  md:text-[16px]">
                         <input
                           onChange={(e) => {
                             setRedeemCode(e.target.value);
@@ -802,400 +638,8 @@ export default function Dashboard() {
           </div>
         </div>
         <div className="flex flex-col gap-4 text-white md:flex-row mt-12">
-          <div className="flex max-h-[500px] mt-10 w-full flex-col items-center justify-center md:w-2/3">
-            <div className="flex w-full  flex-row justify-between gap-12 pb-6">
-              <p>Recent Transfers</p>
-            </div>
-            <div className="-m-1.5 w-full">
-              <div className="inline-block min-w-full p-1.5 align-middle">
-                <div className="overflow-hidden">
-                  <div className="max-w-[300px] overflow-x-auto md:max-w-full max-h-[500px] overflow-y-auto">
-                    <table className="min-w-full divide-y divide-[#38F68F] text-[#A7B0AF]">
-                      <thead className="">
-                        <tr>
-                          <th
-                            scope="col"
-                            className="px-6 py-3 text-start text-[16px] font-medium uppercase text-[#A7B0AF]"
-                          >
-                            Sender ID
-                          </th>
-                          <th
-                            scope="col"
-                            className="px-6 py-3 text-start text-[16px] font-medium uppercase text-[#A7B0AF]"
-                          >
-                            Receiver ID
-                          </th>
-                          <th
-                            scope="col"
-                            className="px-6 py-3 text-start text-[16px] font-medium uppercase text-[#A7B0AF]"
-                          >
-                            Amount
-                          </th>
-                          <th
-                            scope="col"
-                            className="px-6 py-3 text-end text-[16px] font-medium uppercase text-[#A7B0AF]"
-                          >
-                            Date
-                          </th>
-                          <th
-                            scope="col"
-                            className="px-6 py-3 text-end text-[16px] font-medium uppercase text-[#A7B0AF]"
-                          >
-                            Time
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {txn?.pages[currentPage - 1]?.transactions?.map(
-                          (transaction, index) => (
-                            <tr key={index}>
-                              <td
-                                className={`whitespace-nowrap px-6 py-4 text-[16px] font-medium  ${
-                                  userName(
-                                    transaction.from
-                                  ).toLocaleLowerCase() === "tokenwale"
-                                    ? "text-[#38F68F]"
-                                    : "text-white"
-                                }`}
-                              >
-                                {userName(transaction.from)}
-                              </td>
-                              <td
-                                className={`whitespace-nowrap px-6 py-4 text-[16px] font-medium ${
-                                  userName(
-                                    transaction.to
-                                  ).toLocaleLowerCase() === "burnt"
-                                    ? "text-red-500"
-                                    : "text-white"
-                                }`}
-                              >
-                                {userName(transaction.to)}
-                              </td>
-                              <td
-                                className={`whitespace-nowrap px-6 py-4 text-[16px] ${
-                                  userName(
-                                    transaction.from
-                                  ).toLocaleLowerCase() === "tokenwale"
-                                    ? "text-[#38F68F]"
-                                    : userName(
-                                        transaction.to
-                                      ).toLocaleLowerCase() === "burnt"
-                                    ? "text-red-500"
-                                    : "text-white"
-                                } `}
-                              >
-                                {transaction.amount}
-                              </td>
-                              <td className="whitespace-nowrap px-6 py-4 text-end text-[16px] text-white">
-                                {
-                                  formatFirestoreTimestamp(
-                                    transaction.timestamp
-                                  )?.date
-                                }
-                              </td>
-                              <td className="whitespace-nowrap px-6 py-4 text-end text-[16px] text-white">
-                                {
-                                  formatFirestoreTimestamp(
-                                    transaction.timestamp
-                                  )?.time
-                                }
-                              </td>
-                            </tr>
-                          )
-                        )}
-                      </tbody>
-                    </table>
-                  </div>
-                  <div className="mt-2 flex w-full justify-end px-4 py-4 text-[16px]">
-                    
-                    <Dialog
-                      open={wonDialogOpen}
-                      onOpenChange={setWonDialogOpen}
-                    >
-                      <DialogContent className="h-[90vh] w-screen border-0 bg-[#262626ED] text-white md:w-screen md:max-w-fit">
-                        <DialogHeader>
-                          <DialogDescription className="flex h-full w-full flex-col items-center justify-center px-4 md:w-[100vh]">
-                            <div className="flex w-full items-center justify-center text-[40px] font-semibold text-white">
-                              <Image
-                                width={120}
-                                height={120}
-                                src="/icons/correct-icon.png"
-                                className=""
-                                alt="img"
-                              />
-                            </div>
-                            <div className="mt-12 flex w-full items-center justify-center text-[40px] font-bold text-[#38F68F] md:mt-20">
-                              <p>{amount ?? 0} Tokens!</p>
-                              <p className="text-2xl">
-                                Transfered to {userName(selectedUser ?? "")}{" "}
-                                successfully.
-                              </p>
-                              <p className="text-[16px]">
-                                {new Date().toLocaleString()}
-                              </p>
-                            </div>
-                          </DialogDescription>
-                        </DialogHeader>
-                      </DialogContent>
-                    </Dialog>
-                    <Dialog
-                      open={wonDialogOpen}
-                      onOpenChange={setWonDialogOpen}
-                    >
-                      <DialogContent className="h-[90vh] w-screen border-0 bg-[#262626ED] text-white md:w-screen md:max-w-fit">
-                        <DialogHeader>
-                          <DialogDescription className="flex h-full w-full flex-col items-center justify-center px-4 md:w-[100vh]">
-                            <div className="flex w-full items-center justify-center text-[40px] font-semibold text-white">
-                              <Image
-                                width={120}
-                                height={120}
-                                src="/icons/correct-icon.png"
-                                className=""
-                                alt="img"
-                              />
-                            </div>
-                            <div className="mt-12 flex flex-col w-full items-center justify-center text-[40px] font-bold text-[#38F68F] md:mt-20">
-                              <p>{amount ?? 0} Tokens!</p>
-                              <p className="text-2xl font-normal mt-4 text-center text-white">
-                                Transfered to {userName(selectedUser ?? "")}
-                              </p>
-                              <p className="text-[16px] mt-3 text-center text-white">
-                                {new Date().toLocaleString()}
-                              </p>
-                            </div>
-                          </DialogDescription>
-                        </DialogHeader>
-                      </DialogContent>
-                    </Dialog>
-                  </div>
-                  <div className="flex w-full flex-col md:flex-row md:justify-between">
-                    <div className="flex w-full items-center gap-2 text-white">
-                      <label>Show rows:</label>
-                      <select
-                        name="page_number"
-                        className="rounded-[10px] border-none bg-[#38F68F] bg-opacity-25 px-4 py-1 text-white outline-none"
-                        onChange={(e) => {
-                          setCurrentPage(1);
-                          setRows(e.target.value ? Number(e.target.value) : 10);
-                        }}
-                      >
-                        {numbers.map((number) => (
-                          <option
-                            key={number}
-                            className="text-black"
-                            value={number}
-                          >
-                            {number}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                    <div className="mt-2 flex w-1/3 items-center justify-end gap-2">
-                      <button
-                        onClick={handlePrevPage}
-                        disabled={currentPage === 1}
-                        className="cursor-pointer rounded px-4 py-2 text-white hover:bg-gray-800"
-                      >
-                        &lt;
-                      </button>
-                      <div className="flex gap-2">
-                        <button
-                          className={`rounded px-4 py-2 text-green-500`}
-                          disabled={true}
-                        >
-                          {currentPage}
-                        </button>
-                      </div>
-                      <button
-                        onClick={handleNextPage}
-                        className="cursor-pointer rounded px-4 py-2 text-white hover:bg-gray-800"
-                      >
-                        &gt;
-                      </button>
-                    </div>
-                  </div>
-                    <Dialog
-                      onOpenChange={(e) =>
-                        e === false ? handleSearch("") : null
-                      }
-                    >
-                      <DialogTrigger className="w-full flex justify-end mt-2">
-                        <button className="rounded-[10px] bg-[#38F68F] px-4 py-2 text-black">
-                          Transfer now
-                        </button>
-                      </DialogTrigger>
-                      <DialogContent className="h-[90vh] w-screen border-0 bg-[#262626ED] p-10 text-white md:w-screen md:max-w-fit md:p-16">
-                        <DialogHeader>
-                          <DialogTitle className="flex justify-between text-[30px] text-white md:text-[30px] mb-3">
-                            <p>Transfer Tokens</p>
-                            <ScanDialog
-                              setAddNote={setAddNote}
-                              id={qrUserId}
-                              handleSearch={handleSearch}
-                            />
-                          </DialogTitle>
-                          <div className="relative w-full">
-                            <input
-                              type="number"
-                              placeholder="Recent"
-                              onChange={(e) => handleSearch(e.target.value)}
-                              className="w-full border-b-[1px] border-[#38F68F] bg-[#232323] px-4 py-1 pr-12  text-white outline-none"
-                            />
-                            <button className="rounded-[0 12px 12px 0] absolute right-0 top-0 h-full px-4 text-black">
-                              <Image
-                                alt=""
-                                height={18}
-                                width={18}
-                                src="/icons/search-icon.svg"
-                              />
-                            </button>
-                          </div>
-                          <DialogDescription className="flex w-full flex-col justify-center px-4 md:w-[100vh] md:flex-row">
-                            <div className="flex w-full flex-col">
-                              {/* {userIds.map((userId, index) => (
-                                <div
-                                  key={index}
-                                  className="flex w-full flex-row items-center justify-between gap-4"
-                                >
-                                  <span className="mt-4 flex w-full items-center gap-2 rounded-[12px] py-3 text-start text-white">
-                                    <p className="h-[2rem] w-[2rem] rounded-full bg-white text-[12px] md:text-[18px]"></p>
-                                    {userName(userId)}
-                                  </span>
-                                  <Dialog>
-                                    <DialogTrigger asChild>
-                                      <button
-                                        className="mt-4 w-full max-w-[250px] rounded-[10px] bg-[#2DC574] py-3 text-center text-[18px] text-black md:w-[250px] md:text-[20px]"
-                                        onClick={() => handleSelectUser(userId)}
-                                      >
-                                        Transfer now
-                                      </button>
-                                    </DialogTrigger>
-                                    <DialogContent className="h-[90vh] w-full border-0 bg-[#262626ED] text-white md:w-screen md:max-w-fit">
-                                      <DialogHeader>
-                                        <DialogDescription className="flex max-h-[80vh] w-full flex-col justify-center overflow-y-auto px-4 py-40 md:max-h-full md:w-[100vh] md:py-0">
-                                          <div className="mt-10 flex flex-row items-center justify-center gap-4 md:mt-20">
-                                            <p className="text-[12px] uppercase text-white md:text-[20px]">
-                                              Enter Amount :
-                                            </p>
-                                            <input
-                                              minLength={3}
-                                              placeholder="8.00"
-                                              className="w-1/3 rounded-[10px] border-none bg-[#38F68F] bg-opacity-25 px-4 py-1 text-end text-[20px] text-white outline-none md:w-1/2 md:text-[24px]"
-                                              type="number"
-                                              onChange={(
-                                                e: ChangeEvent<HTMLInputElement>,
-                                              ) => {
-                                                setAmount(
-                                                  Number(e.target.value),
-                                                );
-                                              }}
-                                            />
-                                          </div>
-                                          <div className="mt-4 flex flex-row items-center justify-center gap-4 text-white">
-                                            <p>
-                                              Transfers below 100 are not
-                                              allowed.
-                                            </p>
-                                          </div>
-
-                                          <div className="mt-8 flex w-full flex-col md:flex-row">
-                                            <div className="mb-4 flex w-full flex-col items-center justify-center text-white md:mb-0 md:w-1/3">
-                                              <div className="text-center text-[14px] md:text-[16px]">
-                                                <p>From</p>
-                                                <p>
-                                                  {userName(qrUserId) ?? ""}
-                                                </p>
-                                              </div>
-                                              <div className="mb-4 mt-4 h-[4rem] w-[4rem] rounded-full bg-white md:mb-8 md:h-[6rem] md:w-[6rem]"></div>
-                                              <div className="text-center text-[14px] md:text-[16px]">
-                                                <p>Total Sent</p>
-                                                <p>{amount ?? 0} Tokens</p>
-                                              </div>
-                                            </div>
-                                            <div className="mb-4 flex w-full items-center justify-center text-center md:mb-0 md:w-1/3">
-                                              <div className="text-[14px] md:text-[16px]">
-                                                <p className="py-2 text-[14px] uppercase text-white md:text-[16px]">
-                                                  Transaction Fees
-                                                </p>
-                                                <p className="text-[16px] font-semibold text-[#EE1818] md:text-[18px]">
-                                                  {(amount ?? 0) -
-                                                    getAmountAfterTxnCost(
-                                                      amount ?? 0,
-                                                    ) >
-                                                  0
-                                                    ? (amount ?? 0) -
-                                                      getAmountAfterTxnCost(
-                                                        amount ?? 0,
-                                                      )
-                                                    : 2}{" "}
-                                                  TOKENS
-                                                </p>
-                                              </div>
-                                            </div>
-                                            <div className="flex w-full flex-col items-center justify-center text-white md:w-1/3">
-                                              <div className="text-center text-[14px] md:text-[16px]">
-                                                <p>To</p>
-                                                <p>
-                                                  {userName(selectedUser ?? "")}
-                                                </p>
-                                              </div>
-                                              <div className="mb-4 mt-4 h-[4rem] w-[4rem] rounded-full bg-white md:mb-8 md:h-[6rem] md:w-[6rem]"></div>
-                                              <div className="text-center text-[14px] md:text-[16px]">
-                                                <p>Total Receivable</p>
-                                                <p>
-                                                  {getAmountAfterTxnCost(
-                                                    amount ?? 0,
-                                                  )}{" "}
-                                                  Tokens
-                                                </p>
-                                              </div>
-                                            </div>
-                                          </div>
-                                          <div className="flex flex-col items-center justify-center">
-                                            <input
-                                              placeholder="Add Note"
-                                              className="rounded-[10px] border-none bg-[#38F68F] bg-opacity-25 px-4 py-1 text-center text-[20px] text-white outline-none md:text-[24px]"
-                                              type="text"
-                                              onChange={(e) => {
-                                                setAddNote(e.target.value);
-                                              }}
-                                            />
-                                            <button
-                                              className="mt-8 w-full max-w-[300px] rounded-[10px] bg-[#38F68F] py-3 text-center text-[24px] font-[600] text-black md:mt-12 md:text-[28px]"
-                                              onClick={() =>
-                                                handleCoinTransfer(amount ?? 0)
-                                              }
-                                            >
-                                              Transfer Now
-                                            </button>
-                                          </div>
-                                        </DialogDescription>
-                                      </DialogHeader>
-                                    </DialogContent>
-                                  </Dialog>
-                                </div>
-                              ))} */}
-                              <PaginatedUserList
-                                userIds={userIds}
-                                handleSelectUser={handleSelectUser}
-                                handleCoinTransfer={handleCoinTransfer}
-                                getAmountAfterTxnCost={getAmountAfterTxnCost}
-                                setAddNote={setAddNote}
-                                qrUserId={qrUserId}
-                                selectedUser={selectedUser ?? ""}
-                                amount={amount ?? 0}
-                                setAmount={setAmount}
-                                setSelectedUser={setSelectedUser}
-                              />
-                            </div>
-                          </DialogDescription>
-                        </DialogHeader>
-                      </DialogContent>
-                    </Dialog>
-                </div>
-              </div>
-            </div>
-          </div>
+          {/* recent transfer */}
+          <RecentTransferCommon />
           <div
             {...handlers}
             className="dashboard-card-bg relative flex h-[500px] w-full flex-col items-center justify-center rounded-xl border-[1px] border-[#2D2D2D] md:w-1/3"

@@ -428,16 +428,20 @@ const handleOtpKeyDownEmail = (e: React.KeyboardEvent<HTMLInputElement>, index: 
           {!isPhoneOtpVerified &&
             formik.values.phoneNumber &&
             !isPhoneOtpVisible && (
+              <div className="w-full gap-4 text-white grid grid-cols-2 place-items-center">
+              <div></div>
               <button
                 type="button"
                 className="rounded-[10px] bg-[#38F68F] px-4 py-2 text-black"
                 onClick={handleGeneratePhoneOtp}
-              >
+                >
                 Generate OTP
               </button>
+              </div>
             )}
          {!isPhoneOtpVerified && isPhoneOtpVisible && (
-  <>
+  <div className="w-full gap-4 text-white grid grid-cols-2 place-items-center">
+              <div></div>
     <div className="flex w-full flex-col items-center gap-4 text-white">
       <div className="flex gap-2">
         {Array.from({ length: 6 }).map((_, index) => (
@@ -446,7 +450,7 @@ const handleOtpKeyDownEmail = (e: React.KeyboardEvent<HTMLInputElement>, index: 
             type="text"
             id={`otp-${index}`}
             maxLength={1}
-            className="h-12 w-12 rounded-[10px] border-none bg-[#38F68F] bg-opacity-25 text-center text-lg outline-none focus:ring-2 focus:ring-[#38F68F]"
+            className="h-10 w-10 rounded-[10px] border-none bg-[#38F68F] bg-opacity-25 text-center text-lg outline-none focus:ring-2 focus:ring-[#38F68F]"
             onChange={(e) => handleOtpChange(e, index)}
             onKeyDown={(e) => handleOtpKeyDown(e, index)}
           />
@@ -455,12 +459,12 @@ const handleOtpKeyDownEmail = (e: React.KeyboardEvent<HTMLInputElement>, index: 
     </div>
     <button
       type="button"
-      className="mt-4 rounded-[10px] bg-[#38F68F] px-4 py-2 text-black"
+      className="mt-1 col-start-2 rounded-[10px] bg-[#38F68F] px-4 py-2 text-black"
       onClick={() => verfyOtpMobile(otp.join(""))} // Combine the digits into a single OTP string
     >
       Submit Phone OTP
     </button>
-  </>
+  </div>
 )}
 
           <div className=" w-full items-center justify-between gap-2 text-white grid grid-cols-2">
@@ -477,6 +481,8 @@ const handleOtpKeyDownEmail = (e: React.KeyboardEvent<HTMLInputElement>, index: 
           {!isEmailOtpVerified &&
             formik.values.emailAddress &&
             !isEmailOtpVisible && (
+              <div className="w-full gap-4 text-white grid grid-cols-2 place-items-center">
+              <div></div>
               <button
                 type="button"
                 className="rounded-[10px] bg-[#38F68F] px-4 py-2 text-black"
@@ -484,6 +490,7 @@ const handleOtpKeyDownEmail = (e: React.KeyboardEvent<HTMLInputElement>, index: 
               >
                 Generate OTP
               </button>
+              </div>
             )}
           {!isEmailOtpVerified && isEmailOtpVisible && (
             // <>
@@ -506,7 +513,8 @@ const handleOtpKeyDownEmail = (e: React.KeyboardEvent<HTMLInputElement>, index: 
             //     Submit Email OTP
             //   </button>
             // </>
-            <>
+            <div className="w-full gap-4 text-white grid grid-cols-2 place-items-center">
+              <div></div>
             <div className="flex w-full flex-col items-center gap-4 text-white">
               
               <div className="flex gap-2">
@@ -516,7 +524,7 @@ const handleOtpKeyDownEmail = (e: React.KeyboardEvent<HTMLInputElement>, index: 
                     type="text"
                     id={`otp-email-${index}`}
                     maxLength={1}
-                    className="h-12 w-12 rounded-[10px] border-none bg-[#38F68F] bg-opacity-25 text-center text-lg outline-none focus:ring-2 focus:ring-[#38F68F]"
+                    className="h-10 w-10 rounded-[10px] border-none bg-[#38F68F] bg-opacity-25 text-center text-lg outline-none focus:ring-2 focus:ring-[#38F68F]"
                     onChange={(e) => handleOtpChangeEmail(e, index)}
                     onKeyDown={(e) => handleOtpKeyDownEmail(e, index)}
                   />
@@ -525,12 +533,12 @@ const handleOtpKeyDownEmail = (e: React.KeyboardEvent<HTMLInputElement>, index: 
             </div>
             <button
               type="button"
-              className="mt-4 rounded-[10px] bg-[#38F68F] px-4 py-2 text-black"
+              className="mt-1 col-start-2 rounded-[10px] bg-[#38F68F] px-4 py-2 text-black"
                 onClick={() => verfyOtpEmail(otpEmail.join(""))} // Combine the digits into a single OTP string
             >
               Submit Email OTP
             </button>
-          </>
+          </div>
           )}
           <div className=" w-full items-center justify-between gap-2 text-white grid grid-cols-2">
             <label>ADDRESS:</label>
