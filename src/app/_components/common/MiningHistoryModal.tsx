@@ -70,7 +70,7 @@ const MiningHistoryModal = () => {
   return (
     <Dialog open={open} onOpenChange={setIsOpen} >
       <DialogTrigger asChild>
-        <button className="mb-4 text-[#38F68F]">See all</button>
+        <button className=" text-[#38F68F]">See all</button>
       </DialogTrigger>
       <DialogContent  className="[&>button]:hidden h-[90vh] border-0 bg-transparent text-white md:w-screen md:max-w-fit ">
         <DialogHeader className="md:px-16 md:pt-2 md:pb-16 rounded-[50px] border border-gray-600 dashboard-card-bg bg-opacity-30 backdrop-blur-lg ">
@@ -115,7 +115,7 @@ const MiningHistoryModal = () => {
                   </div>
                   <div className="tems-center w-1/2 justify-center">
                     <p className="mt-4 w-full rounded-[12px] py-3 text-center text-[12px] text-white md:text-[16px]">
-                      {transaction.task ?? `From ${userName(transaction.from)}`}
+                      {transaction.task ? `${transaction.task != 'TRANSFER' ? transaction.task:`From ${userName(transaction.from)}`}`:`From ${userName(transaction.from)}`}
                     </p>
                   </div>
                   <div className="w-1/2 items-center justify-center">

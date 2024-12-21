@@ -11,27 +11,27 @@ import { useRouter } from 'next/router'
 const quickLinks = [
     {
         name: "Generate & Send",
-        url:"/sendtoken",
+        url:"/admin-dashboard/sendtoken",
         icon: CreditCard
     },
     {
         name: "Banned Accounts",
-        url: "/bannedaccounts",
+        url: "/admin-dashboard/bannedaccounts",
         icon: Ban
     },
     {
         name: "Token Settings",
-        url:"/tokensettings",
+        url:"/admin-dashboard/tokensettings",
         icon: Settings
     },
     {
         name: "User Token Settings",
-        url:"/usertokensettings",
+        url:"/admin-dashboard/usertokensettings",
         icon: User
     },
     {
         name: "Generate a promocode",
-        url:"/generatepromocode",
+        url:"/admin-dashboard/generatepromocode",
         icon: BadgePercent
     },
     

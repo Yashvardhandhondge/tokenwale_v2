@@ -51,7 +51,7 @@ export const GraphSection = () => {
   const [bgImage, setBgImage] = useState<string>("/backgrounds/hero-green-card.png");
   const [textContent, setTextContent] = useState<TextContent>({
     title: "TOKENS MINED",
-    available: "TOKENS MINED: 100,000 TOKENS",
+    mined: "TOKENS MINED: 100,000 TOKENS",
     color: '38F68F'
   });
   const [visibleLines, setVisibleLines] = useState<Set<string>>(new Set(['mined']));
@@ -62,9 +62,9 @@ export const GraphSection = () => {
       if (latestItem) {
         setTextContent(prev => ({
           ...prev,
-          available: `TOKENS AVAILABLE: ${latestItem.available}`,
+          // available: `TOKENS AVAILABLE: ${latestItem.available}`,
           mined: `TOKENS MINED: ${latestItem.mined}`,
-          burnt: `BURNT TOKENS: ${latestItem.burnt}`,
+          // burnt: `BURNT TOKENS: ${latestItem.burnt}`,
         }));
       }
     }
@@ -90,8 +90,8 @@ export const GraphSection = () => {
         <div className='relative w-full md:w-[30%] flex justify-center'>
           <Image src="/backgrounds/hero-green-card.png" width={1000} height={1000} className='w-full h-full object-cover' alt="card" />
           <div className='absolute inset-0 flex justify-center items-center flex-col px-8'>
-            <h1 className=' text-[1.1rem] sm:text-2xl lg:text-4xl font-bold text-[#38F68F]'>PLAY TO EARN INCENTIVE PROGRAM</h1>
-            <p className='text-[0.9rem] sm:text-[16px] mt-4 sm:mt-12 text-[#A7B0AF]'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque culpa hic labore obcaecati.</p>
+            <h1 className=' text-[1rem] sm:text-2xl lg:text-4xl font-bold text-[#38F68F]'>PLAY TO EARN INCENTIVE PROGRAM</h1>
+            <p className='text-[0.7rem] min-[350px]:text-[0.9rem] sm:text-[16px] mt-4 sm:mt-12 text-[#A7B0AF]'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque culpa hic labore obcaecati.</p>
           </div>
         </div>
         <div className='w-full md:w-auto'>
@@ -215,7 +215,7 @@ export const GraphSection = () => {
           <Image width={1000} height={1000} src={bgImage} className='w-full h-full object-cover' alt="card" />
           <div className='absolute inset-0 flex justify-center gap-6 items-start flex-col px-8'>
             <h1 className={`sm:text-2xl lg:text-4xl font-bold text-[#${textContent.color}]`}>{textContent.title}</h1>
-            {textContent.mined && <p className='md:text-[16px] text-[12px]   sm:mt-8 text-white'>{textContent.mined}</p>}
+            {textContent.mined && <p className='md:text-[16px] text-[12px] sm:mt-8 text-white'>{textContent.mined}</p>}
             {textContent.available && <p className='md:text-[16px] text-[12px] text-white'>{textContent.available}</p>}
             {textContent.burnt && <p className='md:text-[16px] text-[12px] text-white'>{textContent.burnt}</p>}
           </div>

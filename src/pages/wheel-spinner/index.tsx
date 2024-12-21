@@ -326,6 +326,7 @@ const index = () => {
                 numberOfPieces={300}
                 width={screenWidth}
                 height={screenHeight}
+                className="w-full"
               />
             )}
             <DialogHeader>

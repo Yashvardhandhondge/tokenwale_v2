@@ -12,6 +12,7 @@ const Transfer = ({
   selectedUser,
   setAddNote,
 }: {
+  getAmountAfterTxnCost?:(amount: number) => number,
   setAmount: (amount: number) => void;
   qrUserId?: string;
   amount: number;
@@ -21,12 +22,13 @@ const Transfer = ({
 }) => {
   const { data: session } = useSession();
   const [wonDialogOpen, setWonDialogOpen] = useState(false)
-  const { mutate: send } = api.txn.send.useMutation({
+  const { mutate: send, error } = api.txn.send.useMutation({
     onSuccess: (data) => {
       console.log("Success");
     },
   });
-  const handleCoinTransfer = (
+  const { data: transaction } = api.user.getUserDetailsByUserId.useQuery();
+  const handleCoinTransfer = async (
     amount: number,
     selectedUser: string,
     from: string
@@ -41,10 +43,19 @@ const Transfer = ({
     }
     if (selectedUser) {
       // send({ to: selectedUser, amt: Number(amount), note: addNote });
-      send({ to: selectedUser, amt: Number(amount) });
-      setWonDialogOpen(true)
+      try{
+        if(transaction && transaction?.balance < amount){
+          alert("Insufficient Funds");
+          return
+        };
+        send({ to: selectedUser, amt: Number(amount) });
+        setWonDialogOpen(true)
+      }catch(e){
+        alert(e);
+      }
     }
   };
+
   return (
     <div>
       <div className="flex max-h-[80vh]  w-full flex-col justify-center overflow-y-auto px-4 py-0 md:max-h-full md:w-[100vh] md:py-0">
@@ -54,7 +65,9 @@ const Transfer = ({
           </p>
           <input
             minLength={3}
-            placeholder="8.00"
+            placeholder="0.00"
+            min={0}
+            max={1_00_000_000}
             className="w-1/3 rounded-[10px] border-none bg-[#38F68F] bg-opacity-25 px-4 py-1 text-end text-[20px] text-white outline-none md:w-1/2 md:text-[24px]"
             type="number"
             onChange={(e: ChangeEvent<HTMLInputElement>) => {
@@ -79,7 +92,7 @@ const Transfer = ({
             </div>
           </div>
           <div className="mb-4 flex w-full items-center justify-center text-center md:mb-0 md:w-1/3">
-            <div className="text-[14px] md:text-[16px]">
+            <div className="flex gap-2 items-center md:block md:gap-0 text-[12px] md:text-[16px]">
               <p className="py-2 text-[14px] uppercase text-white md:text-[16px]">
                 Transaction Fees
               </p>
@@ -106,14 +119,14 @@ const Transfer = ({
         <div className="flex flex-col items-center justify-center">
           <input
             placeholder="Add Note"
-            className="rounded-[10px] mt-3 border-none bg-[#38F68F] bg-opacity-25 px-4 py-1 text-center text-[20px] text-white outline-none md:text-[24px]"
+            className="rounded-[10px] mt-3 border-none bg-[#38F68F] bg-opacity-25 px-4 py-1 text-center text-[15px] text-white outline-none md:text-[24px]"
             type="text"
             onChange={(e) => {
               setAddNote(e.target.value);
             }}
           />
           <button
-            className="mt-8 w-full max-w-[300px] rounded-[10px] bg-[#38F68F] py-3 text-center text-[16px] sm:text-[24px] font-[600] text-black md:text-[26px]"
+            className="mt-4 w-full max-w-[300px] rounded-[10px] bg-[#38F68F] py-3 text-center text-[16px] sm:text-[24px] font-[600] text-black md:text-[26px]"
             onClick={() =>
               handleCoinTransfer(
                 amount ?? 0,
@@ -126,7 +139,7 @@ const Transfer = ({
           </button>
         </div>
       </div>
-      <Dialog open={!wonDialogOpen} onOpenChange={setWonDialogOpen}>
+      <Dialog open={wonDialogOpen} onOpenChange={setWonDialogOpen}>
         <DialogContent className="h-[90vh] w-screen border-0 bg-[#262626ED] text-white md:w-screen md:max-w-fit">
           <DialogHeader>
             <DialogDescription className="flex h-full w-full flex-col items-center justify-center px-4 md:w-[100vh]">

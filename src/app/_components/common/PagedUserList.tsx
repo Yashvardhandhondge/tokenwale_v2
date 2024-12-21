@@ -1,20 +1,17 @@
 import {
   Dialog,
-  DialogDescription,
   DialogContent,
   DialogHeader,
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { userName } from "@/utils/random";
 import { useState } from "react";
-import type { ChangeEvent } from "react";
 import Transfer from "./Transfer";
-import Image from "next/image";
+import { api } from "@/trpc/react";
 
 const PaginatedUserList = ({
   userIds,
   handleSelectUser,
-  handleCoinTransfer,
   getAmountAfterTxnCost,
   setAddNote,
   qrUserId,
@@ -25,7 +22,7 @@ const PaginatedUserList = ({
 }: {
   userIds: string[];
   handleSelectUser: (userId: string) => void;
-  handleCoinTransfer: (
+  handleCoinTransfer?: (
     amount: number,
     selectedUser: string,
     from: string
@@ -81,15 +78,15 @@ const PaginatedUserList = ({
                 Transfer now
               </button>
             </DialogTrigger>
-            <DialogContent className="h-[90vh] w-full border-0 bg-[#262626ED] text-white md:w-screen md:max-w-fit">
-              <DialogHeader>
-                <Transfer amount={amount} setAddNote={setAddNote} setAmount={setAmount}  qrUserId={qrUserId} selectedUser={selectedUser} />
+            <DialogContent className="h-[90vh] overflow-y-auto w-full border-0 bg-transparent dashboard-card-bg backdrop-blur-md text-white md:w-screen md:max-w-fit">
+              <DialogHeader className="">
+                <Transfer getAmountAfterTxnCost={getAmountAfterTxnCost}  amount={amount} setAddNote={setAddNote} setAmount={setAmount}  qrUserId={qrUserId} selectedUser={selectedUser} />
               </DialogHeader>
             </DialogContent>
           </Dialog>
-            
         </div>
       ))}
+      {/* <Transfer getAmountAfterTxnCost={getAmountAfterTxnCost}  amount={amount} setAddNote={setAddNote} setAmount={setAmount}  qrUserId={qrUserId} selectedUser={selectedUser} /> */}
       {/* Pagination Controls */}
       {/* <div className="mt-8 flex items-center justify-center gap-4">
         <button
