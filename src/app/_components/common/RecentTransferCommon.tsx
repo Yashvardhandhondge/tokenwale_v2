@@ -1,4 +1,4 @@
-import { formatFirestoreTimestamp } from '@/utils/random';
+import { formatFirestoreTimestamp, getAmountAfterTxnCost } from '@/utils/random';
 import { api } from '@/trpc/react';
 import { userName } from '@/utils/random';
 import React, { useEffect, useState } from 'react'
@@ -7,8 +7,15 @@ import { Timestamp } from 'firebase/firestore';
 import { useSession } from 'next-auth/react';
 import FilterModal from '@/app/_components/admin/FilterModal';
 import Link from 'next/link';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import ScanDialog from './QrScannerPopup';
+import Image from 'next/image';
+import PaginatedUserList from './PagedUserList';
 
-const RecentTransferCommon = () => {
+
+const RecentTransferCommon = ({qrUserId}:{
+  qrUserId:string
+}) => {
     const [currentPage, setCurrentPage] = useState(1)
     const [rows, setRows] = useState(5)
     const [transfers, setTransfers] = useState<"global" | "user" | "burnt">("global")
@@ -21,8 +28,31 @@ const RecentTransferCommon = () => {
         to: string;
     }[]>([])
 
+
+     const [addNote, setAddNote] = useState("");
+     const [qrId, setQrId] = useState("")
+        const [userIds, setUserIds] = useState<string[]>([]);
+        const [selectedUser, setSelectedUser] = useState<string>("");
+        const [amount, setAmount] = useState<number>(0);
+          const { mutate, isPending } = api.user.findUserByUserId.useMutation({
+            onSuccess: (data) => {
+              setUserIds(data.map((e) => e));
+            },
+          });
+        
+          const handleSearch = (userId: string) => {
+            if (userId.toString().length < 5) {
+              setUserIds([]);
+              return;
+            }
+            mutate({ userId });
+          };
     
-    const {data:session} = useSession()
+          const handleSelectUser = (userId: string) => {
+            setSelectedUser(userId);
+          };
+
+    
 
     const {
         data: txn,
@@ -71,15 +101,20 @@ const RecentTransferCommon = () => {
         }
         if(transfers == 'burnt'){
             // console.log("burnts");
-            console.log(txn?.pages[currentPage-1]?.transactions.filter(txn => txn.to.toLowerCase() == '00000000' ));
             
             
             setTxns(txn?.pages[currentPage-1]?.transactions.filter(txn => txn.to.toLowerCase() == '00000000' ) ?? [])
-        }
-        if(transfers == 'user'){
-            setTxns(txnsUser?.pages[currentPage-1]?.transactions.filter(txn => txn.to.toLowerCase() == session?.user.id || txn.from.toLowerCase() == session?.user.id) ?? [])
-        }
+          }
+          if(transfers == 'user'){
+            setTxns(txnsUser?.pages[currentPage-1]?.transactions ?? [])
+            console.log(txn?.pages[currentPage-1]?.transactions ?? []);
+          }
       }, [txn, transfers, currentPage,rows])
+
+
+      useEffect(()=>{
+        setQrId(qrUserId)
+      },[qrUserId])
 
 
       
@@ -103,28 +138,28 @@ const RecentTransferCommon = () => {
         }
       };
   return (
-    <div className='p-5 pt-0 mb-3 flex-1'>
+    <div className='p-5 pt-0 mb-3'>
         <div className="flex flex-col gap-4 text-white md:flex-row mt-8">
           <div className="flex max-h-[500px] mt-10 w-full flex-col items-center justify-center md:w-full">
             <div className="flex w-full  flex-row justify-between gap-12 pb-6">
               <p>Recent Transfers</p>
               <div className='flex gap-2 items-center'>
                 <FilterModal />
-                <Link href={"/"} className='text-md text-[#38f68f]'>
+                <Link href={"/"} className='text-[10px] sm:text-md text-[#38f68f]'>
                     See All Transfers
                 </Link>
               </div>
             </div>
-            <div className='flex justify-start w-full gap-2'>
-                <Button className={`${transfers == 'global' ? "bg-[#38f28f] text-black hover:bg-[#38f68faa]":"bg-transparent text-white" }`} onClick={()=>{
+            <div className='flex text-[10px] sm:text-md justify-start max-w-[90vw] w-full gap-2 flex-wrap'>
+                <Button className={`text-[8px] sm:text-md ${transfers == 'global' ? "bg-[#38f28f] text-black hover:bg-[#38f68faa]":"bg-transparent text-white" }`} onClick={()=>{
                     setTransfers('global')
                     setCurrentPage(1)
                 }}>Global Transfers</Button>
-                <Button className={`${transfers == 'user' ? "bg-[#38f28f] text-black hover:bg-[#38f68faa]":"bg-transparent text-white" }`} onClick={()=>{
+                <Button className={` text-[8px] sm:text-md ${transfers == 'user' ? "bg-[#38f28f] text-black hover:bg-[#38f68faa]":"bg-transparent text-white" }`} onClick={()=>{
                 setCurrentPage(1)
                 setTransfers('user')
             }}>User Transfers</Button>
-                <Button className={`${transfers == 'burnt' ? "bg-[#38f28f] text-black hover:bg-[#38f68faa]":"bg-transparent text-white" }`} onClick={()=>{
+                <Button className={`text-[8px] sm:text-md ${transfers == 'burnt' ? "bg-[#38f28f] text-black hover:bg-[#38f68faa]":"bg-transparent text-white" }`} onClick={()=>{
                     setTransfers('burnt')
                     setCurrentPage(1)
                 }}>Burnt</Button>
@@ -132,63 +167,63 @@ const RecentTransferCommon = () => {
             <div className="-m-1.5 w-full">
               <div className="inline-block min-w-full p-1.5 align-middle">
                 <div className="overflow-hidden">
-                  <div className="max-w-[300px] overflow-x-auto md:max-w-full max-h-[500px] overflow-y-auto">
+                  <div className="max-w-[90vw] overflow-x-auto md:max-w-full max-h-[500px] overflow-y-auto">
                     <table className="min-w-full divide-y divide-[#38F68F] text-[#A7B0AF]">
-                      <thead className="">
+                      <thead className="text-[10px] sm:text-[16px]">
                         <tr>
                           <th
                             scope="col"
-                            className="px-6 py-3 text-start text-[16px] font-medium uppercase text-[#A7B0AF]"
+                            className="px-6 py-3 text-start  font-medium uppercase text-[#A7B0AF]"
                           >
                             Sender ID
                           </th>
                           <th
                             scope="col"
-                            className="px-6 py-3 text-start text-[16px] font-medium uppercase text-[#A7B0AF]"
+                            className="px-6 py-3 text-start  font-medium uppercase text-[#A7B0AF]"
                           >
                             Receiver ID
                           </th>
                           <th
                             scope="col"
-                            className="px-6 py-3 text-start text-[16px] font-medium uppercase text-[#A7B0AF]"
+                            className="px-6 py-3 text-start  font-medium uppercase text-[#A7B0AF]"
                           >
                             Amount
                           </th>
                           <th
                             scope="col"
-                            className="px-6 py-3 text-end text-[16px] font-medium uppercase text-[#A7B0AF]"
+                            className="px-6 py-3 text-end  font-medium uppercase text-[#A7B0AF]"
                           >
                             Date
                           </th>
                           <th
                             scope="col"
-                            className="px-6 py-3 text-end text-[16px] font-medium uppercase text-[#A7B0AF]"
+                            className="px-6 py-3 text-end  font-medium uppercase text-[#A7B0AF]"
                           >
                             Time
                           </th>
                         </tr>
                       </thead>
-                      <tbody>
+                      <tbody className='text-[12px] sm:text-[16px] '>
                         {txns?.map(
                           (transaction, index) => (
-                            <tr key={index}>
-                              <td className={`whitespace-nowrap px-6 py-4 text-[16px] font-medium  ${userName(transaction.from).toLocaleLowerCase() === 'tokenwale'? 'text-[#38F68F]' : 'text-white'}`}>
+                            <tr key={index} >
+                              <td className={`whitespace-nowrap px-4 py-2 sm:px-6 sm:py-4  font-medium  ${userName(transaction.from).toLocaleLowerCase() === 'tokenwale'? 'text-[#38F68F]' : 'text-white'}`}>
                                 {userName(transaction.from)}
                               </td>
-                              <td className={`whitespace-nowrap px-6 py-4 text-[16px] font-medium ${userName(transaction.to).toLocaleLowerCase() === 'burnt'? 'text-red-500' : 'text-white'}`}>
+                              <td className={`whitespace-nowrap px-4 py-2 sm:px-6 sm:py-4  font-medium ${userName(transaction.to).toLocaleLowerCase() === 'burnt'? 'text-red-500' : 'text-white'}`}>
                                 {userName(transaction.to)}
                               </td>
-                              <td className={`whitespace-nowrap px-6 py-4 text-[16px] ${userName(transaction.from).toLocaleLowerCase() === 'tokenwale'? 'text-[#38F68F]' : userName(transaction.to).toLocaleLowerCase() === 'burnt'? 'text-red-500' : 'text-white'} `}>
+                              <td className={`whitespace-nowrap px-4 py-2 sm:px-6 sm:py-4  ${userName(transaction.from).toLocaleLowerCase() === 'tokenwale'? 'text-[#38F68F]' : userName(transaction.to).toLocaleLowerCase() === 'burnt'? 'text-red-500' : 'text-white'} `}>
                                 {transaction.amount}
                               </td>
-                              <td className="whitespace-nowrap px-6 py-4 text-end text-[16px] text-white">
+                              <td className="whitespace-nowrap px-4 py-2 sm:px-6 sm:py-4 text-end text-white">
                                 {
                                   formatFirestoreTimestamp(
                                     transaction.timestamp,
                                   )?.date
                                 }
                               </td>
-                              <td className="whitespace-nowrap px-6 py-4 text-end text-[16px] text-white">
+                              <td className="whitespace-nowrap px-4 py-2 sm:px-6 sm:py-4 text-end text-white">
                                 {
                                   formatFirestoreTimestamp(
                                     transaction.timestamp,
@@ -248,6 +283,65 @@ const RecentTransferCommon = () => {
                       </button>
                     </div>
                   </div>
+                      
+                  {/* transfefr now */}
+                  <div className="flex justify-end mt-4">
+                                    <Dialog
+                                        onOpenChange={(e) => (e === false ? handleSearch("") : null)}
+                                      >
+                                        <DialogTrigger asChild>
+                                          <Button className="bg-[#38F68F] text-black hover:bg-[#38f68fbb]">
+                                            Transfer Now
+                                          </Button>
+                                        </DialogTrigger>
+                                        <DialogContent className="h-[90vh] w-screen border-0 bg-[#262626ED] p-3 py-10 md:p-10 text-white md:w-screen md:max-w-fit ">
+                                          <DialogHeader>
+                                            <DialogTitle className="flex justify-between my-2 text-[30px] text-white md:text-[30px]">
+                                              <p className="whitespace-nowrap text-base sm:text-lg md:text-xl lg:text-2xl text-center text-white">
+                                                Transfer Tokens
+                                              </p>
+                  
+                                              <ScanDialog
+                                                setAddNote={setAddNote}
+                                                id={qrId}
+                                                handleSearch={handleSearch}
+                                              />
+                                            </DialogTitle>
+                                            <div className="relative w-full">
+                                              <input
+                                                type="number"
+                                                placeholder="Recent"
+                                                onChange={(e) => handleSearch(e.target.value)}
+                                                className="w-full my-3 border-b-[1px] border-[#38F68F] bg-[#232323] px-2 sm:px-4 py-1 sm:pr-12 text-white outline-none"
+                                              />
+                                              <button className="rounded-[0 12px 12px 0] absolute right-0 top-0 h-full px-4 text-black">
+                                                <Image
+                                                  alt=""
+                                                  height={18}
+                                                  width={18}
+                                                  src="/icons/search-icon.svg"
+                                                />
+                                              </button>
+                                            </div>
+                                            <DialogDescription className="flex w-full flex-col justify-center px-4 md:w-[100vh] md:flex-row">
+                                              <div className="flex w-full flex-col">
+                                                <PaginatedUserList
+                                                  userIds={userIds}
+                                                  handleSelectUser={handleSelectUser}
+                                                  selectedUser={selectedUser ?? ""}
+                                                  amount={amount ?? 0}
+                                                  getAmountAfterTxnCost={getAmountAfterTxnCost}
+                                                  setAddNote={setAddNote}
+                                                  qrUserId={qrId}
+                                                  setAmount={setAmount}
+                                                  setSelectedUser={setSelectedUser}
+                                                />
+                                              </div>
+                                            </DialogDescription>
+                                          </DialogHeader>
+                                        </DialogContent>
+                                      </Dialog>
+                                </div>
                 </div>
               </div>
             </div>

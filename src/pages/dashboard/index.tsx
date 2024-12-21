@@ -384,7 +384,65 @@ export default function Dashboard() {
         </div>
         <div className="flex flex-col gap-4 mb-40  text-white md:flex-row">
           {/* Recent code here */}
-          <RecentTransferCommon />
+          <RecentTransferCommon qrUserId={qrUserId} />
+          {/* <div>
+          <Dialog
+              onOpenChange={(e) => (e === false ? handleSearch("") : null)}
+            >
+              <DialogTrigger asChild>
+                <Button className="bg-[#38F68F] text-black hover:bg-[#38f68fbb]">
+                  Transfer Now
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="h-[90vh] w-screen border-0 bg-[#262626ED] p-3 py-10 md:p-10 text-white md:w-screen md:max-w-fit ">
+                <DialogHeader>
+                  <DialogTitle className="flex justify-between my-2 text-[30px] text-white md:text-[30px]">
+                    <p className="whitespace-nowrap text-base sm:text-lg md:text-xl lg:text-2xl text-center text-white">
+                      Transfer Tokens
+                    </p>
+
+                    <ScanDialog
+                      setAddNote={setAddNote}
+                      id={qrUserId}
+                      handleSearch={handleSearch}
+                    />
+                  </DialogTitle>
+                  <div className="relative w-full">
+                    <input
+                      type="number"
+                      placeholder="Recent"
+                      onChange={(e) => handleSearch(e.target.value)}
+                      className="w-full my-3 border-b-[1px] border-[#38F68F] bg-[#232323] px-2 sm:px-4 py-1 sm:pr-12 text-white outline-none"
+                    />
+                    <button className="rounded-[0 12px 12px 0] absolute right-0 top-0 h-full px-4 text-black">
+                      <Image
+                        alt=""
+                        height={18}
+                        width={18}
+                        src="/icons/search-icon.svg"
+                      />
+                    </button>
+                  </div>
+                  <DialogDescription className="flex w-full flex-col justify-center px-4 md:w-[100vh] md:flex-row">
+                    <div className="flex w-full flex-col">
+                      <PaginatedUserList
+                        userIds={userIds}
+                        handleSelectUser={handleSelectUser}
+                        selectedUser={selectedUser ?? ""}
+                        amount={amount ?? 0}
+                        handleCoinTransfer={handleCoinTransfer}
+                        getAmountAfterTxnCost={getAmountAfterTxnCost}
+                        setAddNote={setAddNote}
+                        qrUserId={qrUserId}
+                        setAmount={setAmount}
+                        setSelectedUser={setSelectedUser}
+                      />
+                    </div>
+                  </DialogDescription>
+                </DialogHeader>
+              </DialogContent>
+            </Dialog>
+          </div> */}
 
           <div className="fixed bottom-0 w-full bg-black">
             <div className="flex w-full gap-1 justify-center">
@@ -639,7 +697,10 @@ export default function Dashboard() {
         </div>
         <div className="flex flex-col gap-4 text-white md:flex-row mt-12">
           {/* recent transfer */}
-          <RecentTransferCommon />
+          <div className="flex-1 flex flex-col">
+            <RecentTransferCommon qrUserId={qrUserId} />
+          
+          </div>
           <div
             {...handlers}
             className="dashboard-card-bg relative flex h-[500px] w-full flex-col items-center justify-center rounded-xl border-[1px] border-[#2D2D2D] md:w-1/3"

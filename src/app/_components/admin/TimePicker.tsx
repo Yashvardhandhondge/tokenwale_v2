@@ -30,14 +30,14 @@ export function TimePicker({setHours, setMinutes, time}:{
   }
 
   return (
-    <div className="flex items-center justify-center space-x-4 p-4 bg-black rounded-lg shadow-md text-white">
+    <div className="flex items-center justify-center space-x-4 p-2 bg-black rounded-lg shadow-md text-white">
       <TimeColumn
         values={renderTimeValues(time.hours, 24)}
         onIncrement={incrementHours}
         onDecrement={decrementHours}
         ariaLabel="hours"
       />
-      <div className="text-2xl font-bold">:</div>
+      <div className="text-xl font-bold">:</div>
       <TimeColumn
         values={renderTimeValues(time.minutes, 60)}
         onIncrement={incrementMinutes}
@@ -73,7 +73,7 @@ function TimeColumn({ values, onIncrement, onDecrement, ariaLabel }: TimeColumnP
         {values.map((value, index) => (
           <div
             key={index}
-            className={`text-sm font-bold w-8 h-8 flex items-center justify-center ${
+            className={`text-sm font-bold w-7 h-7 flex items-center justify-center ${
               index === 2 ? 'bg-[#38f68f] text-black rounded-lg' : ''
             }`}
           >

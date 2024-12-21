@@ -97,7 +97,7 @@ const FilterModal = ({setDateFilter}:{
       </DialogTrigger>
       <DialogContent
         showOverlay={false}
-        className="bg-gradient-to-b bg-opacity-10 from-transparent to-[#5AD44622] shadow-white/10 border border-[#2d2d2d] backdrop-blur-lg backdrop:opacity-100 border-none text-white max-h-fit p-10"
+        className="dashboard-card-bg max-h-[90vh] max-sm:w-[100vw] max-sm:px-3 overflow-y-auto border border-[#38f68f99] backdrop-blur-lg backdrop:opacity-100 border-none text-white p-8"
       >
         <div className="space-y-4 ">
           <h2 className="text-xl font-bold">Filters</h2>
@@ -121,11 +121,12 @@ const FilterModal = ({setDateFilter}:{
                 }}
                 onDayClick={(date: Date) => handleDateClick(date)}
                 mode="multiple"
+                className=""
                 classNames={{
                   day_today: `border-[#38f68f]`, // Add a border to today's date
                   day_selected: `bg-[#38f68f] rounded-none hover:bg-[#38f68fdd] text-black `, // Highlight the selected day
-                  root: `bg-black text-white shadow-lg p-5 rounded-xl w-full`,
-                  day: `w-full h-full rounded-md`,
+                  root: `bg-black text-white shadow-lg px-5 rounded-xl h-[300px] max-sm:text-[5px] `,
+                  day: `w-full h-full  rounded-md`,
                 }}
               />
             </div>

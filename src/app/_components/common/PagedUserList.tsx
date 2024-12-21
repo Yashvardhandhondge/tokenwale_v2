@@ -22,7 +22,7 @@ const PaginatedUserList = ({
 }: {
   userIds: string[];
   handleSelectUser: (userId: string) => void;
-  handleCoinTransfer: (
+  handleCoinTransfer?: (
     amount: number,
     selectedUser: string,
     from: string
