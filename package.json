@@ -5,9 +5,9 @@
   "type": "module",
   "scripts": {
     "build": "next build",
-    "dev": "next dev",
+    "dev": "next dev --turbo",
     "lint": "next lint",
-    "start": "next start"
+    "start": "next start --port=3001"
   },
   "dependencies": {
     "@auth/firebase-adapter": "^2.4.1",

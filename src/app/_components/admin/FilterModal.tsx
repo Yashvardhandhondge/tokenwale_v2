@@ -6,8 +6,9 @@ import { CalendarIcon, ClockIcon, Filter } from "lucide-react"; // Icon library
 import "@/styles/filter.css";
 import { TimePicker } from "./TimePicker";
 
-const FilterModal = ({setDateFilter}:{
-  setDateFilter?:React.Dispatch<React.SetStateAction<Date[] | null>>
+const FilterModal = ({setDateFilter, setTime}:{
+  setDateFilter?:React.Dispatch<React.SetStateAction<Date[] | null>>,
+  setTime?:React.Dispatch<React.SetStateAction<number[]>>
 }) => {
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
@@ -83,6 +84,7 @@ const FilterModal = ({setDateFilter}:{
 
   const ApplyFilters = () => {
     setDateFilter && setDateFilter(selectedDates)
+    setTime && setTime(prev => prev.map((_, i)=> i == 0 ? hours:minutes))
     setOpen(false)
   }
 

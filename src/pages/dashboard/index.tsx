@@ -474,7 +474,7 @@ export default function Dashboard() {
                   />
                 </Button>
               </DialogTrigger>
-              <DialogContent className="h-[90vh] w-screen border-0 bg-[#262626ED] p-3 py-10 md:p-10 text-white md:w-screen md:max-w-fit ">
+              <DialogContent className="h-[90vh] w-screen border-0 dashboard-card-bg p-3 py-10 md:p-10 text-white md:w-screen md:max-w-fit ">
                 <DialogHeader>
                   <DialogTitle className="flex justify-between my-2 text-[30px] text-white md:text-[30px]">
                     <p className="whitespace-nowrap text-base sm:text-lg md:text-xl lg:text-2xl text-center text-white">
@@ -651,8 +651,8 @@ export default function Dashboard() {
               </Dialog>
             </div>
             <div className="dashboard-card-bg flex h-[210px] w-full flex-col rounded-xl border-[1px] border-[#2D2D2D] p-8 md:w-3/5">
-              <div className="flex justify-between">
-                <p className="mb-4">Mining History</p>
+              <div className="flex justify-between mb-4">
+                <p className="">Mining History</p>
                 <MiningHistoryModal  />
               </div>
               <Card style={{ backgroundColor: "transparent", border: "none" }}>
@@ -695,7 +695,7 @@ export default function Dashboard() {
             />
           </div>
         </div>
-        <div className="flex flex-col gap-4 text-white md:flex-row mt-12">
+        <div className="flex flex-col gap-4 text-white md:flex-row mt-4">
           {/* recent transfer */}
           <div className="flex-1 flex flex-col">
             <RecentTransferCommon qrUserId={qrUserId} />
